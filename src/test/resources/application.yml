@@ -1,0 +1,48 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true # 콘솔창에 SQL 출력
+    properties:
+      hibernate:
+        format_sql: true # SQL 예쁘게 출력
+        default_batch_fetch_size: 1000 # 일대다 컬렉션 조회 시 성능 최적화
+    open-in-view: false # 영속성 컨텍스트의 생존 범위를 트랜잭션 범위로 한정
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+# logging 설정
+logging:
+  level:
+    org.hibernate.type: trace # 콘솔창에 조건에 바인딩되는 값 및 조회 결과 출력
+    app.askresume: debug # todo 패키지 수정
+
+# Swagger 설정
+swagger:
+  title: "test"
+  description: "test"
+  version: "1.0"
+
+# JWT Token 설정
+token:
+  secret: testwegrwfrgfwrfewvfdd
+  access-token-expiration-time: 900000  # 15분 1000(ms) x 60(s) x 15(m)
+  refresh-token-expiration-time: 1209600000 # 2주 1000(ms) x 60 (s) x 60(m) x 24(h) x 14(d)
+
+# Jasypt password 설정
+jasypt:
+  encryptor:
+    password: test
+
+# 카카오 API 설정
+kakao:
+  client:
+    id: test
+    secret: test

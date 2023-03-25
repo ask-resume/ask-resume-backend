@@ -1,0 +1,60 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  jpa:
+    show-sql: true # 콘솔창에 SQL 출력
+    properties:
+      hibernate:
+        format_sql: true # SQL 예쁘게 출력
+        default_batch_fetch_size: 1000 # 일대다 컬렉션 조회 시 성능 최적화
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false # 영속성 컨텍스트의 생존 범위를 트랜잭션 범위로 한정
+
+  servlet:
+    multipart:
+      max-file-size: 10MB # 파일 업로드 요청 시 하나의 파일 크기를 10MB 제한
+      max-request-size: 100MB # 파일 업로드 요청 시 모든 파일 크기합을 100MB 제한
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+# logging 설정
+logging:
+  level:
+    org.hibernate.type: trace # 콘솔창에 조건에 바인딩되는 값 및 조회 결과 출력
+    app.askresume: debug # todo 패키지 수정
+
+# spring cloud feign client 설정
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+
+# Swagger 설정
+swagger:
+  title: "ask-resume api docs"
+  description: "ask-resume api docs"
+  version: "1.0"
+
+# JWT Token 설정
+token:
+  secret: ENC(szwb38FkpzsNxMn8tAEhX5gTO+JMgwq9)
+  access-token-expiration-time: 900000  # 15분 1000(ms) x 60(s) x 15(m)
+  refresh-token-expiration-time: 1209600000 # 2주 1000(ms) x 60 (s) x 60(m) x 24(h) x 14(d)
+
+# Jasypt password 설정
+jasypt:
+  encryptor:
+    password: ${PASSWORD}
+
+# 카카오 API 설정
+kakao:
+  client:
+    id: ENC(YnzDIU11kUO5m1zevR25r7uHP06exIIN5VGOev7DnDiFv3+5HkGYKa1K1jmsqRJx)
+    secret: ENC(QrMqb1xro3Gnq8JkalL31QmqMs6vF/ETlYFKMXnB0HZbo7ZHFu9JDpEYJwizdL+n)
