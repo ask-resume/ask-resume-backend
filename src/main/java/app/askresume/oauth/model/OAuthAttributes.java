@@ -2,7 +2,7 @@ package app.askresume.oauth.model;
 
 import app.askresume.domain.member.constant.MemberType;
 import app.askresume.domain.member.constant.Role;
-import app.askresume.domain.member.entity.Member;
+import app.askresume.domain.member.model.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;

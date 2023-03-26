@@ -65,6 +65,11 @@ dependencies {
     testImplementation 'io.rest-assured:rest-assured:4.4.0'
 
     implementation 'com.google.guava:guava:31.1-jre'
+
+    // open ai
+    implementation 'com.theokanning.openai-gpt3-java:api:0.11.1'
+    //implementation 'com.theokanning.openai-gpt3-java:client:0.11.1'
+    implementation 'com.theokanning.openai-gpt3-java:service:0.11.1'
 }
 
 dependencyManagement {

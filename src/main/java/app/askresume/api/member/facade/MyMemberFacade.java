@@ -1,6 +1,6 @@
 package app.askresume.api.member.facade;
 
-import app.askresume.domain.member.entity.Member;
+import app.askresume.domain.member.model.Member;
 import app.askresume.domain.member.service.MemberService;
 import app.askresume.api.member.dto.request.ModifyInfoRequest;
 import app.askresume.api.member.dto.response.MemberInfoResponse;

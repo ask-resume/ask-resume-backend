@@ -1,7 +1,7 @@
 package app.askresume.domain.member.service;
 
 import app.askresume.domain.member.constant.MemberType;
-import app.askresume.domain.member.entity.Member;
+import app.askresume.domain.member.model.Member;
 import app.askresume.domain.member.exception.DuplicateMemberException;
 import app.askresume.api.member.dto.request.ModifyInfoRequest;
 import app.askresume.domain.member.repository.MemberRepository;

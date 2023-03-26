@@ -1,7 +1,7 @@
 package app.askresume.domain.member.repository;
 
 import app.askresume.domain.member.constant.MemberType;
-import app.askresume.domain.member.entity.Member;
+import app.askresume.domain.member.model.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

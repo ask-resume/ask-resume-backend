@@ -1,7 +1,7 @@
 package app.askresume.api.member.dto.response;
 
 import app.askresume.domain.member.constant.Role;
-import app.askresume.domain.member.entity.Member;
+import app.askresume.domain.member.model.Member;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;

@@ -58,3 +58,8 @@ kakao:
   client:
     id: ENC(YnzDIU11kUO5m1zevR25r7uHP06exIIN5VGOev7DnDiFv3+5HkGYKa1K1jmsqRJx)
     secret: ENC(QrMqb1xro3Gnq8JkalL31QmqMs6vF/ETlYFKMXnB0HZbo7ZHFu9JDpEYJwizdL+n)
+
+
+# 왜 다른 내용은 GptConfig 에서 수정
+openai:
+  token: ENC(NO4bZMfIGn/xf1//eX/nsZpWpdVl6rnvGffZKtHu4UlBtDuTkejsq/Bnchg9xjHf2OfoAvnRReOo0uERFwppyw==)
