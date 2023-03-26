@@ -3,7 +3,7 @@ package app.askresume.domain.member;
 import app.askresume.api.member.dto.request.ModifyInfoRequest;
 import app.askresume.domain.member.constant.MemberType;
 import app.askresume.domain.member.constant.Role;
-import app.askresume.domain.member.entity.Member;
+import app.askresume.domain.member.model.Member;
 
 public class MemberSteps {
 

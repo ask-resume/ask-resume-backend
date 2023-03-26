@@ -2,7 +2,7 @@ package app.askresume.api.access.dto.request;
 
 import app.askresume.domain.member.constant.MemberType;
 import app.askresume.domain.member.constant.Role;
-import app.askresume.domain.member.entity.Member;
+import app.askresume.domain.member.model.Member;
 import app.askresume.global.util.SHA256Util;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

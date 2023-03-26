@@ -1,4 +1,4 @@
-package app.askresume.domain.member.entity;
+package app.askresume.domain.member.model;
 
 import app.askresume.domain.common.BaseTimeEntity;
 import app.askresume.domain.member.constant.MemberType;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Where(clause = "status = 'Y'")
-@SQLDelete(sql = "UPDATE member SET status = 'N' WHERE member_id = ?")
+@SQLDelete(sql = "UPDATE member SET status = 'N' WHERE id = ?")
 @DynamicInsert
 @DynamicUpdate
 @Builder
@@ -39,6 +39,7 @@ public class Member extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     @Column(length = 10, nullable = false)
     private MemberType memberType;
+
     @Column(length = 20, nullable = false)
     private String username;
 

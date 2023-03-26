@@ -2,7 +2,7 @@ package app.askresume.api.access.facade;
 
 import app.askresume.domain.member.constant.MemberType;
 import app.askresume.domain.member.constant.Role;
-import app.askresume.domain.member.entity.Member;
+import app.askresume.domain.member.model.Member;
 import app.askresume.domain.member.service.MemberService;
 import app.askresume.global.jwt.constant.GrantType;
 import app.askresume.global.jwt.constant.TokenType;
