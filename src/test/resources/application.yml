@@ -46,3 +46,6 @@ kakao:
   client:
     id: test
     secret: test
+
+openai:
+  token: test

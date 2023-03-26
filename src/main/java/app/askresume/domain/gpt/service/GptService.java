@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 import static app.askresume.domain.gpt.config.GptConfig.*;
@@ -34,6 +35,8 @@ public class GptService {
                 .topP(TOP_P)
                 .model(MODEL)
                 .build();
+
+        // java.net.SocketTimeoutException 구현
 
         return openAiService.createChatCompletion(build);
 

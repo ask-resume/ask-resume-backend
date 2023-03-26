@@ -6,8 +6,9 @@ spring:
     driver-class-name: org.h2.Driver
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
+
 
 logging:
   level:
-    com.app: info # todo 패키지 수정
+    app.askresume: debug # todo 패키지 수정

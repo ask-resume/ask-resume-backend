@@ -36,6 +36,8 @@ public class AccessController {
     @Operation(summary = "일반 로그인 API", description = "일반 로그인 API")
     @PostMapping("/login")
     public ResponseEntity<ApiResult<LoginResponse>> login(@RequestBody LoginRequest loginRequest) {
+
+
         return ResponseEntity.ok(new ApiResult<>(accessFacade.login(loginRequest)));
     }
 
