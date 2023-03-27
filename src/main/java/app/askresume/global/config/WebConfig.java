@@ -58,8 +58,9 @@ public class WebConfig implements WebMvcConfigurer {
                         "/api/login",
                         "/api/sign-up",
                         "/api/access-token/issue",
-                        "/api/logout"
-                        ,"/api/resume/generate-expected-questions");
+                        "/api/logout",
+                        "/api/resume/generate-expected-questions",
+                        "/api/resume/to-text");
 
         // 권한 체크
         registry.addInterceptor(adminAuthorizationInterceptor)

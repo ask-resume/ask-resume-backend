@@ -21,6 +21,10 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+file:
+  licensed:
+    content: application/pdf
+
 # logging 설정
 logging:
   level:

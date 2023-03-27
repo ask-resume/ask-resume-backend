@@ -49,3 +49,7 @@ kakao:
 
 openai:
   token: test
+
+file:
+  licensed:
+    content: application/pdf

@@ -26,6 +26,13 @@ public enum ErrorCode {
 
     // 이력서 관련
     INVALID_DIFFICULTY_TYPE(HttpStatus.BAD_REQUEST, "R-001", "잘못된 난이도 입니다."),
+
+
+    // 파일 입출력
+
+    NOT_PERMITTED_CONTENT_TYPE(HttpStatus.BAD_REQUEST, "F-001", "허가된 CONTENT_TYPE이 아닙니다."),
+    IO_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "F-002", "파일에서 TEXT를 읽는 도중 에러가 발생하였습니다.")
+
     ;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {
