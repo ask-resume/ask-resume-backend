@@ -14,8 +14,8 @@ spring:
 
   servlet:
     multipart:
-      max-file-size: 10MB # 파일 업로드 요청 시 하나의 파일 크기를 10MB 제한
-      max-request-size: 100MB # 파일 업로드 요청 시 모든 파일 크기합을 100MB 제한
+      max-file-size: 3MB # 파일 업로드 요청 시 하나의 파일 크기를 10MB 제한
+      max-request-size: 3MB # 파일 업로드 요청 시 모든 파일 크기합을 10MB 제한
 
   mvc:
     pathmatch:
@@ -25,7 +25,7 @@ spring:
 logging:
   level:
     org.hibernate.type: trace # 콘솔창에 조건에 바인딩되는 값 및 조회 결과 출력
-    app.askresume: debug # todo 패키지 수정
+    app.askresume: debug
 
 # spring cloud feign client 설정
 feign:
@@ -37,8 +37,6 @@ feign:
 
 # Swagger 설정
 swagger:
-  title: "ask-resume api docs"
-  description: "ask-resume api docs"
   version: "1.0"
 
 # JWT Token 설정

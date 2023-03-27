@@ -12,3 +12,8 @@ spring:
 logging:
   level:
     app.askresume: debug # todo 패키지 수정
+
+# Swagger 설정
+swagger:
+  title: "ask-resume API DOCS (개발)"
+  description: "개발서버 API 문서입니다."
