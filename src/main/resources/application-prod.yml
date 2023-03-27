@@ -8,8 +8,11 @@ spring:
     hibernate:
       ddl-auto: validate
 
-
-
-# logback 설정 경로
 logging:
-  config: classpath:logback/logback-prod.xml
+  level:
+    app.askresume: info
+
+# Swagger 설정
+swagger:
+  title: "ask-resume API DOCS (운영)"
+  description: "운영서버 API 문서입니다."

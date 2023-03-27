@@ -13,3 +13,9 @@ spring:
       ddl-auto: create
     properties:
       dialect: org.hibernate.dialect.MySQL8Dialect
+
+
+# Swagger 설정
+swagger:
+  title: "ask-resume API DOCS (로컬)"
+  description: "로컬서버 API 문서입니다."
