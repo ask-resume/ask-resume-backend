@@ -74,6 +74,9 @@ dependencies {
     // pdf box
     implementation 'org.apache.pdfbox:pdfbox:2.0.27'
 
+    // emoji java
+    implementation 'com.vdurmont:emoji-java:5.1.1'
+
 }
 dependencyManagement {
     imports {

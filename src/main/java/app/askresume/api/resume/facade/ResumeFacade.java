@@ -11,6 +11,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.theokanning.openai.completion.chat.ChatCompletionResult;
 import com.theokanning.openai.completion.chat.ChatMessage;
+import com.vdurmont.emoji.EmojiParser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -56,7 +57,7 @@ public class ResumeFacade {
         try (InputStream inputStream = file.getInputStream()) {
             PDDocument document = PDDocument.load(inputStream);
             PDFTextStripper pdfTextStripper = new PDFTextStripper();
-            text = pdfTextStripper.getText(document);
+            text = EmojiParser.removeAllEmojis(pdfTextStripper.getText(document));
             document.close();
         } catch (IOException e) {
             log.error("PDF파일을 TEXT로 저장하는 도중 ERROR 발생 \n에러 내용 : {}", e.getMessage());
