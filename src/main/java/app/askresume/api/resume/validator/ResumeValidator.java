@@ -19,13 +19,4 @@ public class ResumeValidator {
             throw new BusinessException(ErrorCode.INVALID_DIFFICULTY_TYPE);
         }
     }
-
-    public void validateContentType(String contentType) {
-        List<String> contentTypes = licensedContentTypes.stream()
-                .filter(type -> !type.equalsIgnoreCase(contentType)).toList();
-
-        if (contentTypes.size() != 0)
-            throw new BusinessException(ErrorCode.NOT_PERMITTED_CONTENT_TYPE);
-
-    }
 }
