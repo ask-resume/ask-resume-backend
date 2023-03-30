@@ -39,12 +39,10 @@ public class ExtractService {
             throw new BusinessException(ErrorCode.TEXT_EXTRACTION_FAILED);
         }
 
-        return ExtractedTextResponse.builder()
-                .text(text)
-                .build();
+        return new ExtractedTextResponse(text);
     }
 
-    public ExtractedTextResponse linkToText(String url) {
+    public ExtractedTextResponse linkToText(final String url) {
 
         String text = "";
 
@@ -60,8 +58,6 @@ public class ExtractService {
             throw new BusinessException(ErrorCode.TEXT_EXTRACTION_FAILED);
         }
 
-        return ExtractedTextResponse.builder()
-                .text(text)
-                .build();
+        return new ExtractedTextResponse(text);
     }
 }

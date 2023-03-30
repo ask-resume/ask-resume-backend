@@ -10,16 +10,17 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import javax.validation.constraints.NotBlank;
 
-@Slf4j
 @Tag(name = "extract", description = "특정 Input을 text로 추출하는 API")
+@Validated
 @RestController
 @RequestMapping("/api/extract")
 @RequiredArgsConstructor
@@ -37,9 +38,10 @@ public class ExtractController {
             @ApiResponse(responseCode = "400", description = "(F-001) 허가된 CONTENT_TYPE이 아닙니다.")
     })
     @PostMapping(value = "/pdf", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ApiResult<ExtractedTextResponse>> extractTextFromPdf(@Parameter(name = "resume", description = "이력서PDF파일, maxSize: 3MB, 확장자: pdf)", required = true)
-                                                                           @RequestPart("resume") MultipartFile file
-    ) throws IOException {
+    public ResponseEntity<ApiResult<ExtractedTextResponse>> extractTextFromPdf(
+            @Parameter(name = "resume", description = "이력서PDF파일, maxSize: 3MB, 확장자: pdf)", required = true)
+            @RequestPart("resume") MultipartFile file
+    ) {
         extractValidator.validateContentType(file.getContentType());
         return ResponseEntity.ok(new ApiResult<>(extractService.pdfToText(file)));
     }
@@ -50,7 +52,9 @@ public class ExtractController {
             @ApiResponse(responseCode = "500", description = "서버 오류 발생(관리자 문의)")
     })
     @GetMapping("/link")
-    public ResponseEntity<ApiResult<ExtractedTextResponse>> scrapeWebPage(@RequestParam String url) {
+    public ResponseEntity<ApiResult<ExtractedTextResponse>> scrapeWebPage(
+            @RequestParam @NotBlank @URL(message = "올바른 URL 형식이 아닙니다.") String url
+    ) {
         return ResponseEntity.ok(new ApiResult<>(extractService.linkToText(url)));
     }
 
