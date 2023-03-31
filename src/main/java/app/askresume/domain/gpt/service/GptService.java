@@ -1,16 +1,15 @@
 package app.askresume.domain.gpt.service;
 
-import app.askresume.api.resume.dto.request.GenerateQuestionRequest;
-import app.askresume.domain.gpt.template.Prompt;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.theokanning.openai.completion.chat.*;
+import com.theokanning.openai.completion.chat.ChatCompletionRequest;
+import com.theokanning.openai.completion.chat.ChatCompletionResult;
+import com.theokanning.openai.completion.chat.ChatMessage;
 import com.theokanning.openai.service.OpenAiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.net.SocketTimeoutException;
 import java.util.List;
 
 import static app.askresume.domain.gpt.config.GptConfig.*;
@@ -42,14 +41,14 @@ public class GptService {
 
     }
 
-    public List<ChatMessage> generateMessage(GenerateQuestionRequest request) {
-        final String job = request.getJob();
-        final String difficulty = request.getDifficulty();
-        final String prompt = Prompt.generatePrompt(job, difficulty);
+    public List<ChatMessage> generateMessage() {
+        //final String prompt = Prompt.generatePrompt(job, difficulty, careerYear, content);
 
-        ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), prompt);
-        ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(), request.getContent());
+        //ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), prompt);
+        //ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(), request.getContent());
 
-        return List.of(systemMessage, userMessage);
+        //return List.of(systemMessage, userMessage);
+
+        return null;
     }
 }

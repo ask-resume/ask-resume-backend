@@ -1,6 +1,6 @@
 package app.askresume.api.resume.controller;
 
-import app.askresume.api.resume.dto.request.GenerateQuestionRequest;
+import app.askresume.api.resume.dto.request.GenerateExpectedQuestionRequest;
 import app.askresume.api.resume.dto.response.WhatGeneratedResponse;
 import app.askresume.api.resume.facade.ResumeFacade;
 import app.askresume.api.resume.validator.ResumeValidator;
@@ -36,10 +36,10 @@ public class ResumeController {
             @ApiResponse(responseCode = "400", description = "(R-001) 잘못된 난이도 입니다.")
     })
     @PostMapping("/generate-expected-questions")
-    public ResponseEntity<ApiResult<WhatGeneratedResponse>> generate(@Validated @RequestBody GenerateQuestionRequest request)
-            throws JsonProcessingException {
+    public ResponseEntity<ApiResult<WhatGeneratedResponse>> generate(@Validated @RequestBody GenerateExpectedQuestionRequest request)
+            throws JsonProcessingException, IllegalAccessException {
 
-        resumeValidator.validateDifficultyType(request.getDifficulty());
+        resumeValidator.validateDifficultyType(request.difficulty());
 
         final WhatGeneratedResponse generate = resumeFacade.generate(request);
         return ResponseEntity.ok(new ApiResult<>(generate));
