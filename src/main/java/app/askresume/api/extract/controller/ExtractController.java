@@ -49,7 +49,8 @@ public class ExtractController {
     @Tag(name = "extract")
     @Operation(summary = "Link를 Text로 전환하는 API", description = "Link를 Text로 전환하는 API")
     @ApiResponses({
-            @ApiResponse(responseCode = "500", description = "서버 오류 발생(관리자 문의)")
+            @ApiResponse(responseCode = "500", description = "서버 오류 발생(관리자 문의)"),
+            @ApiResponse(responseCode = "500", description = "(F-002) Elements를 TEXT를 읽는 도중 에러가 발생하였습니다.")
     })
     @GetMapping("/link")
     public ResponseEntity<ApiResult<ExtractedTextResponse>> scrapeWebPage(

@@ -54,7 +54,7 @@ public class ExtractService {
             text = body.replaceAll("<.*?>", "").replaceAll("(?m)^\\s*$[\n\r]{1,}", "");
 
         } catch (IOException e) {
-            log.error("Elements를 찾아, TEXT로 저장하는 도중 ERROR 발생 \n에러 내용 : {}", e.getMessage());
+            log.error("Elements를 TEXT로 저장하는 도중 ERROR 발생 \n에러 내용 : {}", e.getMessage());
             throw new BusinessException(ErrorCode.TEXT_EXTRACTION_FAILED);
         }
 
