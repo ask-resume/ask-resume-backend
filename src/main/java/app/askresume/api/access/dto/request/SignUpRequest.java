@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -43,7 +44,7 @@ public class SignUpRequest {
     @Size(min = 2, max = 20)
     private String username;
 
-    @Pattern(regexp = "^(https?://)?([\\w-]+\\.)+[\\w-]+(/[\\w-./?%&=]*)?$", message = "올바른 URL 형식이 아닙니다.")
+    @URL(message = "올바른 URL 형식이 아닙니다.")
     @Schema(description = "프로필 이미지 경로", example = "https://domain.com/img_110x110.jpg")
     private String profile;
 

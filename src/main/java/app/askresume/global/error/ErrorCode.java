@@ -31,7 +31,7 @@ public enum ErrorCode {
     // 파일 입출력
 
     NOT_PERMITTED_CONTENT_TYPE(HttpStatus.BAD_REQUEST, "F-001", "허가된 CONTENT_TYPE이 아닙니다."),
-    IO_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "F-002", "파일에서 TEXT를 읽는 도중 에러가 발생하였습니다.")
+    TEXT_EXTRACTION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "F-002", "TEXT를 읽는 도중 에러가 발생하였습니다.")
 
     ;
 
