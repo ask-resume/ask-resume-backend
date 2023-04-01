@@ -11,14 +11,14 @@ public enum ResumeType {
     AAC("achievements and credentials") // 자격증,어학,수상내역
     ;
 
-    private String full;
+    private String value;
 
-    public String full() {
-        return full;
+    public String value() {
+        return value;
     }
 
-    ResumeType(String full) {
-        this.full = full;
+    ResumeType(String value) {
+        this.value = value;
     }
 
 }

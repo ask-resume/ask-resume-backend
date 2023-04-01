@@ -1,9 +1,11 @@
 package app.askresume.domain.gpt.service;
 
+import app.askresume.domain.gpt.template.Prompt;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
 import com.theokanning.openai.completion.chat.ChatCompletionResult;
 import com.theokanning.openai.completion.chat.ChatMessage;
+import com.theokanning.openai.completion.chat.ChatMessageRole;
 import com.theokanning.openai.service.OpenAiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,15 +42,12 @@ public class GptService {
         return openAiService.createChatCompletion(build);
 
     }
+    public List<ChatMessage> generateMessage(String job, String difficulty, String careerYear, String resumeType, String content) {
+        final String prompt = Prompt.generatePrompt(job, difficulty, careerYear, resumeType);
 
-    public List<ChatMessage> generateMessage() {
-        //final String prompt = Prompt.generatePrompt(job, difficulty, careerYear, content);
+        ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), prompt);
+        ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(), content);
 
-        //ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), prompt);
-        //ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(), request.getContent());
-
-        //return List.of(systemMessage, userMessage);
-
-        return null;
+        return List.of(systemMessage, userMessage);
     }
 }
