@@ -79,8 +79,8 @@ public class ResumeFacade {
                         result.expectedQuestions().add(array);
                     });
                 }
-                result.merit().add(content.merit());
-                result.disadvantages().add(content.disadvantages());
+//                result.merit().add(content.merit());
+//                result.disadvantages().add(content.disadvantages());
             } catch (InterruptedException | ExecutionException e) {
                 throw new RuntimeException(e);
             }

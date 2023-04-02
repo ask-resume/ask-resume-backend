@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Where(clause = "status = 'Y'")
-@SQLDelete(sql = "UPDATE member SET status = 'N' WHERE id = ?")
+@SQLDelete(sql = "UPDATE member SET deletedAt = 'N' WHERE id = ?")
 @DynamicInsert
 @DynamicUpdate
 @Builder
@@ -43,6 +43,9 @@ public class Member extends BaseTimeEntity {
     @Column(length = 20, nullable = false)
     private String username;
 
+    @Column(length = 5, nullable = false)
+    private String locale;
+
     @Column(length = 300)
     private String profile;
 
@@ -52,7 +55,7 @@ public class Member extends BaseTimeEntity {
 
     @ColumnDefault("'Y'")
     @Column(length = 1, nullable = false)
-    private String status;
+    private String deletedAt;
 
     @Column(length = 250)
     private String refreshToken;

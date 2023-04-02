@@ -2,11 +2,10 @@ package app.askresume.domain.member.constant;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public enum MemberType {
 
-    LOCAL, KAKAO;
+    LOCAL, GOOGLE;
 
     public static MemberType from(String type) {
         return MemberType.valueOf(type.toUpperCase());

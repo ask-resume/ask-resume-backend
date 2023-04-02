@@ -56,8 +56,8 @@ public class AccessController {
     public ResponseEntity<ApiResult<LoginResponse>> oauthLogin(@RequestBody OauthLoginRequest oauthLoginRequestDto,
                                                                @AuthorizationToken TokenDto token) {
 
-        oauthValidator.validateMemberType(oauthLoginRequestDto.getMemberType());
-        MemberType memberType = MemberType.from(oauthLoginRequestDto.getMemberType());
+        oauthValidator.validateMemberType(oauthLoginRequestDto.memberType());
+        MemberType memberType = MemberType.from(oauthLoginRequestDto.memberType());
 
         return ResponseEntity.ok(new ApiResult<>(accessFacade.oauthLogin(token.getToken(), memberType)));
     }

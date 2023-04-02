@@ -34,7 +34,7 @@ public class ResumeController {
             @ApiResponse(responseCode = "500", description = "서버 오류 발생(관리자 문의)"),
             @ApiResponse(responseCode = "400", description = "(R-001) 잘못된 난이도 입니다.")
     })
-    @PostMapping("/generate-expected-questions")
+    @PostMapping("/v1/generate")
     public ResponseEntity<ApiResult<WhatGeneratedResponse>> generate(@Validated @RequestBody GenerateExpectedQuestionRequest request) {
 
         resumeValidator.validateDifficultyType(request.difficulty());

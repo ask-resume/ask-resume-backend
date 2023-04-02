@@ -57,7 +57,7 @@ public record GenerateExpectedQuestionRequest(
             List<Content> aac
     ) {
         public record Content(
-                @Length(min = 100, max = 500, message = "컨텐츠는 길이는 100자에서 500자 사이어야합니다.")
+                @Length(min = 100, max = 1000, message = "컨텐츠는 길이는 100자에서 1,000자 사이어야합니다.")
                 String content
         ) {
         }

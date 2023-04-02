@@ -65,11 +65,10 @@ public class AccessFacade {
     public LoginResponse oauthLogin(String accessToken, MemberType memberType) {
         SocialLoginApiService socialLoginApiService = SocialLoginApiServiceFactory.getSocialLoginApiService(memberType);
         OAuthAttributes userInfo = socialLoginApiService.getUserInfo(accessToken);
-
         log.debug(userInfo.toString());
 
         JwtTokenDto jwtTokenDto;
-        Optional<Member> optionalMember = memberService.findMemberByEmail(userInfo.getEmail(), memberType);
+        Optional<Member> optionalMember = memberService.findMemberByEmail(userInfo.email(), memberType);
 
         Member oauthMember;
         if (optionalMember.isEmpty()) { // 신규 회원 가입
@@ -78,7 +77,6 @@ public class AccessFacade {
 
         } else { // 기존 회원일 경우
             oauthMember = optionalMember.get();
-
         }
         // 토큰 생성
         jwtTokenDto = tokenManager.createJwtTokenDto(oauthMember.getId(), oauthMember.getRole());

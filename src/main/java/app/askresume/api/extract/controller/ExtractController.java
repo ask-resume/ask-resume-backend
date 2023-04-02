@@ -37,7 +37,7 @@ public class ExtractController {
             @ApiResponse(responseCode = "500", description = "(F-002) 파일에서 TEXT를 읽는 도중 에러가 발생하였습니다."),
             @ApiResponse(responseCode = "400", description = "(F-001) 허가된 CONTENT_TYPE이 아닙니다.")
     })
-    @PostMapping(value = "/pdf", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/v1/pdf", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResult<ExtractedTextResponse>> extractTextFromPdf(
             @Parameter(name = "resume", description = "이력서PDF파일, maxSize: 3MB, 확장자: pdf)", required = true)
             @RequestPart("resume") MultipartFile file
@@ -52,7 +52,7 @@ public class ExtractController {
             @ApiResponse(responseCode = "500", description = "서버 오류 발생(관리자 문의)"),
             @ApiResponse(responseCode = "500", description = "(F-002) Elements를 TEXT를 읽는 도중 에러가 발생하였습니다.")
     })
-    @GetMapping("/link")
+    @GetMapping("/v1/link")
     public ResponseEntity<ApiResult<ExtractedTextResponse>> scrapeWebPage(
             @RequestParam @NotBlank @URL(message = "올바른 URL 형식이 아닙니다.") String url
     ) {

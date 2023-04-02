@@ -8,7 +8,6 @@ public class Prompt {
             You're a hiring manager looking for a new %s to join your team.
             Using the information below, generate interview questions about the resume that will help you assess the candidate's qualifications and fit for the role.
             Below is the information about %s of the applicant.
-            And please express the pros and cons of the applicant in one word. one each.
                         
             Instructions1:
             - Question Difficulty: %s
@@ -22,11 +21,9 @@ public class Prompt {
                         
             {
                 "expectedQuestions" : [
-                    { "type" : "Type of question", "question" : "content" }, 
+                    { "type" : "Type of question", "question" : "content" },
                     { repetition }
-                ],
-                "merit" : "aboutTheMerit",
-                "disadvantages": "aboutTheShortcomings"
+                ]
             }
                         
             - You don't write ',' at the end.
