@@ -29,10 +29,11 @@ public enum ErrorCode {
 
 
     // 파일 입출력
-
     NOT_PERMITTED_CONTENT_TYPE(HttpStatus.BAD_REQUEST, "F-001", "허가된 CONTENT_TYPE이 아닙니다."),
-    TEXT_EXTRACTION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "F-002", "TEXT를 읽는 도중 에러가 발생하였습니다.")
+    TEXT_EXTRACTION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "F-002", "TEXT를 읽는 도중 에러가 발생하였습니다."),
 
+    // 로케일 관련
+    INVALID_LOCALE_TYPE(HttpStatus.BAD_REQUEST, "L-001", "잘못된 로케일 정보입니다.")
     ;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {

@@ -14,8 +14,8 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Getter
-@Where(clause = "status = 'Y'")
-@SQLDelete(sql = "UPDATE member SET deletedAt = 'N' WHERE id = ?")
+@Where(clause = "deleted_at = 'Y'")
+@SQLDelete(sql = "UPDATE member SET deleted_at = 'N' WHERE id = ?")
 @DynamicInsert
 @DynamicUpdate
 @Builder
@@ -40,7 +40,7 @@ public class Member extends BaseTimeEntity {
     @Column(length = 10, nullable = false)
     private MemberType memberType;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 30, nullable = false)
     private String username;
 
     @Column(length = 5, nullable = false)
