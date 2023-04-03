@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @Tag(name = "resume", description = "예상질문생성/조회 API")
 @RestController
-@RequestMapping("/api/resume")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class ResumeController {
 
@@ -34,7 +34,7 @@ public class ResumeController {
             @ApiResponse(responseCode = "500", description = "서버 오류 발생(관리자 문의)"),
             @ApiResponse(responseCode = "400", description = "(R-001) 잘못된 난이도 입니다.")
     })
-    @PostMapping("/v1/generate")
+    @PostMapping("/v1/resume/generate")
     public ResponseEntity<ApiResult<WhatGeneratedResponse>> generate(@Validated @RequestBody GenerateExpectedQuestionRequest request) {
 
         resumeValidator.validateDifficultyType(request.difficulty());

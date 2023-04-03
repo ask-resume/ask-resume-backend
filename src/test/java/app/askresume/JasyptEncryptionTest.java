@@ -10,13 +10,13 @@ public class JasyptEncryptionTest {
 
     @Test
     public void jasyptTest() {
-        String password = "에배배배 아무것도모름"; // 아무거나 적어놔야 test 됨
+        String password = "anything"; // 아무거나 적어놔야 test 됨
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         encryptor.setPoolSize(4);
         encryptor.setPassword(password);
         encryptor.setAlgorithm(ALGORITHM_NAME);
 
-        String content = "에배배배 아무것도모름";    // 암호화 할 내용
+        String content = "anything";    // 암호화 할 내용
         String encryptedContent = encryptor.encrypt(content); // 암호화
         String decryptedContent = encryptor.decrypt(encryptedContent); // 복호화
 

@@ -66,7 +66,8 @@ class AccessControllerTest extends BaseSteps {
         final SignUpRequest signUpRequest = 회원가입요청_생성();
         회원가입요청(signUpRequest);
         LoginRequest loginRequest = 로그인요청_생성();
-        loginRequest.setPassword("!wrongPassword1234");
+
+        loginRequest = new LoginRequest(loginRequest.email(), "!wrongPassword1234");
 
         // when
         MockHttpServletResponse response = 로그인요청(loginRequest);

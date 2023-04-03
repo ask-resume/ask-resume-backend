@@ -28,6 +28,7 @@ public class BaseSteps extends ApiTest {
 
     private final String EMAIL = "member@domain.co.kr";
     private final String PASSWORD = "!Password1234";
+    private final String LOCALE = "EN";
 
     public MockHttpServletResponse 회원가입요청(SignUpRequest signUpRequest) throws Exception {
         return mockMvc.perform(
@@ -43,13 +44,7 @@ public class BaseSteps extends ApiTest {
         final String profile = "https://domain.com/img_110x110.jpg";
         final String username = "회원";
 
-        return SignUpRequest.builder()
-                .email(EMAIL)
-                .password(PASSWORD)
-                .passwordCheck(PASSWORD)
-                .profile(profile)
-                .username(username)
-                .build();
+        return new SignUpRequest(EMAIL, PASSWORD, PASSWORD, username, profile, LOCALE);
     }
 
     public MockHttpServletResponse 로그인요청(LoginRequest loginRequest) throws Exception {
@@ -63,17 +58,13 @@ public class BaseSteps extends ApiTest {
     }
 
     public LoginRequest 로그인요청_생성() {
-        return LoginRequest.builder()
-                .email(EMAIL)
-                .password(PASSWORD)
-                .build();
+        return new LoginRequest(EMAIL, PASSWORD);
     }
 
     public String 로그인_토큰(LoginRequest loginRequest) throws Exception {
         MockHttpServletResponse response = 로그인요청(loginRequest);
         return getResponseObject(response, LoginResponse.class).getAccessToken();
     }
-
 
 
     protected <T> T getResponseObject(MockHttpServletResponse response, Class<T> type) throws Exception {

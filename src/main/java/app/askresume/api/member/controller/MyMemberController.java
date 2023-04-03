@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "my-member", description = "내정보 API")
 @RestController
-@RequestMapping("/api/my-member")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class MyMemberController {
 
@@ -30,7 +30,7 @@ public class MyMemberController {
             @ApiResponse(responseCode = "500", description = "서버 오류 발생(관리자 문의)"),
             @ApiResponse(responseCode = "M-003", description = "해당 회원은 존재하지 않는 회원입니다.")
     })
-    @GetMapping
+    @GetMapping("/my-member")
     public ResponseEntity<ApiResult<MemberInfoResponse>> findMyInfo(@MemberInfo MemberInfoDto memberInfoDto) {
         Long memberId = memberInfoDto.getMemberId();
         return ResponseEntity.ok(new ApiResult<>(myMemberFacade.findMemberInfo(memberId)));
@@ -38,7 +38,7 @@ public class MyMemberController {
 
     @Tag(name = "my-member")
     @Operation(summary = "내 정보 변경 API", description = "내 정보 변경 API")
-    @PutMapping
+    @PutMapping("/my-member")
     public ResponseEntity<Void> modify(@Validated @RequestBody ModifyInfoRequest request,
                                         @MemberInfo MemberInfoDto memberInfoDto) {
 
@@ -50,7 +50,7 @@ public class MyMemberController {
 
     @Tag(name = "my-member")
     @Operation(summary = "회원 탈퇴 API", description = "회원 탈퇴 API")
-    @DeleteMapping
+    @DeleteMapping("/my-member")
     public ResponseEntity<Void> secession(@MemberInfo MemberInfoDto memberInfoDto) {
         Long memberId = memberInfoDto.getMemberId();
         myMemberFacade.secessionMember(memberId);
