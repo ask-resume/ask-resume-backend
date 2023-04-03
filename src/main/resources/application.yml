@@ -41,11 +41,11 @@ feign:
 
 # Swagger 설정
 swagger:
-  version: "1.0"
+  version: "1.1"
 
 # JWT Token 설정
 token:
-  secret: ENC(szwb38FkpzsNxMn8tAEhX5gTO+JMgwq9)
+  secret: ENC(Asav0xGGT30Lonv8yKqEEHmjJ+7poB/DKfApzEBD7/xg1mFS/PJOQP5k1Lx1JYND)
   access-token-expiration-time: 900000  # 15분 1000(ms) x 60(s) x 15(m)
   refresh-token-expiration-time: 1209600000 # 2주 1000(ms) x 60 (s) x 60(m) x 24(h) x 14(d)
 
@@ -54,13 +54,13 @@ jasypt:
   encryptor:
     password: ${PASSWORD}
 
-# 카카오 API 설정
-kakao:
+# 구글 API 설정
+google:
   client:
-    id: ENC(YnzDIU11kUO5m1zevR25r7uHP06exIIN5VGOev7DnDiFv3+5HkGYKa1K1jmsqRJx)
-    secret: ENC(QrMqb1xro3Gnq8JkalL31QmqMs6vF/ETlYFKMXnB0HZbo7ZHFu9JDpEYJwizdL+n)
+    id: ENC(xx8p5eq2h6I2vjNtzVMIvfAH33RIazne1T5Jec02s1ftfxrDdbNmQSN9q4ZFu2HvqIu2IOkR1BsqBRE40IqSTRC6JjSoYUss/MZqFA6QJpumqpNJzGeXig==)
+    secret: ENC(mgRSuQYDp4hS0tLFLE/6V0O6BMwrLrWf+ofHghuWW1tFWuhFB9wsYqdQ4vxafgdV)
 
 
-# 왜 다른 내용은 GptConfig 에서 수정
+# 외 다른 내용은 GptConfig 에서 수정
 openai:
-  token: ENC(NO4bZMfIGn/xf1//eX/nsZpWpdVl6rnvGffZKtHu4UlBtDuTkejsq/Bnchg9xjHf2OfoAvnRReOo0uERFwppyw==)
+  token: ENC(u+JMfzA9xvOMFeZCHq/xSiGUfcnyd1Q57AK8B+7sL2AAXlwhXB881nTkcWSZkXYX4jYkjG0qHwjIq4dNue+5gA==)

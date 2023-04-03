@@ -1,13 +1,14 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:test
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: ENC(HXL4fVBqx5ia/mHjGympK8DtSHbTCinroWjUC0SWMG1WBxpiEmBHZHA9t8a550MlxI3QC9Zd0kA19p6YC5eZ1dEWqDVTlc9B6L6x5AxrSCjbjTvjqVB0GDdSv6pD5huRyN8mWgHPAqv/GLvqzVK1LSwIyl/kxYN5lX9JQbTntrq+BpwRLvfjXQ==)
+    username: ENC(qzxHK3vbLQmB5HcMtW7bvA==)
+    password: ENC(XPMBpuz4uQ95wjI4CeRKjHwOWCFK5Hlbx9Pd6mAHkSc=)
+    driver-class-name: com.mysql.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: create
-
+      ddl-auto: validate
+    properties:
+      dialect: org.hibernate.dialect.MySQL8Dialect
 
 logging:
   level:
