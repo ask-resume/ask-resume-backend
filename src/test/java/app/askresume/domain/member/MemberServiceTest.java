@@ -39,7 +39,7 @@ class MemberServiceTest extends ServiceTest {
         assertThat(memberResponse.getUsername()).isEqualTo(MemberSteps.USERNAME);
         assertThat(memberResponse.getProfile()).isEqualTo(MemberSteps.PROFILE);
         assertThat(memberResponse.getRole()).isEqualTo(Role.USER);
-        assertThat(memberResponse.getMemberType()).isEqualTo(MemberType.KAKAO);
+        assertThat(memberResponse.getMemberType()).isEqualTo(MemberType.GOOGLE);
     }
 
     @DisplayName("회원생성 도중 이메일 중복으로 Exception 발생")
@@ -81,7 +81,7 @@ class MemberServiceTest extends ServiceTest {
         assertThat(memberResponse.getUsername()).isEqualTo(username);
         assertThat(memberResponse.getProfile()).isEqualTo(profile);
         assertThat(memberResponse.getRole()).isEqualTo(Role.USER);
-        assertThat(memberResponse.getMemberType()).isEqualTo(MemberType.KAKAO);
+        assertThat(memberResponse.getMemberType()).isEqualTo(MemberType.GOOGLE);
     }
 
 }

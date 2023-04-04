@@ -7,12 +7,13 @@ import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public record GenerateExpectedQuestionRequest(
-        @Schema(description = "직업", example = "backend developer", required = true)
-        @NotBlank
-        String job,
+        @NotNull
+        @Schema(description = "직업 ID", example = "120", required = true)
+        Long jobId,
 
         @NotBlank
         @Schema(description = "난이도", example = "medium", required = true)
@@ -23,7 +24,7 @@ public record GenerateExpectedQuestionRequest(
         @Schema(description = "경력", example = "2", required = true)
         int careerYear,
 
-        //@Valid
+        @Valid
         @Schema(description = "이력서 상세 내용", required = true)
         MyResume contents
 ) {
@@ -57,7 +58,7 @@ public record GenerateExpectedQuestionRequest(
             List<Content> aac
     ) {
         public record Content(
-                @Length(min = 100, max = 500, message = "컨텐츠는 길이는 100자에서 500자 사이어야합니다.")
+                @Length(min = 100, max = 1000, message = "컨텐츠는 길이는 100자에서 1,000자 사이어야합니다.")
                 String content
         ) {
         }

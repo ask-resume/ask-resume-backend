@@ -17,7 +17,7 @@ public enum ErrorCode {
     FORBIDDEN_ADMIN(HttpStatus.FORBIDDEN, "A-008", "관리자 Role이 아닙니다."),
 
     // 회원
-    INVALID_MEMBER_TYPE(HttpStatus.BAD_REQUEST, "M-001", "잘못된 회원 타입 입니다.(memberType : KAKAO)"),
+    INVALID_MEMBER_TYPE(HttpStatus.BAD_REQUEST, "M-001", "잘못된 회원 타입 입니다.(memberType : GOOGLE)"),
     ALREADY_REGISTERED_MEMBER(HttpStatus.BAD_REQUEST, "M-002", "이미 가입된 회원 입니다."),
     MEMBER_NOT_EXISTS(HttpStatus.BAD_REQUEST, "M-003", "해당 회원은 존재하지 않습니다."),
 
@@ -29,10 +29,14 @@ public enum ErrorCode {
 
 
     // 파일 입출력
-
     NOT_PERMITTED_CONTENT_TYPE(HttpStatus.BAD_REQUEST, "F-001", "허가된 CONTENT_TYPE이 아닙니다."),
-    TEXT_EXTRACTION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "F-002", "TEXT를 읽는 도중 에러가 발생하였습니다.")
+    TEXT_EXTRACTION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "F-002", "TEXT를 읽는 도중 에러가 발생하였습니다."),
 
+    // 로케일 관련
+    INVALID_LOCALE_TYPE(HttpStatus.BAD_REQUEST, "L-001", "잘못된 로케일 정보입니다."),
+
+    // 직업 관련
+    JOB_NOT_EXISTS(HttpStatus.BAD_REQUEST, "J-001", "해당 직업은 존재하지 않습니다.")
     ;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {

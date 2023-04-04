@@ -1,24 +1,24 @@
 package app.askresume.api.access.facade;
 
-import app.askresume.domain.member.constant.MemberType;
-import app.askresume.domain.member.constant.Role;
-import app.askresume.domain.member.model.Member;
-import app.askresume.domain.member.service.MemberService;
-import app.askresume.global.jwt.constant.GrantType;
-import app.askresume.global.jwt.constant.TokenType;
-import app.askresume.global.jwt.dto.JwtTokenDto;
-import app.askresume.global.jwt.service.TokenManager;
-import app.askresume.oauth.model.OAuthAttributes;
-import app.askresume.oauth.service.SocialLoginApiService;
-import app.askresume.oauth.service.SocialLoginApiServiceFactory;
 import app.askresume.api.access.dto.request.LoginRequest;
 import app.askresume.api.access.dto.request.SignUpRequest;
 import app.askresume.api.access.dto.response.AccessTokenResponse;
 import app.askresume.api.access.dto.response.LoginResponse;
 import app.askresume.api.access.validator.PasswordValidator;
+import app.askresume.domain.member.constant.MemberType;
+import app.askresume.domain.member.constant.Role;
+import app.askresume.domain.member.model.Member;
+import app.askresume.domain.member.service.MemberService;
 import app.askresume.global.error.ErrorCode;
 import app.askresume.global.error.exception.AuthenticationException;
+import app.askresume.global.jwt.constant.GrantType;
+import app.askresume.global.jwt.constant.TokenType;
+import app.askresume.global.jwt.dto.JwtTokenDto;
+import app.askresume.global.jwt.service.TokenManager;
 import app.askresume.global.util.SHA256Util;
+import app.askresume.oauth.model.OAuthAttributes;
+import app.askresume.oauth.service.SocialLoginApiService;
+import app.askresume.oauth.service.SocialLoginApiServiceFactory;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +40,7 @@ public class AccessFacade {
 
     @Transactional
     public void register(SignUpRequest signUpRequest) {
-        PasswordValidator.passwordCheck(signUpRequest.getPassword(), signUpRequest.getPasswordCheck());
+        PasswordValidator.passwordCheck(signUpRequest.password(), signUpRequest.passwordCheck());
 
         Member member = signUpRequest.toMemberEntity(MemberType.LOCAL, Role.USER);
         memberService.registerMember(member);
@@ -48,10 +48,13 @@ public class AccessFacade {
 
     @Transactional
     public LoginResponse login(LoginRequest loginRequest) {
-        loginRequest.setPassword(SHA256Util.encrypt(loginRequest.getPassword()));
 
-        final String email = loginRequest.getEmail();
-        final String password = loginRequest.getPassword();
+        final String encryptPassword = SHA256Util.encrypt(loginRequest.password());
+        loginRequest = new LoginRequest(loginRequest.email(), encryptPassword);
+
+
+        final String email = loginRequest.email();
+        final String password = loginRequest.password();
         final MemberType memberType = MemberType.LOCAL;
 
         Member member = memberService.findMemberByEmailAndPasswordAndMemberType(email, password, memberType);
@@ -65,11 +68,10 @@ public class AccessFacade {
     public LoginResponse oauthLogin(String accessToken, MemberType memberType) {
         SocialLoginApiService socialLoginApiService = SocialLoginApiServiceFactory.getSocialLoginApiService(memberType);
         OAuthAttributes userInfo = socialLoginApiService.getUserInfo(accessToken);
-
         log.debug(userInfo.toString());
 
         JwtTokenDto jwtTokenDto;
-        Optional<Member> optionalMember = memberService.findMemberByEmail(userInfo.getEmail(), memberType);
+        Optional<Member> optionalMember = memberService.findMemberByEmail(userInfo.email(), memberType);
 
         Member oauthMember;
         if (optionalMember.isEmpty()) { // 신규 회원 가입
@@ -78,7 +80,6 @@ public class AccessFacade {
 
         } else { // 기존 회원일 경우
             oauthMember = optionalMember.get();
-
         }
         // 토큰 생성
         jwtTokenDto = tokenManager.createJwtTokenDto(oauthMember.getId(), oauthMember.getRole());

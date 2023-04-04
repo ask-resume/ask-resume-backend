@@ -41,8 +41,7 @@ jasypt:
   encryptor:
     password: test
 
-# 카카오 API 설정
-kakao:
+google:
   client:
     id: test
     secret: test

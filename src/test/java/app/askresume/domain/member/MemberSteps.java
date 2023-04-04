@@ -16,7 +16,8 @@ public class MemberSteps {
                 .username(USERNAME)
                 .profile(PROFILE)
                 .role(Role.USER)
-                .memberType(MemberType.KAKAO)
+                .memberType(MemberType.GOOGLE)
+                .locale("ko")
                 .build();
     }
 
