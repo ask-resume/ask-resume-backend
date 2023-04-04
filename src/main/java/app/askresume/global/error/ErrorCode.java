@@ -33,7 +33,10 @@ public enum ErrorCode {
     TEXT_EXTRACTION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "F-002", "TEXT를 읽는 도중 에러가 발생하였습니다."),
 
     // 로케일 관련
-    INVALID_LOCALE_TYPE(HttpStatus.BAD_REQUEST, "L-001", "잘못된 로케일 정보입니다.")
+    INVALID_LOCALE_TYPE(HttpStatus.BAD_REQUEST, "L-001", "잘못된 로케일 정보입니다."),
+
+    // 직업 관련
+    JOB_NOT_EXISTS(HttpStatus.BAD_REQUEST, "J-001", "해당 직업은 존재하지 않습니다.")
     ;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {

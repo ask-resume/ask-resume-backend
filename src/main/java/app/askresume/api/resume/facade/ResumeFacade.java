@@ -7,6 +7,7 @@ import app.askresume.api.resume.dto.response.WhatGeneratedResponse;
 import app.askresume.api.resume.mapper.CareerYearMapper;
 import app.askresume.api.resume.mapper.GenerateExpectedQuestionMapper;
 import app.askresume.domain.gpt.service.GptService;
+import app.askresume.domain.job.service.JobService;
 import app.askresume.domain.resume.service.ResumeService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,6 +31,8 @@ public class ResumeFacade {
 
     private final ResumeService resumeService;
     private final GptService gptService;
+
+    private final JobService jobService;
     private final ObjectMapper mapper;
     private final GenerateExpectedQuestionMapper generateExpectedQuestionMapper;
     private final CareerYearMapper careerYearMapper;
@@ -37,7 +40,8 @@ public class ResumeFacade {
     private final ExecutorService executorService = Executors.newCachedThreadPool();
 
     public WhatGeneratedResponse generate(final GenerateExpectedQuestionRequest request) {
-        final String job = request.job();
+
+        final String job = jobService.findJobNameById(request.jobId()).getMasterName();
         final String difficulty = request.difficulty();
         final String careerYear = careerYearMapper.toCareer(request.careerYear());
         final List<ResumeDataRequest> resumeData = generateExpectedQuestionMapper.toResumeData(request.contents());
@@ -75,9 +79,7 @@ public class ResumeFacade {
             try {
                 FutureWhatGeneratedResponse content = future.get();
                 if (content.expectedQuestions().size() != 0) {
-                    content.expectedQuestions().forEach(array -> {
-                        result.expectedQuestions().add(array);
-                    });
+                    content.expectedQuestions().forEach(array -> result.expectedQuestions().add(array));
                 }
 //                result.merit().add(content.merit());
 //                result.disadvantages().add(content.disadvantages());

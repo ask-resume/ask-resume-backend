@@ -63,7 +63,7 @@ public class MemberService {
 
     @Transactional
     public void modifyMemberInfo(Member member, ModifyInfoRequest request) {
-        member.changeMemberInfo(request.getUsername(), request.getProfile());
+        member.changeMemberInfo(request.username(), request.profile());
     }
 
     @Transactional
