@@ -27,7 +27,7 @@ jobs:
 
     # Spring Boot 어플리케이션 Build (1)
     - name: Spring Boot Build
-      run: ./gradlew clean build --exclude-task test
+      run: ./gradlew clean build #--exclude-task test
     
     # Docker 이미지 Build (2)
     - name: docker image build
