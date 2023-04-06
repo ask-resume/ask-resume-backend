@@ -24,6 +24,7 @@ public class JobMaster extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Builder.Default
     @OneToMany(mappedBy = "jobMaster", fetch = FetchType.LAZY)
     private List<Job> jobs = new ArrayList<>();
 
