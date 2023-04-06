@@ -27,10 +27,6 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-
     - name: Checkout
       uses: actions/checkout@v3
 
