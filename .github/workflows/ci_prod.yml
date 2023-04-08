@@ -63,6 +63,7 @@ jobs:
           password: ${{ secrets.EC2_PASSWORD }}
           port: ${{ secrets.EC2_PORT }}
           script: |
+            docker stop ${{secrets.DOCKER_REPO}}
             docker rm ${{secrets.DOCKER_REPO}}
             docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/${{secrets.DOCKER_REPO}}:latest
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{secrets.DOCKER_REPO}}:latest
