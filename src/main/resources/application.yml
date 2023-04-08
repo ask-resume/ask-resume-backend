@@ -45,7 +45,7 @@ swagger:
 
 # JWT Token 설정
 token:
-  secret: ENC(Asav0xGGT30Lonv8yKqEEHmjJ+7poB/DKfApzEBD7/xg1mFS/PJOQP5k1Lx1JYND)
+  secret: ENC(JoYvQTaEOtzggRUjebDL3gJvRwwU+gAk+AUO5Hw0p2w+Rg2pkuOlNOCYSUfsXJT71lFaiSL+7CfqXQo27fQFLyIk7RXG+TbtUWpFmoIm3bibAnYge8paDilNi33VvX3s)
   access-token-expiration-time: 900000  # 15분 1000(ms) x 60(s) x 15(m)
   refresh-token-expiration-time: 1209600000 # 2주 1000(ms) x 60 (s) x 60(m) x 24(h) x 14(d)
 
@@ -57,10 +57,10 @@ jasypt:
 # 구글 API 설정
 google:
   client:
-    id: ENC(xx8p5eq2h6I2vjNtzVMIvfAH33RIazne1T5Jec02s1ftfxrDdbNmQSN9q4ZFu2HvqIu2IOkR1BsqBRE40IqSTRC6JjSoYUss/MZqFA6QJpumqpNJzGeXig==)
-    secret: ENC(mgRSuQYDp4hS0tLFLE/6V0O6BMwrLrWf+ofHghuWW1tFWuhFB9wsYqdQ4vxafgdV)
+    id: ENC(Kpzzi6NP09y8n4dBVBjh1wmygBFflVlmK4T5Ox8SjSOMgZHQ4anmqWOGecPq1vpU5xO4WcngZAfTBWSV8aE5oOqs9kKGq3JayJkTI+7GT8imbfjJqwGI7A==)
+    secret: ENC(m27Z1jgN6RUXKLoZMPFVKuUpdySPaXMeuvKKpdlG48G9eEmEzFhUuufJ8mnHK/6h)
 
 
 # 외 다른 내용은 GptConfig 에서 수정
 openai:
-  token: ENC(u+JMfzA9xvOMFeZCHq/xSiGUfcnyd1Q57AK8B+7sL2AAXlwhXB881nTkcWSZkXYX4jYkjG0qHwjIq4dNue+5gA==)
+  token: ENC(rzhsgfEo/u8ROqyCNzzX/2qJZv8dE71y4gVaaoanLi7LsAO78a6ZEMF8M3sGhuMzqYoPj3QzqYf+fd5Cx46L9Q==)
