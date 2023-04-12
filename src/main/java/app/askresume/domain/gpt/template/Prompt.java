@@ -7,6 +7,10 @@ public class Prompt {
     private static String prompt = """
             You're a hiring manager looking for a new %s to join your team.
             Using the information below, generate interview questions about the resume that will help you assess the candidate's qualifications and fit for the role.
+            In addition, the model answer to the created question must also be created.
+            
+            Do not use '', "",{}, (), [] or emojis in all content.
+            
             Below is the information about %s of the applicant.
                         
             Instructions1:
@@ -17,11 +21,12 @@ public class Prompt {
             - Question Language: English
                         
             Instructions2:
-            Please make the questions in JSON form as below.
+            You must write your question unconditionally and absolutely in JSON format, as shown below.
+            Never add anything else. numbers, letters, etc.
                         
             {
-                "expectedQuestions" : [
-                    { "type" : "Type of question", "question" : "content" },
+                "predictionResponse" : [
+                    { "type" : "Type of question", "question" : "content", "bestAnswer" : "content" },
                     { repetition }
                 ]
             }
