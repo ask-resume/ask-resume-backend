@@ -113,10 +113,10 @@ public class AccessFacade {
         Date accessTokenExpireTime = tokenManager.createAccessTokenExpireTime();
         String accessToken = tokenManager.createAccessToken(member.getId(), member.getRole(), accessTokenExpireTime);
 
-        return AccessTokenResponse.builder()
-                .grantType(GrantType.BEARER.getType())
-                .accessToken(accessToken)
-                .accessTokenExpireTime(accessTokenExpireTime)
-                .build();
+        return new AccessTokenResponse(
+                GrantType.BEARER.getType(),
+                accessToken,
+                accessTokenExpireTime
+        );
     }
 }

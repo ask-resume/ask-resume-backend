@@ -32,10 +32,7 @@ public class AuthorizationTokenResolver implements HandlerMethodArgumentResolver
 
         String accessToken = authorizationHeader.split(" ")[1];
 
-        return TokenDto.builder()
-                .authorizationHeader(authorizationHeader)
-                .token(accessToken)
-                .build();
+        return new TokenDto(authorizationHeader, accessToken);
     }
 
 }

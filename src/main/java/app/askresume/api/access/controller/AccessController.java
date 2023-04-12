@@ -59,14 +59,14 @@ public class AccessController {
         oauthValidator.validateMemberType(oauthLoginRequestDto.memberType());
         MemberType memberType = MemberType.from(oauthLoginRequestDto.memberType());
 
-        return ResponseEntity.ok(new ApiResult<>(accessFacade.oauthLogin(token.getToken(), memberType)));
+        return ResponseEntity.ok(new ApiResult<>(accessFacade.oauthLogin(token.token(), memberType)));
     }
 
     @Tag(name = "authentication")
     @Operation(summary = "로그아웃 API", description = "로그아웃시 refresh token 만료 처리")
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(@AuthorizationToken TokenDto token) {
-        accessFacade.logout(token.getToken());
+        accessFacade.logout(token.token());
 
         return ResponseEntity.noContent().build();
     }
@@ -75,6 +75,6 @@ public class AccessController {
     @Operation(summary = "Access Token 재발급 API", description = "Access Token 재발급 API")
     @PostMapping("/reissued/access-token")
     public ResponseEntity<ApiResult<AccessTokenResponse>> createAccessToken(@AuthorizationToken TokenDto token) {
-        return ResponseEntity.ok(new ApiResult<>(accessFacade.createAccessTokenByRefreshToken(token.getToken())));
+        return ResponseEntity.ok(new ApiResult<>(accessFacade.createAccessTokenByRefreshToken(token.token())));
     }
 }
