@@ -32,7 +32,7 @@ public class MyMemberController {
     })
     @GetMapping("/my-member")
     public ResponseEntity<ApiResult<MemberInfoResponse>> findMyInfo(@MemberInfo MemberInfoDto memberInfoDto) {
-        Long memberId = memberInfoDto.getMemberId();
+        Long memberId = memberInfoDto.memberId();
         return ResponseEntity.ok(new ApiResult<>(myMemberFacade.findMemberInfo(memberId)));
     }
 
@@ -42,7 +42,7 @@ public class MyMemberController {
     public ResponseEntity<Void> modify(@Validated @RequestBody ModifyInfoRequest request,
                                         @MemberInfo MemberInfoDto memberInfoDto) {
 
-        Long memberId = memberInfoDto.getMemberId();
+        Long memberId = memberInfoDto.memberId();
         myMemberFacade.modifyMemberInfo(memberId, request);
 
         return ResponseEntity.created(UriUtil.createUri()).build();
@@ -52,7 +52,7 @@ public class MyMemberController {
     @Operation(summary = "회원 탈퇴 API", description = "회원 탈퇴 API")
     @DeleteMapping("/my-member")
     public ResponseEntity<Void> secession(@MemberInfo MemberInfoDto memberInfoDto) {
-        Long memberId = memberInfoDto.getMemberId();
+        Long memberId = memberInfoDto.memberId();
         myMemberFacade.secessionMember(memberId);
 
         return ResponseEntity.noContent().build();

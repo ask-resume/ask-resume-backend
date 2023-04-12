@@ -63,7 +63,7 @@ public class BaseSteps extends ApiTest {
 
     public String 로그인_토큰(LoginRequest loginRequest) throws Exception {
         MockHttpServletResponse response = 로그인요청(loginRequest);
-        return getResponseObject(response, LoginResponse.class).getAccessToken();
+        return getResponseObject(response, LoginResponse.class).accessToken();
     }
 
 
