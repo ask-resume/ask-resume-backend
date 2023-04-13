@@ -3,6 +3,8 @@ package app.askresume.domain.gpt.service;
 import app.askresume.api.resume.dto.request.ResumeDataRequest;
 import app.askresume.api.resume.dto.response.WhatGeneratedResponse;
 import app.askresume.domain.gpt.template.Prompt;
+import app.askresume.global.error.ErrorCode;
+import app.askresume.global.error.exception.BusinessException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
@@ -79,7 +81,8 @@ public class GptService {
 
                     return objectMapper.readValue(futureResult, WhatGeneratedResponse.class);
                 } catch (JsonProcessingException e) {
-                    throw new RuntimeException(e);
+                    log.error(e.getMessage());
+                    throw new BusinessException(ErrorCode.JSON_PARSING_FAILED);
                 }
             }, executorService);
             futures.add(future);
@@ -90,7 +93,8 @@ public class GptService {
         try {
             allFutures.get();
         } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
+            log.error(e.getMessage());
+            throw new BusinessException(ErrorCode.THREAD_MALFUNCTION);
         }
 
         // CompletableFuture에서 결과를 추출해서 WhatGeneratedResponse 객체에 저장

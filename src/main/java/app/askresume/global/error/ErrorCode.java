@@ -25,7 +25,7 @@ public enum ErrorCode {
     SIGNUP_PASSWORD_INCONSISTENCY(HttpStatus.BAD_REQUEST, "M-005", "비밀번호와, 비밀번호체크가 일치하지 않습니다."),
 
     // 이력서 관련
-    INVALID_DIFFICULTY_TYPE(HttpStatus.BAD_REQUEST, "R-001", "잘못된 난이도 입니다."),
+    INVALID_DIFFICULTY_TYPE(HttpStatus.BAD_REQUEST, "RES-001", "잘못된 난이도 유형입니다."),
 
 
     // 파일 입출력
@@ -36,7 +36,11 @@ public enum ErrorCode {
     INVALID_LOCALE_TYPE(HttpStatus.BAD_REQUEST, "L-001", "잘못된 로케일 정보입니다."),
 
     // 직업 관련
-    JOB_NOT_EXISTS(HttpStatus.BAD_REQUEST, "J-001", "해당 직업은 존재하지 않습니다.")
+    JOB_NOT_EXISTS(HttpStatus.BAD_REQUEST, "J-001", "해당 직업은 존재하지 않습니다."),
+
+    // 내부 동작
+    THREAD_MALFUNCTION(HttpStatus.INTERNAL_SERVER_ERROR, "SYS-001", "스레드 작업 중 문제가 발생했습니다."),
+    JSON_PARSING_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "SYS-002", "JSON 파싱 중 문제가 발생했습니다.")
     ;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {
@@ -45,8 +49,8 @@ public enum ErrorCode {
         this.message = message;
     }
 
-    private HttpStatus httpStatus;
-    private String errorCode;
-    private String message;
+    private final HttpStatus httpStatus;
+    private final String errorCode;
+    private final String message;
 
 }

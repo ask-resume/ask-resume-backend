@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@Tag(name = "resume", description = "예상질문생성/조회 API")
+@Tag(name = "resume", description = "예상질문 & 답변 생성/조회 API")
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -32,11 +32,12 @@ public class ResumeController {
     @Operation(summary = "예상 질문 생성 API", description = "예상 질문 생성 API")
     @ApiResponses({
             @ApiResponse(responseCode = "500", description = "서버 오류 발생(관리자 문의)"),
-            @ApiResponse(responseCode = "400", description = "(R-001) 잘못된 난이도 입니다.")
+            @ApiResponse(responseCode = "500", description = "(SYS-001) 스레드 작업 중 문제 발생"),
+            @ApiResponse(responseCode = "500", description = "(SYS-002) JSON 파싱 중 문제"),
+            @ApiResponse(responseCode = "400", description = "(RES-001) 잘못된 난이도 유형")
     })
     @PostMapping("/v1/resume/generate")
     public ResponseEntity<ApiResult<WhatGeneratedResponse>> generate(@Validated @RequestBody GenerateExpectedQuestionRequest request) {
-
         resumeValidator.validateDifficultyType(request.difficulty());
 
         final WhatGeneratedResponse generate = resumeFacade.generate(request);
