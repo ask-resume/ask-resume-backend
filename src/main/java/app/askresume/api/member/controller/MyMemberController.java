@@ -28,7 +28,7 @@ public class MyMemberController {
     @Operation(summary = "내 정보 조회 API", description = "내 정보 조회 API")
     @ApiResponses({
             @ApiResponse(responseCode = "500", description = "서버 오류 발생(관리자 문의)"),
-            @ApiResponse(responseCode = "M-003", description = "해당 회원은 존재하지 않는 회원입니다.")
+            @ApiResponse(responseCode = "MEM-003", description = "해당 회원이 존재하지 않음.")
     })
     @GetMapping("/my-member")
     public ResponseEntity<ApiResult<MemberInfoResponse>> findMyInfo(@MemberInfo MemberInfoDto memberInfoDto) {
