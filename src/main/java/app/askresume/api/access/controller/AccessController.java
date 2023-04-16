@@ -36,8 +36,6 @@ public class AccessController {
     @Operation(summary = "일반 로그인 API", description = "일반 로그인 API")
     @PostMapping("/login")
     public ResponseEntity<ApiResult<LoginResponse>> login(@RequestBody LoginRequest loginRequest) {
-
-
         return ResponseEntity.ok(new ApiResult<>(accessFacade.login(loginRequest)));
     }
 
@@ -48,7 +46,6 @@ public class AccessController {
         accessFacade.register(signUpRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
 
     @Tag(name = "authentication")
     @Operation(summary = "소셜 로그인 API", description = "소셜 로그인 API")

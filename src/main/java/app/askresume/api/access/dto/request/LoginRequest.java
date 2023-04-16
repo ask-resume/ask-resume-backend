@@ -7,7 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
-public record LoginRequest(
+public record LoginRequest (
         @Email
         @NotBlank
         @Schema(description = "이메일", example = "member@domain.co.kr", required = true)
