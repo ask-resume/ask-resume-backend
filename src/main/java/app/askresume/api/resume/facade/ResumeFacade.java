@@ -28,13 +28,16 @@ public class ResumeFacade {
 
     public WhatGeneratedResponse generate(final GenerateExpectedQuestionRequest request) {
 
+        log.debug("이력서 생성 update request : {}", request.toString());
+
         final String job = jobService.findJobNameById(request.jobId()).getMasterName();
         final String difficulty = request.difficulty();
         final String careerYear = careerYearMapper.toCareer(request.careerYear());
+        final String locale = request.locale();
         final List<ResumeDataRequest> resumeData = generateExpectedQuestionMapper.toResumeData(request.contents());
 
         // 나중에 모범답변? 으로 이름 바꿀지 고민해야함.
-        WhatGeneratedResponse response = gptService.createdExpectedQuestionsAndAnswer(job, difficulty, careerYear, resumeData);
+        WhatGeneratedResponse response = gptService.createdExpectedQuestionsAndAnswer(job, difficulty, careerYear, locale, resumeData);
 
 
         // request 내용, 생성된 질문 저장

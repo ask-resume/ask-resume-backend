@@ -1,4 +1,4 @@
-package app.askresume.domain.gpt.constant;
+package app.askresume.domain.resume.constant;
 
 import lombok.Getter;
 
@@ -10,7 +10,7 @@ public enum DifficultyType {
 
     EASY("easy"), MEDIUM("medium"), HARD("hard");
 
-    private String type;
+    private final String type;
 
     public String type() {
         return type;

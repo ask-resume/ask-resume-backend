@@ -77,7 +77,7 @@ dependencies {
     // emoji java
     implementation 'com.vdurmont:emoji-java:5.1.1'
 
-    //
+    // JSOUP
     implementation 'org.jsoup:jsoup:1.15.4'
 }
 dependencyManagement {

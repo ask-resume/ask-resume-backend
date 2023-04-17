@@ -2,8 +2,8 @@ package app.askresume.api.job.controller;
 
 import app.askresume.api.job.dto.response.JobResponse;
 import app.askresume.api.job.facade.JobFacade;
-import app.askresume.api.job.validator.JobValidator;
-import app.askresume.domain.job.constant.LocaleType;
+import app.askresume.domain.locale.constant.LocaleType;
+import app.askresume.domain.locale.validator.LocaleValidator;
 import app.askresume.global.model.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -27,15 +27,16 @@ import java.util.List;
 public class JobController {
 
     private final JobFacade jobFacade;
-    private final JobValidator jobValidator;
+    private final LocaleValidator localeValidator;
 
     @Tag(name = "job")
     @Operation(summary = "언어별로 직업 리스트를 조회하는 API", description = "언어별로 직업 리스트를 조회하는 API")
     @GetMapping("/v1/jobs")
     public ResponseEntity<ApiResult<List<JobResponse>>> findJobs(
-            @Parameter(name = "locale", description = "국가코드(ko,en,jp)", required = true)
+            @Parameter(name = "locale", description = "국가코드(ko,en)", required = true)
             @RequestParam @NotBlank String locale) {
-        jobValidator.validateLocaleType(locale);
+
+        localeValidator.validateLocaleType(locale);
         LocaleType localeType = LocaleType.from(locale);
 
         return ResponseEntity.ok(new ApiResult<>(jobFacade.findJobs(localeType.name())));
