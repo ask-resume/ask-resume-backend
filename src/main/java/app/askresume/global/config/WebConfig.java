@@ -35,7 +35,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
-                .allowedOrigins("*")
+                .allowedOrigins("http://localhost:4000")
                 .allowedMethods(
                         HttpMethod.GET.name(),
                         HttpMethod.POST.name(),
@@ -63,7 +63,8 @@ public class WebConfig implements WebMvcConfigurer {
                         "/api/v1/resume/generate",
                         "/api/v1/jobs",
                         "/api/v1/extract/link",
-                        "/api/v1/extract/pdf"
+                        "/api/v1/extract/pdf",
+                        "/api/test"
                 );
 
         // 권한 체크
