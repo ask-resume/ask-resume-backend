@@ -11,7 +11,7 @@ public enum ResumeType {
     AAC("achievements and credentials") // 자격증,어학,수상내역
     ;
 
-    private String value;
+    private final String value;
 
     public String value() {
         return value;

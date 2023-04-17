@@ -24,6 +24,11 @@ public record GenerateExpectedQuestionRequest(
         @Schema(description = "경력", example = "2", required = true)
         int careerYear,
 
+
+        @NotBlank
+        @Schema(description = "언어", example = "ko", required = true)
+        String locale,
+
         @Valid
         @Schema(description = "이력서 상세 내용", required = true)
         MyResume contents
@@ -62,5 +67,11 @@ public record GenerateExpectedQuestionRequest(
                 String content
         ) {
         }
+    }
+
+    public GenerateExpectedQuestionRequest updateLocale(String newLocale) {
+        return new GenerateExpectedQuestionRequest(
+                jobId, difficulty, careerYear, newLocale, contents
+        );
     }
 }

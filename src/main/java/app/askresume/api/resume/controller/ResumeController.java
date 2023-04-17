@@ -4,6 +4,8 @@ import app.askresume.api.resume.dto.request.GenerateExpectedQuestionRequest;
 import app.askresume.api.resume.dto.response.WhatGeneratedResponse;
 import app.askresume.api.resume.facade.ResumeFacade;
 import app.askresume.api.resume.validator.ResumeValidator;
+import app.askresume.domain.locale.constant.LocaleType;
+import app.askresume.domain.locale.validator.LocaleValidator;
 import app.askresume.global.model.ApiResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -27,6 +29,7 @@ public class ResumeController {
 
     private final ResumeFacade resumeFacade;
     private final ResumeValidator resumeValidator;
+    private final LocaleValidator localeValidator;
 
     @Tag(name = "resume")
     @Operation(summary = "예상 질문 생성 API", description = "예상 질문 생성 API")
@@ -39,8 +42,11 @@ public class ResumeController {
     @PostMapping("/v1/resume/generate")
     public ResponseEntity<ApiResult<WhatGeneratedResponse>> generate(@Validated @RequestBody GenerateExpectedQuestionRequest request) {
         resumeValidator.validateDifficultyType(request.difficulty());
+        localeValidator.validateLocaleType(request.locale());
 
-        final WhatGeneratedResponse generate = resumeFacade.generate(request);
+        final GenerateExpectedQuestionRequest updatedRequest = request.updateLocale(LocaleType.from(request.locale()).value());
+
+        final WhatGeneratedResponse generate = resumeFacade.generate(updatedRequest);
         return ResponseEntity.ok(new ApiResult<>(generate));
     }
 

@@ -1,11 +1,20 @@
-package app.askresume.domain.job.constant;
+package app.askresume.domain.locale.constant;
 
 import java.util.Arrays;
 import java.util.List;
 
 public enum LocaleType {
 
-    KO, EN, JP;
+    KO("Korean"), EN("English");
+
+    private final String value;
+    public String value() {
+        return value;
+    }
+
+    LocaleType(String name) {
+        this.value = name;
+    }
 
     public static LocaleType from(String type) {
         return LocaleType.valueOf(type.toUpperCase());

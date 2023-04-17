@@ -35,7 +35,7 @@ public class GptService {
     private String OPENAI_TOKEN;
 
     private final ObjectMapper objectMapper;
-    private final ExecutorService executorService = Executors.newCachedThreadPool();
+    private final ExecutorService executorService = Executors.newFixedThreadPool(2);
 
     public ChatCompletionResult generate(List<ChatMessage> chatMessages) {
         OpenAiService openAiService = new OpenAiService(OPENAI_TOKEN, TIME_OUT);
@@ -53,8 +53,11 @@ public class GptService {
         return openAiService.createChatCompletion(build);
 
     }
-    public List<ChatMessage> generateMessage(String job, String difficulty, String careerYear, String resumeType, String content) {
-        final String prompt = Prompt.generatePrompt(job, difficulty, careerYear, resumeType);
+
+    public List<ChatMessage> generateMessage(String job, String difficulty, String careerYear, String resumeType, String locale, String content) {
+        final String prompt = Prompt.generatePrompt(job, difficulty, careerYear, resumeType, locale);
+
+        log.debug("생성된 프롬프트 : {} ", prompt);
 
         ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), prompt);
         ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(), content);
@@ -62,14 +65,14 @@ public class GptService {
         return List.of(systemMessage, userMessage);
     }
 
-    public WhatGeneratedResponse createdExpectedQuestionsAndAnswer(String job, String difficulty, String careerYear, List<ResumeDataRequest> resumeData) {
+    public WhatGeneratedResponse createdExpectedQuestionsAndAnswer(String job, String difficulty, String careerYear, String locale, List<ResumeDataRequest> resumeData) {
 
         // 멀티스레드 호출
         List<CompletableFuture<WhatGeneratedResponse>> futures = new ArrayList<>();
 
         for (ResumeDataRequest data : resumeData) {
             CompletableFuture<WhatGeneratedResponse> future = CompletableFuture.supplyAsync(() -> {
-                List<ChatMessage> chatMessages =  generateMessage(job, difficulty, careerYear, data.resumeType(), data.content());
+                List<ChatMessage> chatMessages = generateMessage(job, difficulty, careerYear, data.resumeType(), locale, data.content());
                 try {
                     log.debug("호출되는가?");
                     ChatCompletionResult chatCompletionResult = generate(chatMessages);
