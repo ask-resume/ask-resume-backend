@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.constraints.NotBlank;
 
@@ -46,6 +47,7 @@ public class ExtractController {
         return ResponseEntity.ok(new ApiResult<>(extractService.pdfToText(file)));
     }
 
+    @ApiIgnore(value = "가상DOM 등을 사용하는 사이트에서 동작 이슈가 있어, 수정전까지 Ignore")
     @Tag(name = "extract")
     @Operation(summary = "Link를 Text로 전환하는 API", description = "Link를 Text로 전환하는 API")
     @ApiResponses({
