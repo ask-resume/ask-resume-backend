@@ -4,7 +4,7 @@ import app.askresume.api.access.dto.request.LoginRequest;
 import app.askresume.api.access.dto.response.AccessTokenResponse;
 import app.askresume.api.access.dto.response.LoginResponse;
 import app.askresume.api.access.facade.AccessFacade;
-import app.askresume.api.access.validator.OauthValidator;
+import app.askresume.api.member.validator.OauthValidator;
 import app.askresume.domain.member.constant.MemberType;
 import app.askresume.global.model.ApiResult;
 import app.askresume.global.resolver.token.AuthorizationToken;

@@ -3,7 +3,7 @@ package app.askresume.api.resume.controller;
 import app.askresume.api.resume.dto.request.GenerateExpectedQuestionRequest;
 import app.askresume.api.resume.dto.response.WhatGeneratedResponse;
 import app.askresume.api.resume.facade.ResumeFacade;
-import app.askresume.api.resume.validator.ResumeValidator;
+import app.askresume.domain.resume.validator.ResumeValidator;
 import app.askresume.domain.locale.constant.LocaleType;
 import app.askresume.domain.locale.validator.LocaleValidator;
 import app.askresume.global.model.ApiResult;

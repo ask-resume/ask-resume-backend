@@ -1,4 +1,4 @@
-package app.askresume.api.resume.validator;
+package app.askresume.domain.resume.validator;
 
 import app.askresume.domain.resume.constant.DifficultyType;
 import app.askresume.global.error.ErrorCode;

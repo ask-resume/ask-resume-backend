@@ -1,4 +1,4 @@
-package app.askresume.api.access.validator;
+package app.askresume.api.member.validator;
 
 import app.askresume.domain.member.constant.MemberType;
 import app.askresume.global.error.ErrorCode;
