@@ -3,6 +3,7 @@ package app.askresume.global.error;
 import app.askresume.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -59,32 +60,11 @@ public class GlobalExceptionHandler {
                 .body(errorResponse);
     }
 
-
-    // 필수값이 비어 있는경우, 발생
-    @ExceptionHandler(MissingServletRequestParameterException.class)
-    protected ResponseEntity<ErrorResponse> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
-        ErrorCode errorCode = ErrorCode.OMITTING_REQUIRED_VALUES;
-
-        final String logMessage = messageSource.getMessage(errorCode.getProperties(), null, Locale.KOREAN);
-        final String userMessage = messageSource.getMessage(errorCode.getProperties(), null, LocaleContextHolder.getLocale());
-
-        log.error(ERROR_LOG_MESSAGE, e.getClass().getSimpleName(), logMessage, e);
-
-        ErrorResponse errorResponse = ErrorResponse.of(errorCode.getErrorCode(), userMessage);
-
-        return ResponseEntity.status(errorCode.getHttpStatus())
-                .body(errorResponse);
-    }
-
-
     // 비즈니스 로직 실행 중 오류 발생
     @ExceptionHandler(value = {BusinessException.class})
     protected ResponseEntity<ErrorResponse> handBusinessException(BusinessException e) {
         final String logMessage = messageSource.getMessage(e.getMessage(), null, Locale.KOREA);
         final String userMessage = messageSource.getMessage(e.getMessage(), null, LocaleContextHolder.getLocale());
-
-        e.getMessage();
-        e.getLocalizedMessage();
 
         log.error(ERROR_LOG_MESSAGE, e.getClass().getSimpleName(), logMessage, e);
 
@@ -94,14 +74,32 @@ public class GlobalExceptionHandler {
                 .body(errorResponse);
     }
 
+    // 필수값이 비어 있는경우, 발생
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    protected ResponseEntity<ErrorResponse> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
+        ErrorCode errorCode = ErrorCode.OMITTING_REQUIRED_VALUES;
+
+        return getErrorResponseResponseEntity(e, errorCode);
+    }
+
     // 나머지 예외 발생
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ErrorResponse> handleException(Exception e) {
-        log.error(ERROR_LOG_MESSAGE, e.getClass().getSimpleName(), e.getMessage(), e);
+        ErrorCode errorCode = ErrorCode.INTERNAL_SERVER_ERROR;
 
-        ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e.getMessage());
+        return getErrorResponseResponseEntity(e, errorCode);
+    }
 
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+    @NotNull
+    private ResponseEntity<ErrorResponse> getErrorResponseResponseEntity(Exception e, ErrorCode errorCode) {
+        final String logMessage = messageSource.getMessage(errorCode.getProperties(), null, Locale.KOREAN);
+        final String userMessage = messageSource.getMessage(errorCode.getProperties(), null, LocaleContextHolder.getLocale());
+
+        log.error(ERROR_LOG_MESSAGE, e.getClass().getSimpleName(), logMessage, e);
+
+        ErrorResponse errorResponse = ErrorResponse.of(errorCode.getErrorCode(), userMessage);
+
+        return ResponseEntity.status(errorCode.getHttpStatus())
                 .body(errorResponse);
     }
 

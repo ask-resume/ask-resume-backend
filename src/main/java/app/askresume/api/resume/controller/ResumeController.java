@@ -35,8 +35,8 @@ public class ResumeController {
     @Operation(summary = "예상 질문 생성 API", description = "예상 질문 생성 API")
     @ApiResponses({
             @ApiResponse(responseCode = "500", description = "서버 오류 발생(관리자 문의)"),
-            @ApiResponse(responseCode = "500", description = "(SYS-001) 스레드 작업 중 문제 발생"),
-            @ApiResponse(responseCode = "500", description = "(SYS-002) JSON 파싱 중 문제"),
+            @ApiResponse(responseCode = "500", description = "(SYS-002) 스레드 작업 중 문제 발생"),
+            @ApiResponse(responseCode = "500", description = "(SYS-003) JSON 파싱 중 문제"),
             @ApiResponse(responseCode = "400", description = "(RES-001) 잘못된 난이도 유형")
     })
     @PostMapping("/v1/resume/generate")

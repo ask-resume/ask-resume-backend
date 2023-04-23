@@ -10,11 +10,6 @@ public class BusinessException extends RuntimeException {
     public BusinessException(ErrorCode errorCode) {
         super(errorCode.getProperties());
         this.errorCode = errorCode;
-
     }
 
-    @Override
-    public String getMessage() {
-        return super.getMessage();
-    }
 }
