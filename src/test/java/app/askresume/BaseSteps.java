@@ -21,10 +21,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 public class BaseSteps extends ApiTest {
 
     @Autowired
-    private MockMvc mockMvc;
+    protected MockMvc mockMvc;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    protected ObjectMapper objectMapper;
 
     private final String EMAIL = "member@domain.co.kr";
     private final String PASSWORD = "!Password1234";
@@ -63,9 +63,14 @@ public class BaseSteps extends ApiTest {
 
     public String 로그인_토큰(LoginRequest loginRequest) throws Exception {
         MockHttpServletResponse response = 로그인요청(loginRequest);
-        return getResponseObject(response, LoginResponse.class).accessToken();
+        LoginResponse loginResponse = getResponseObject(response, LoginResponse.class);
+        return loginResponse.accessToken();
     }
 
+    public String 회원가입_토큰() throws Exception {
+        회원가입요청(회원가입요청_생성());
+        return 로그인_토큰(로그인요청_생성());
+    }
 
     protected <T> T getResponseObject(MockHttpServletResponse response, Class<T> type) throws Exception {
         JavaType javaType = objectMapper.getTypeFactory().constructParametricType(ApiResult.class, type);

@@ -1,4 +1,4 @@
-package app.askresume.api.job.controller;
+package app.askresume.api.job;
 
 import app.askresume.api.job.dto.response.JobResponse;
 import app.askresume.api.job.facade.JobFacade;
@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +19,6 @@ import java.util.List;
 
 @Slf4j
 @Tag(name = "job", description = "직업데이터 API")
-@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
