@@ -42,9 +42,9 @@ public class ResumeController {
     @PostMapping("/v1/resume/generate")
     public ResponseEntity<ApiResult<WhatGeneratedResponse>> generate(@Validated @RequestBody GenerateExpectedQuestionRequest request) {
         resumeValidator.validateDifficultyType(request.difficulty());
-        localeValidator.validateLocaleType(request.locale());
+        String locale = localeValidator.validateLocaleType(request.locale());
 
-        final GenerateExpectedQuestionRequest updatedRequest = request.updateLocale(LocaleType.from(request.locale()).value());
+        final GenerateExpectedQuestionRequest updatedRequest = request.updateLocale(LocaleType.from(locale).value());
 
         final WhatGeneratedResponse generate = resumeFacade.generate(updatedRequest);
         return ResponseEntity.ok(new ApiResult<>(generate));

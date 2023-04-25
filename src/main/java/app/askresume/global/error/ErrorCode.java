@@ -30,9 +30,6 @@ public enum ErrorCode {
     NOT_PERMITTED_CONTENT_TYPE(HttpStatus.BAD_REQUEST, "FILE-001", "not.permitted.content.type"),
     TEXT_EXTRACTION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "FILE-002", "text.extraction.failed"),
 
-    /** Locale */
-    INVALID_LOCALE_TYPE(HttpStatus.BAD_REQUEST, "LOC-001", "invalid.locale.type"),
-
     /** 직업 */
     JOB_NOT_EXISTS(HttpStatus.BAD_REQUEST, "JOB-001", "job.not.exists"),
 

@@ -32,9 +32,9 @@ public class JobController {
     @GetMapping("/v1/jobs")
     public ResponseEntity<ApiResult<List<JobResponse>>> findJobs() {
 
-        final String language = LocaleContextHolder.getLocale().getLanguage();
+        String language = LocaleContextHolder.getLocale().getLanguage();
 
-        localeValidator.validateLocaleType(language);
+        language = localeValidator.validateLocaleType(language);
         LocaleType localeType = LocaleType.from(language);
 
         return ResponseEntity.ok(new ApiResult<>(jobFacade.findJobs(localeType.name())));
