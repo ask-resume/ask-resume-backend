@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 public class LocaleValidator {
 
     public String validateLocaleType(String locale) {
-        return (!LocaleType.isLocaleType(locale)) ? LocaleType.EN.value() : locale;
+        return (!LocaleType.isLocaleType(locale)) ? LocaleType.EN.name() : locale;
     }
 }
