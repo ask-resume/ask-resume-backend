@@ -24,14 +24,33 @@ class JobControllerTest extends BaseSteps {
     }
 
     @Test
-    @DisplayName("직업데이터를 정상적으로 조회하면 200을 반환")
-    void ifYouLookUpJobDataNormally200IsReturned() throws Exception {
+    @DisplayName("직업리스트를 정상적인, accept_language으로 조회하면 200을 반환")
+    void ifYouLookUpJobListNormally200IsReturned() throws Exception {
 
         // given & when
         MockHttpServletResponse response = mockMvc.perform(
                         get("/api/v1/jobs")
                                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                                 .header(HttpHeaders.AUTHORIZATION, accessToken)
+                                .header(HttpHeaders.ACCEPT_LANGUAGE, "en-US")
+                )
+                .andDo(print())
+                .andReturn().getResponse();
+
+        // then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+    }
+
+    @Test
+    @DisplayName("직업리스트를 올바르지 않는, accept_language으로 조회하면 200을 반환")
+    void ifYouLookUpJobListIncorrectly200IsReturned() throws Exception {
+
+        // given & when
+        MockHttpServletResponse response = mockMvc.perform(
+                        get("/api/v1/jobs")
+                                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                                .header(HttpHeaders.AUTHORIZATION, accessToken)
+                                .header(HttpHeaders.ACCEPT_LANGUAGE, "strange")
                 )
                 .andDo(print())
                 .andReturn().getResponse();
