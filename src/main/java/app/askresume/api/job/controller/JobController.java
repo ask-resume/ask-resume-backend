@@ -1,4 +1,4 @@
-package app.askresume.api.job;
+package app.askresume.api.job.controller;
 
 import app.askresume.api.job.dto.response.JobResponse;
 import app.askresume.api.job.facade.JobFacade;
@@ -37,6 +37,6 @@ public class JobController {
         language = localeValidator.validateLocaleType(language);
         LocaleType localeType = LocaleType.from(language);
 
-        return ResponseEntity.ok(new ApiResult<>(jobFacade.findJobs(localeType.name())));
+        return ResponseEntity.ok(new ApiResult<>(jobFacade.findJobs(localeType)));
     }
 }

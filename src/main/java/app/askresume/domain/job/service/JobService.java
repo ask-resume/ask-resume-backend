@@ -5,6 +5,7 @@ import app.askresume.domain.job.model.Job;
 import app.askresume.domain.job.model.JobMaster;
 import app.askresume.domain.job.repository.JobMasterRepository;
 import app.askresume.domain.job.repository.JobRepository;
+import app.askresume.domain.locale.constant.LocaleType;
 import app.askresume.global.error.ErrorCode;
 import app.askresume.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class JobService {
         return jobRepository.save(job);
     }
 
-    public List<JobResponse> findJobs(String locale) {
+    public List<JobResponse> findJobs(LocaleType locale) {
         return jobRepository.findJobs(locale);
     }
 
