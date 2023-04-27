@@ -1,14 +1,13 @@
 package app.askresume.global.resolver.token;
 
 
-import lombok.Builder;
-import lombok.Getter;
+public record TokenDto(
+        String authorizationHeader,
+        String token
+) {
 
-@Getter
-@Builder
-public class TokenDto {
-
-    private String authorizationHeader;
-
-    private String token;
+    public TokenDto(String authorizationHeader, String token) {
+        this.authorizationHeader = authorizationHeader;
+        this.token = token;
+    }
 }

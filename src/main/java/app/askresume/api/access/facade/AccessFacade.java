@@ -4,7 +4,7 @@ import app.askresume.api.access.dto.request.LoginRequest;
 import app.askresume.api.access.dto.request.SignUpRequest;
 import app.askresume.api.access.dto.response.AccessTokenResponse;
 import app.askresume.api.access.dto.response.LoginResponse;
-import app.askresume.api.access.validator.PasswordValidator;
+import app.askresume.api.member.validator.PasswordValidator;
 import app.askresume.domain.member.constant.MemberType;
 import app.askresume.domain.member.constant.Role;
 import app.askresume.domain.member.model.Member;
@@ -113,10 +113,10 @@ public class AccessFacade {
         Date accessTokenExpireTime = tokenManager.createAccessTokenExpireTime();
         String accessToken = tokenManager.createAccessToken(member.getId(), member.getRole(), accessTokenExpireTime);
 
-        return AccessTokenResponse.builder()
-                .grantType(GrantType.BEARER.getType())
-                .accessToken(accessToken)
-                .accessTokenExpireTime(accessTokenExpireTime)
-                .build();
+        return new AccessTokenResponse(
+                GrantType.BEARER.getType(),
+                accessToken,
+                accessTokenExpireTime
+        );
     }
 }

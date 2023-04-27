@@ -6,11 +6,15 @@ server:
 spring:
   jpa:
     show-sql: true # 콘솔창에 SQL 출력
+    open-in-view: false # 영속성 컨텍스트의 생존 범위를 트랜잭션 범위로 한정
     properties:
       hibernate:
         format_sql: true # SQL 예쁘게 출력
         default_batch_fetch_size: 1000 # 일대다 컬렉션 조회 시 성능 최적화
-    open-in-view: false # 영속성 컨텍스트의 생존 범위를 트랜잭션 범위로 한정
+
+  messages:
+    basename: message/messages
+    encoding: UTF-8
 
   servlet:
     multipart:
@@ -28,8 +32,7 @@ file:
 # logging 설정
 logging:
   level:
-    org.hibernate.type: trace # 콘솔창에 조건에 바인딩되는 값 및 조회 결과 출력
-    app.askresume: debug
+    org.hibernate.type: off # 콘솔창에 조건에 바인딩되는 값 및 조회 결과 출력
 
 # spring cloud feign client 설정
 feign:
@@ -41,7 +44,7 @@ feign:
 
 # Swagger 설정
 swagger:
-  version: "1.1"
+  version: "1.2"
 
 # JWT Token 설정
 token:

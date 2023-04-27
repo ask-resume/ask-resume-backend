@@ -18,6 +18,9 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+  messages:
+    basename: message/messages
+    encoding: UTF-8
 # logging 설정
 logging:
   level:

@@ -30,13 +30,14 @@ public class TokenManager {
 
         String accessToken = createAccessToken(memberId, role, accessTokenExpireTime);
         String refreshToken = createRefreshToken(memberId, refreshTokenExpireTime);
-        return JwtTokenDto.builder()
-                .grantType(GrantType.BEARER.getType())
-                .accessToken(accessToken)
-                .accessTokenExpireTime(accessTokenExpireTime)
-                .refreshToken(refreshToken)
-                .refreshTokenExpireTime(refreshTokenExpireTime)
-                .build();
+
+        return new JwtTokenDto(
+                GrantType.BEARER.getType(),
+                accessToken,
+                accessTokenExpireTime,
+                refreshToken,
+                refreshTokenExpireTime
+        );
     }
 
     public Date createAccessTokenExpireTime() {

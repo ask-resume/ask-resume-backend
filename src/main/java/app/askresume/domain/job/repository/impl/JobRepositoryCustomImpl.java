@@ -3,6 +3,7 @@ package app.askresume.domain.job.repository.impl;
 import app.askresume.api.job.dto.response.JobResponse;
 import app.askresume.api.job.dto.response.QJobResponse;
 import app.askresume.domain.job.repository.JobRepositoryCustom;
+import app.askresume.domain.locale.constant.LocaleType;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -19,7 +20,7 @@ public class JobRepositoryCustomImpl implements JobRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<JobResponse> findJobs(String locale) {
+    public List<JobResponse> findJobs(LocaleType locale) {
         return queryFactory
                 .select(new QJobResponse(jobMaster.id, job.name))
                 .from(jobMaster)

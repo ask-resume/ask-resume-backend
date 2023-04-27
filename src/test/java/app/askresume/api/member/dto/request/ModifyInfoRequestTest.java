@@ -11,7 +11,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("ModifyInfoRequest 단위테스트")
+@DisplayName("ModifyInfoRequest 유효성 검사")
 class ModifyInfoRequestTest {
 
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();

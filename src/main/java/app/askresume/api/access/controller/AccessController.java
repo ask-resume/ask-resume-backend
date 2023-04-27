@@ -4,7 +4,7 @@ import app.askresume.api.access.dto.request.LoginRequest;
 import app.askresume.api.access.dto.response.AccessTokenResponse;
 import app.askresume.api.access.dto.response.LoginResponse;
 import app.askresume.api.access.facade.AccessFacade;
-import app.askresume.api.access.validator.OauthValidator;
+import app.askresume.api.member.validator.OauthValidator;
 import app.askresume.domain.member.constant.MemberType;
 import app.askresume.global.model.ApiResult;
 import app.askresume.global.resolver.token.AuthorizationToken;
@@ -36,8 +36,6 @@ public class AccessController {
     @Operation(summary = "일반 로그인 API", description = "일반 로그인 API")
     @PostMapping("/login")
     public ResponseEntity<ApiResult<LoginResponse>> login(@RequestBody LoginRequest loginRequest) {
-
-
         return ResponseEntity.ok(new ApiResult<>(accessFacade.login(loginRequest)));
     }
 
@@ -49,7 +47,6 @@ public class AccessController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-
     @Tag(name = "authentication")
     @Operation(summary = "소셜 로그인 API", description = "소셜 로그인 API")
     @PostMapping("/oauth/login")
@@ -59,14 +56,14 @@ public class AccessController {
         oauthValidator.validateMemberType(oauthLoginRequestDto.memberType());
         MemberType memberType = MemberType.from(oauthLoginRequestDto.memberType());
 
-        return ResponseEntity.ok(new ApiResult<>(accessFacade.oauthLogin(token.getToken(), memberType)));
+        return ResponseEntity.ok(new ApiResult<>(accessFacade.oauthLogin(token.token(), memberType)));
     }
 
     @Tag(name = "authentication")
     @Operation(summary = "로그아웃 API", description = "로그아웃시 refresh token 만료 처리")
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(@AuthorizationToken TokenDto token) {
-        accessFacade.logout(token.getToken());
+        accessFacade.logout(token.token());
 
         return ResponseEntity.noContent().build();
     }
@@ -75,6 +72,6 @@ public class AccessController {
     @Operation(summary = "Access Token 재발급 API", description = "Access Token 재발급 API")
     @PostMapping("/reissued/access-token")
     public ResponseEntity<ApiResult<AccessTokenResponse>> createAccessToken(@AuthorizationToken TokenDto token) {
-        return ResponseEntity.ok(new ApiResult<>(accessFacade.createAccessTokenByRefreshToken(token.getToken())));
+        return ResponseEntity.ok(new ApiResult<>(accessFacade.createAccessTokenByRefreshToken(token.token())));
     }
 }

@@ -1,6 +1,7 @@
 package app.askresume.domain.job.model;
 
 import app.askresume.domain.common.BaseTimeEntity;
+import app.askresume.domain.locale.constant.LocaleType;
 import lombok.*;
 import org.hibernate.annotations.*;
 
@@ -30,7 +31,8 @@ public class Job extends BaseTimeEntity {
     private String name;
 
     @Column(length = 5, nullable = false)
-    private String locale;
+    @Enumerated(EnumType.STRING)
+    private LocaleType locale;
 
     @ColumnDefault("'Y'")
     @Column(length = 1, nullable = false)
