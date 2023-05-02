@@ -1,12 +1,22 @@
+server:
+  ssl:
+    enabled: true
+    key-store: ENC(8qtnALkqgj0QPcreREGS1PJVQPZoBUu0oayo5fJ5vAI=)
+    key-store-password: ENC(k8aex9BuH7s5I0hoX9IXN4gT2lBgS1iQ8eI1jhuklElAbuf2W+oOtrPXcRqCliDB)
+    key-store-type: PKCS12
+    key-alias: 1
+
 spring:
   datasource:
-    url: jdbc:h2:mem:test
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: ENC(3chkk+LvuYxJqKjD6ly1f9brtSbkYazTWemsurxpnWLCkou4kzTRHQo7y+GSGEaB7JauoaEJEy6sbRtsVg4sfRy0SgJ3nlwPO7XNVs3wOK3Q8EL0lABAv8+ggCm3L9ViT4p9hW7oI3bSyxGTorgEHwxYNHB9rjvJRVPdMI7mBJ4K0gn+xUaNWQ==)
+    username: ENC(EY2UjrJjPFCehvVShq8aOA==)
+    password: ENC(L/1/2wgCwnq+qDZSYeM7bePmgZa3jchPZZp2kfAW9Bk=)
+    driver-class-name: com.mysql.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: validate
+    properties:
+      dialect: org.hibernate.dialect.MySQL8Dialect
 
 logging:
   level:
@@ -16,3 +26,8 @@ logging:
 swagger:
   title: "ask-resume API DOCS (운영)"
   description: "운영서버 API 문서입니다."
+
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: off
