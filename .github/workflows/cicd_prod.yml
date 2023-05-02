@@ -54,8 +54,8 @@ jobs:
           docker tag ${{secrets.DOCKER_REPO_PROD}}:latest ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKER_REPO_PROD}}:latest
           docker push ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKER_REPO_PROD}}
 
-      # 서버에서 Docker 이미지 실행
-      - name: EC2 Docker Run
+      # docker pull
+      - name: EC2 Docker Pull
         uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.EC2_HOST_PROD }}
@@ -71,4 +71,27 @@ jobs:
               docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/${{secrets.DOCKER_REPO_PROD}}:latest
             fi
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{secrets.DOCKER_REPO_PROD}}:latest
-            docker run -d -p 8080:8080 --name ${{secrets.DOCKER_REPO_PROD}} -e SPRING_PROFILES_ACTIVE=dev -e JASYPT_ENCRYPTOR_PASSWORD=${{secrets.JASYPT}} ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKER_REPO_PROD}}:latest
+            
+      # ssl copy & run
+      - name: EC2 Docker SSL COPY
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.EC2_HOST_PROD }}
+          username: ${{ secrets.EC2_USERNAME }}
+          password: ${{ secrets.EC2_PASSWORD }}
+          port: ${{ secrets.EC2_PORT }}
+          script: |
+            docker run -d -p 8080:8080 --name ${{secrets.DOCKER_REPO_PROD}} -e SPRING_PROFILES_ACTIVE=prod -e JASYPT_ENCRYPTOR_PASSWORD=${{secrets.JASYPT}} ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKER_REPO_PROD}}:latest
+            
+            docker cp /home/ssl/keystore.p12 ${{secrets.DOCKER_REPO_PROD}}:/home/keystore.p12
+
+      # 서버에서 Docker 이미지 실행
+      - name: EC2 Docker Run
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.EC2_HOST_PROD }}
+          username: ${{ secrets.EC2_USERNAME }}
+          password: ${{ secrets.EC2_PASSWORD }}
+          port: ${{ secrets.EC2_PORT }}
+          script: |
+            docker start ${{secrets.DOCKER_REPO_PROD}}
