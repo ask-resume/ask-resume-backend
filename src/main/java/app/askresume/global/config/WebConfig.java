@@ -66,7 +66,9 @@ public class WebConfig implements WebMvcConfigurer {
                         "/api/v1/resume/generate",
                         "/api/v1/jobs",
                         "/api/v1/extract/link",
-                        "/api/v1/extract/pdf"
+                        "/api/v1/extract/pdf",
+                        "/api/test/server",
+                        "/api/test/bind"
                 );
 
         // 권한 체크
