@@ -38,7 +38,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:4000")
+                .allowedOrigins("http://localhost:4000","https://ask-resume-front.vercel.app","https://ask-resume.com","http://ask-resume.com")
                 .allowedMethods(
                         HttpMethod.GET.name(),
                         HttpMethod.POST.name(),
