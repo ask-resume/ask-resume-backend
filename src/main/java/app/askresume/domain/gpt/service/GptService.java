@@ -35,7 +35,7 @@ public class GptService {
     private String OPENAI_TOKEN;
 
     private final ObjectMapper objectMapper;
-    private final ExecutorService executorService = Executors.newFixedThreadPool(2);
+    private final ExecutorService executorService = Executors.newFixedThreadPool(1);
 
     public ChatCompletionResult generate(List<ChatMessage> chatMessages) {
         OpenAiService openAiService = new OpenAiService(OPENAI_TOKEN, TIME_OUT);
@@ -47,8 +47,6 @@ public class GptService {
                 .topP(TOP_P)
                 .model(MODEL)
                 .build();
-
-        // java.net.SocketTimeoutException 구현
 
         return openAiService.createChatCompletion(build);
 
