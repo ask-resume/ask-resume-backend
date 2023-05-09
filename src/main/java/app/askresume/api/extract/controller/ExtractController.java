@@ -30,7 +30,6 @@ public class ExtractController {
     private final ExtractService extractService;
     private final ExtractValidator extractValidator;
 
-
     @Tag(name = "extract")
     @Operation(summary = "이력서를 Text로 전환 API", description = "이력서를 Text로 전환 API")
     @ApiResponses({

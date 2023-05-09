@@ -5,7 +5,7 @@ import app.askresume.api.resume.dto.request.ResumeDataRequest;
 import app.askresume.api.resume.dto.response.WhatGeneratedResponse;
 import app.askresume.api.resume.mapper.CareerYearMapper;
 import app.askresume.api.resume.mapper.GenerateExpectedQuestionMapper;
-import app.askresume.domain.gpt.service.GptService;
+import app.askresume.external.gpt.service.GptService;
 import app.askresume.domain.job.service.JobService;
 import app.askresume.domain.resume.service.ResumeService;
 import lombok.RequiredArgsConstructor;
