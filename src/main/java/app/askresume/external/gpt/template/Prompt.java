@@ -1,4 +1,4 @@
-package app.askresume.domain.gpt.template;
+package app.askresume.external.gpt.template;
 
 public class Prompt {
     public static String generatePrompt(String job, String difficulty, String careerYear, String resumeType, String locale) {
@@ -24,7 +24,7 @@ public class Prompt {
                             
                 {
                     "predictionResponse" : [
-                        { "type" : "Type of question", "question" : "content", "bestAnswer" : "content" },
+                        { "question" : "content", "bestAnswer" : "content" },
                         { repetition }
                     ]
                 }

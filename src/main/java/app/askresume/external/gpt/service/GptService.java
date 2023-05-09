@@ -1,8 +1,9 @@
-package app.askresume.domain.gpt.service;
+package app.askresume.external.gpt.service;
 
 import app.askresume.api.resume.dto.request.ResumeDataRequest;
 import app.askresume.api.resume.dto.response.WhatGeneratedResponse;
-import app.askresume.domain.gpt.template.Prompt;
+import app.askresume.external.gpt.template.Prompt;
+import app.askresume.external.gpt.config.GptConfig;
 import app.askresume.global.error.ErrorCode;
 import app.askresume.global.error.exception.BusinessException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -24,8 +25,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static app.askresume.domain.gpt.config.GptConfig.*;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -38,14 +37,14 @@ public class GptService {
     private final ExecutorService executorService = Executors.newFixedThreadPool(1);
 
     public ChatCompletionResult generate(List<ChatMessage> chatMessages) {
-        OpenAiService openAiService = new OpenAiService(OPENAI_TOKEN, TIME_OUT);
+        OpenAiService openAiService = new OpenAiService(OPENAI_TOKEN, GptConfig.TIME_OUT);
 
         ChatCompletionRequest build = ChatCompletionRequest.builder()
                 .messages(chatMessages)
-                .maxTokens(MAX_TOKEN)
-                .temperature(TEMPERATURE)
-                .topP(TOP_P)
-                .model(MODEL)
+                .maxTokens(GptConfig.MAX_TOKEN)
+                .temperature(GptConfig.TEMPERATURE)
+                .topP(GptConfig.TOP_P)
+                .model(GptConfig.MODEL)
                 .build();
 
         return openAiService.createChatCompletion(build);

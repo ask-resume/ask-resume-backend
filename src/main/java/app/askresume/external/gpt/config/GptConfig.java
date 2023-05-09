@@ -1,4 +1,4 @@
-package app.askresume.domain.gpt.config;
+package app.askresume.external.gpt.config;
 
 
 import java.time.Duration;
