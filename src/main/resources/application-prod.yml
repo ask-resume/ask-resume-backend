@@ -17,6 +17,7 @@ spring:
       ddl-auto: validate
     properties:
       dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: false
 
 logging:
   level:

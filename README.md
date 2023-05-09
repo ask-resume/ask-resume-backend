@@ -1,6 +1,6 @@
 # Ask Resume - Interview questions and answers generator for your resume
 
-[한국어 Readme](https://github.com/132262b/ask-resume-backend/blob/main/Korean.md)
+[한국어 Readme](https://github.com/dev-redo/ask-resume-front/blob/main/Korean.md)
 
 This service is an LLM service to generate interview questions and answers for your resume.
 
@@ -19,11 +19,13 @@ Enter your resume information and check out the Q&A that will come up in the int
 1. Clicking the button on the landing page will take you to the form page where you can enter your resume.
 
 2. On the form page, enter your personal information (desired occupation, experience, etc.) and your resume. <br />
-   (Note: If you change the language, it will be refreshed and the values you entered may be lost!)
+   (Note: If you change the language, it will be refreshed and the values ​​you entered may be lost!)
 
 3. Submitting after inputting will generate questions and possible answers from your resume. The generated results can be saved as a txt file.
 
 <br />
+
+## example of use
 
 # Caption
 
@@ -41,3 +43,9 @@ We will try to resolve the issue as soon as possible. Really sorry for the incon
 # Credit
 
 This service is inspired by [DevPort](https://github.com/custardcream98/DevPort) and [gpt4-pdf-chatbot-langchain](https://github.com/mayooear/gpt4-pdf-chatbot-langchain)
+
+<br />
+
+# Contact
+
+If you find an error while using it or have a desired function, Please contact me by [Discord](https://discord.gg/aTzGNZ3y) or write Issue!
