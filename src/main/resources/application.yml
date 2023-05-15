@@ -4,10 +4,6 @@ server:
     context-path: /
 
 spring:
-  cache:
-    ehcache:
-      config: classpath:ehcache.xml
-
   jpa:
     show-sql: true # 콘솔창에 SQL 출력
     open-in-view: false # 영속성 컨텍스트의 생존 범위를 트랜잭션 범위로 한정

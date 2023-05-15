@@ -31,7 +31,6 @@ dependencies {
 
     // cache
     implementation 'org.springframework.boot:spring-boot-starter-cache'
-    implementation 'org.ehcache:ehcache:3.10.6'
 
     // 화면 필요시
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
