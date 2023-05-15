@@ -9,12 +9,15 @@ import app.askresume.domain.locale.constant.LocaleType;
 import app.askresume.global.error.ErrorCode;
 import app.askresume.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class JobService {
 
     private final JobRepository jobRepository;
@@ -29,6 +32,7 @@ public class JobService {
         return jobRepository.save(job);
     }
 
+    @Cacheable(cacheNames = "jobListCache", key = "#locale.toString()")
     public List<JobResponse> findJobs(LocaleType locale) {
         return jobRepository.findJobs(locale);
     }
