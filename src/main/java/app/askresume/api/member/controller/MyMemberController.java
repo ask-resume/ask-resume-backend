@@ -57,5 +57,4 @@ public class MyMemberController {
 
         return ResponseEntity.noContent().build();
     }
-
 }

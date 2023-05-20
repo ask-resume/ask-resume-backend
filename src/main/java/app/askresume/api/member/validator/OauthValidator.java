@@ -13,5 +13,4 @@ public class OauthValidator {
             throw new BusinessException(ErrorCode.INVALID_MEMBER_TYPE);
         }
     }
-
 }
