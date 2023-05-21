@@ -25,41 +25,46 @@ import java.time.LocalDateTime;
 @Table(uniqueConstraints = {@UniqueConstraint(name = "iduk", columnNames = {"email", "memberType"})})
 public class Member extends BaseTimeEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-
+    @Comment(value = "이메일")
     @Column(length = 50, nullable = false)
     private String email;
 
+    @Comment(value = "비밀번호")
     @Column(length = 200)
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Comment(value = "맴버 타입")
     @Column(length = 10, nullable = false)
     private MemberType memberType;
 
+    @Comment(value = "사용자명")
     @Column(length = 30, nullable = false)
     private String username;
 
+    @Comment(value = "사용자언어")
     @Column(length = 5, nullable = false)
     private String locale;
 
+    @Comment(value = "프로필")
     @Column(length = 300)
     private String profile;
 
     @Enumerated(EnumType.STRING)
+    @Comment(value = "권한")
     @Column(length = 10, nullable = false)
     private Role role;
 
     @ColumnDefault("'Y'")
+    @Comment(value = "삭제유무")
     @Column(length = 1, nullable = false)
     private String deletedAt;
 
+    @Comment(value = "토큰")
     @Column(length = 250)
     private String refreshToken;
 
+    @Comment(value = "토큰 만료일")
     private LocalDateTime tokenExpirationTime;
 
     public void updateRefreshToken(JwtTokenDto jwtTokenDto) {
