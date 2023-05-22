@@ -2,7 +2,6 @@ package app.askresume.external.gpt.service;
 
 import app.askresume.api.resume.dto.request.ResumeDataRequest;
 import app.askresume.api.resume.dto.response.WhatGeneratedResponse;
-import app.askresume.external.gpt.template.Prompt;
 import app.askresume.external.gpt.config.GptConfig;
 import app.askresume.global.error.ErrorCode;
 import app.askresume.global.error.exception.BusinessException;
@@ -51,25 +50,26 @@ public class GptService {
 
     }
 
-    public List<ChatMessage> generateMessage(String job, String difficulty, String careerYear, String resumeType, String locale, String content) {
-        final String prompt = Prompt.generatePrompt(job, difficulty, careerYear, resumeType, locale);
+    public List<ChatMessage> generateMessage(String prompt, String job, String difficulty, String careerYear, String resumeType, String locale, String content) {
 
-        log.debug("생성된 프롬프트 : {} ", prompt);
+        final String bindingPrompt = String.format(prompt, job, resumeType, difficulty, careerYear, locale);
 
-        ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), prompt);
+        log.debug("생성된 프롬프트 : {} ", bindingPrompt);
+
+        ChatMessage systemMessage = new ChatMessage(ChatMessageRole.SYSTEM.value(), bindingPrompt);
         ChatMessage userMessage = new ChatMessage(ChatMessageRole.USER.value(), content);
 
         return List.of(systemMessage, userMessage);
     }
 
-    public WhatGeneratedResponse createdExpectedQuestionsAndAnswer(String job, String difficulty, String careerYear, String locale, List<ResumeDataRequest> resumeData) {
+    public WhatGeneratedResponse createdExpectedQuestionsAndAnswer(String prompt, String job, String difficulty, String careerYear, String locale, List<ResumeDataRequest> resumeData) {
 
         // 멀티스레드 호출
         List<CompletableFuture<WhatGeneratedResponse>> futures = new ArrayList<>();
 
         for (ResumeDataRequest data : resumeData) {
             CompletableFuture<WhatGeneratedResponse> future = CompletableFuture.supplyAsync(() -> {
-                List<ChatMessage> chatMessages = generateMessage(job, difficulty, careerYear, data.resumeType(), locale, data.content());
+                List<ChatMessage> chatMessages = generateMessage(prompt, job, difficulty, careerYear, data.resumeType(), locale, data.content());
                 try {
                     log.debug("호출되는가?");
                     ChatCompletionResult chatCompletionResult = generate(chatMessages);

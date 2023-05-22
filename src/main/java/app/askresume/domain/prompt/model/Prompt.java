@@ -1,12 +1,12 @@
 package app.askresume.domain.prompt.model;
 
-import app.askresume.domain.common.BaseEntity;
+import app.askresume.domain.common.BaseTimeEntity;
 import app.askresume.domain.prompt.constant.PromptType;
 import lombok.*;
 import org.hibernate.annotations.*;
 
-import javax.persistence.*;
 import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Getter
 @Where(clause = "deleted_at = 'Y'")
@@ -17,7 +17,7 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Prompt extends BaseEntity {
+public class Prompt extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     @Comment(value = "타입")

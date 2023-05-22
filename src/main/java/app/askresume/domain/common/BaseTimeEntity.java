@@ -19,10 +19,12 @@ public abstract class BaseTimeEntity {
     @Comment(value = "id")
     private Long id;
 
+    @Comment("등록일")
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
+    @Comment("수정일")
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
