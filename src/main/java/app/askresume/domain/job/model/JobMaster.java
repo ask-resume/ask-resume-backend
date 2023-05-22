@@ -20,17 +20,15 @@ import java.util.List;
 @Entity
 public class JobMaster extends BaseTimeEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Builder.Default
     @OneToMany(mappedBy = "jobMaster", fetch = FetchType.LAZY)
     private List<Job> jobs = new ArrayList<>();
 
+    @Comment(value = "작업마스터명")
     @Column(length = 150, nullable = false)
     private String masterName;
 
+    @Comment(value = "삭제유무")
     @ColumnDefault("'Y'")
     @Column(length = 1, nullable = false)
     private String deletedAt;

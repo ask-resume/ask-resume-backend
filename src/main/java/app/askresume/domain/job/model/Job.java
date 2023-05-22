@@ -19,22 +19,22 @@ import javax.persistence.Entity;
 @Entity
 public class Job extends BaseTimeEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @ManyToOne
+    @Comment(value = "직업마스터 ID")
     @JoinColumn(name = "jobMasterId", nullable = false)
     private JobMaster jobMaster;
 
+    @Comment(value = "직업명")
     @Column(length = 150, nullable = false)
     private String name;
 
+    @Comment(value = "언어")
     @Column(length = 5, nullable = false)
     @Enumerated(EnumType.STRING)
     private LocaleType locale;
 
     @ColumnDefault("'Y'")
+    @Comment(value = "삭제유무")
     @Column(length = 1, nullable = false)
     private String deletedAt;
 

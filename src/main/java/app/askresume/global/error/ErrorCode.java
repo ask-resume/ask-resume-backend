@@ -33,6 +33,9 @@ public enum ErrorCode {
     /** 직업 */
     JOB_NOT_EXISTS(HttpStatus.BAD_REQUEST, "JOB-001", "job.not.exists"),
 
+    /** 프롬프트 */
+    PROMPT_NOT_EXISTS(HttpStatus.BAD_REQUEST,"PRM-001","prompt.not.exists"),
+
     /** 시스템 에러 */
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "SYS-001", "internal.server.error"),
     THREAD_MALFUNCTION(HttpStatus.INTERNAL_SERVER_ERROR, "SYS-002", "thread.malfunction"),

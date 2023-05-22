@@ -5,6 +5,8 @@ import app.askresume.api.resume.dto.request.ResumeDataRequest;
 import app.askresume.api.resume.dto.response.WhatGeneratedResponse;
 import app.askresume.api.resume.mapper.CareerYearMapper;
 import app.askresume.api.resume.mapper.GenerateExpectedQuestionMapper;
+import app.askresume.domain.prompt.constant.PromptType;
+import app.askresume.domain.prompt.service.PromptService;
 import app.askresume.external.gpt.service.GptService;
 import app.askresume.domain.job.service.JobService;
 import app.askresume.domain.resume.service.ResumeService;
@@ -25,6 +27,8 @@ public class ResumeFacade {
     private final GenerateExpectedQuestionMapper generateExpectedQuestionMapper;
     private final CareerYearMapper careerYearMapper;
 
+    private final PromptService promptService;
+
 
     public WhatGeneratedResponse generate(final GenerateExpectedQuestionRequest request) {
 
@@ -36,8 +40,9 @@ public class ResumeFacade {
         final String locale = request.locale();
         final List<ResumeDataRequest> resumeData = generateExpectedQuestionMapper.toResumeData(request.contents());
 
-        // 나중에 모범답변? 으로 이름 바꿀지 고민해야함.
-        WhatGeneratedResponse response = gptService.createdExpectedQuestionsAndAnswer(job, difficulty, careerYear, locale, resumeData);
+        String prompt = promptService.findByPromptType(PromptType.QUESTIONS_AND_MODEL_ANSWERS);
+
+        WhatGeneratedResponse response = gptService.createdExpectedQuestionsAndAnswer(prompt, job, difficulty, careerYear, locale, resumeData);
 
 
         // request 내용, 생성된 질문 저장

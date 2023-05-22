@@ -27,6 +27,10 @@ Enter your resume information and check out the Q&A that will come up in the int
 
 ## example of use
 
+https://github.com/dev-redo/ask-resume-front/assets/69149030/8a24369c-a5e7-44a5-9114-eb5a520a99c4
+
+<br />
+
 # Caption
 
 ## 1. Why is it failing to produce results?
