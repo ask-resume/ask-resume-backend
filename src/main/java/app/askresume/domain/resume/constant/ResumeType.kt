@@ -1,6 +1,7 @@
-package app.askresume.domain.resume.constant;
+package app.askresume.domain.resume.constant
 
-public enum ResumeType {
+
+enum class ResumeType(private val value: String) {
 
     INTRODUCTION("introduction"), // 자기소개서
     CAREER("career history"), // 경력
@@ -11,14 +12,5 @@ public enum ResumeType {
     AAC("achievements and credentials") // 자격증,어학,수상내역
     ;
 
-    private final String value;
-
-    public String value() {
-        return value;
-    }
-
-    ResumeType(String value) {
-        this.value = value;
-    }
-
+    fun value() = value
 }
