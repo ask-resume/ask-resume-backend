@@ -12,9 +12,9 @@ import javax.persistence.MappedSuperclass
 abstract class BaseEntity : BaseTimeEntity() {
     @CreatedBy
     @Column(updatable = false)
-    private val createdBy: String? = null
+    val createdBy: String? = null
 
     @LastModifiedBy
-    private val updatedBy: String? = null
+    val updatedBy: String? = null
 }
 

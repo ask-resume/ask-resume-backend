@@ -6,10 +6,7 @@ import org.hibernate.annotations.*
 import javax.persistence.*
 import javax.persistence.Entity
 
-@Where(clause = "deleted_at = 'Y'")
 @SQLDelete(sql = "UPDATE prompt SET deleted_at = 'N' WHERE id = ?")
-@DynamicInsert
-@DynamicUpdate
 @Entity
 class Prompt(
 
@@ -26,10 +23,5 @@ class Prompt(
     @Comment(value = "타입")
     @Column(length = 200)
     val description: String? = null,
-
-    @ColumnDefault("'Y'")
-    @Comment(value = "삭제유무")
-    @Column(length = 1, nullable = false)
-    val deletedAt: String,
 
 ) : BaseTimeEntity()

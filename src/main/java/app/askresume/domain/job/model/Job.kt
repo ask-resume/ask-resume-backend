@@ -6,10 +6,7 @@ import org.hibernate.annotations.*
 import javax.persistence.*
 import javax.persistence.Entity
 
-@Where(clause = "deleted_at = 'Y'")
 @SQLDelete(sql = "UPDATE job SET deleted_at = 'N' WHERE id = ?")
-@DynamicInsert
-@DynamicUpdate
 @Entity
 class Job(
 
@@ -27,9 +24,4 @@ class Job(
     @Enumerated(EnumType.STRING)
     val locale: LocaleType,
 
-    @ColumnDefault("'Y'")
-    @Comment(value = "삭제유무")
-    @Column(length = 1, nullable = false)
-    val deletedAt: String,
-
-) : BaseTimeEntity()
+    ) : BaseTimeEntity()

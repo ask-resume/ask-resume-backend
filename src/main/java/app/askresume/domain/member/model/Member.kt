@@ -11,10 +11,7 @@ import javax.persistence.*
 import javax.persistence.Entity
 import javax.persistence.Table
 
-@Where(clause = "deleted_at = 'Y'")
 @SQLDelete(sql = "UPDATE member SET deleted_at = 'N' WHERE id = ?")
-@DynamicInsert
-@DynamicUpdate
 @Entity
 @Table(uniqueConstraints = [UniqueConstraint(name = "iduk", columnNames = ["email", "memberType"])])
 class Member(
@@ -25,7 +22,7 @@ class Member(
 
     @Comment(value = "비밀번호")
     @Column(length = 200)
-    val password: String?,
+    val password: String? = null,
 
     @Enumerated(EnumType.STRING)
     @Comment(value = "맴버 타입")
@@ -41,17 +38,12 @@ class Member(
     @Column(length = 10, nullable = false)
     val role: Role,
 
-    @ColumnDefault("'Y'")
-    @Comment(value = "삭제유무")
-    @Column(length = 1, nullable = false)
-    val deletedAt: String,
-
     username: String,
     profile: String? = null,
     refreshToken: String? = null,
     tokenExpirationTime: LocalDateTime? = null,
 
-) : BaseTimeEntity() {
+    ) : BaseTimeEntity() {
 
     @Comment(value = "사용자명")
     @Column(length = 30, nullable = false)
@@ -65,7 +57,7 @@ class Member(
 
     @Comment(value = "토큰")
     @Column(length = 250)
-    var refreshToken: String? = null
+    var refreshToken: String? = refreshToken
         protected set
 
     @Comment(value = "토큰 만료일")
