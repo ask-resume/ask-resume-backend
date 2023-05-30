@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.kotlin.gradle.utils.extendsFrom
 
 val queryDslVersion = "5.0.0"
 
@@ -66,6 +65,7 @@ dependencies {
     // querydsl
     implementation("com.querydsl:querydsl-jpa:${queryDslVersion}")
     implementation("com.querydsl:querydsl-apt:${queryDslVersion}")
+    kapt("com.querydsl:querydsl-apt:${queryDslVersion}:jpa")
 
     // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
