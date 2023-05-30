@@ -8,7 +8,7 @@ data class WhatGeneratedResponse(
         description = "예상 질문 리스트",
         required = true
     )
-    val predictionResponse: List<PredictionResponse>
+    val predictionResponse: MutableList<PredictionResponse>
 
 ) {
     constructor() : this(ArrayList())
