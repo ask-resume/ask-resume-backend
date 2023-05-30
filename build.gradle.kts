@@ -34,6 +34,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 
+    // Kotlin
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.0")
+
     // cache
     implementation("org.springframework.boot:spring-boot-starter-cache")
 
