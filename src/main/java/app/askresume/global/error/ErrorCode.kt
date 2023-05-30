@@ -16,6 +16,7 @@ enum class ErrorCode(
     REFRESH_TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "AUTH-006", "refresh.token.expired"),
     NOT_ACCESS_TOKEN_TYPE(HttpStatus.UNAUTHORIZED, "AUTH-007", "not.access.token.type"),
     FORBIDDEN_ADMIN(HttpStatus.FORBIDDEN, "AUTH-008", "forbidden.admin"),
+    NOT_EXISTS_SOCIAL_LOGIN_API_SERVICE(HttpStatus.FORBIDDEN, "AUTH-009", "not.exists.social.login.api.service"),
 
     /** 사용자  */
     INVALID_MEMBER_TYPE(HttpStatus.BAD_REQUEST, "MEM-001", "invalid.member.type"),

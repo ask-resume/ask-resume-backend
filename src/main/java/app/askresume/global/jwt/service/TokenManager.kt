@@ -22,7 +22,7 @@ class TokenManager(
 
     private val log = log()
 
-    fun createJwtTokenDto(memberId: Long, role: Role): JwtTokenDto {
+    fun createJwtTokenDto(memberId: Long?, role: Role): JwtTokenDto {
         val accessTokenExpireTime = createAccessTokenExpireTime()
         val refreshTokenExpireTime = createRefreshTokenExpireTime()
 
@@ -46,7 +46,7 @@ class TokenManager(
         return Date(System.currentTimeMillis() + refreshTokenExpirationTime.toLong())
     }
 
-    fun createAccessToken(memberId: Long, role: Role, expirationTime: Date): String {
+    fun createAccessToken(memberId: Long?, role: Role, expirationTime: Date): String {
         return Jwts.builder()
             .setSubject(TokenType.ACCESS.name)      // 토큰 제목
             .setIssuedAt(Date())                    // 토큰 발급 시간
@@ -58,7 +58,7 @@ class TokenManager(
             .compact()
     }
 
-    fun createRefreshToken(memberId: Long, expirationTime: Date): String {
+    fun createRefreshToken(memberId: Long?, expirationTime: Date): String {
         return Jwts.builder()
             .setSubject(TokenType.REFRESH.name)     // 토큰 제목
             .setIssuedAt(Date())                    // 토큰 발급 시간
