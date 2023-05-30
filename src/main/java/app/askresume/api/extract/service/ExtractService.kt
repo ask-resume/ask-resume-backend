@@ -39,9 +39,9 @@ class ExtractService {
         return ExtractedTextResponse(text)
     }
 
-    fun linkToText(url: String?): ExtractedTextResponse {
+    fun linkToText(url: String): ExtractedTextResponse {
         val text = try {
-            val doc = Jsoup.connect(url!!).get()
+            val doc = Jsoup.connect(url).get()
             val elements = doc.allElements
 
             val body = elements.toString().replace("(?is)<body.*?>\\s*(.*?)\\s*</body>".toRegex(), "$1")

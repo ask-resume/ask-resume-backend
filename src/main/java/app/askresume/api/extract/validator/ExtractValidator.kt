@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service
 class ExtractValidator {
 
     @Value("\${file.licensed.content}")
-    private val licensedContentTypes: List<String>? = null
+    private lateinit var licensedContentTypes: List<String>
 
     fun validateContentType(contentType: String?) {
-        val contentTypes = licensedContentTypes!!.stream()
+        val contentTypes = licensedContentTypes.stream()
             .filter { type -> !type.equals(contentType, ignoreCase = true) }.toList()
 
         if (contentTypes.size != 0)

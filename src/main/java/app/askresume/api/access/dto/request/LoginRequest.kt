@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Pattern
 
 data class LoginRequest(
+
     @field:Schema(
         description = "이메일",
         example = "member@domain.co.kr",
@@ -28,5 +29,6 @@ data class LoginRequest(
     @Length(min = 8)
     @NotBlank
     val password: String,
+
 )
 

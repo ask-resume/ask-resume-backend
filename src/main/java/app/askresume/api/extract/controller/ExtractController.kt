@@ -40,7 +40,9 @@ class ExtractController(
             name = "resume",
             description = "이력서PDF파일, maxSize: 3MB, 확장자: pdf)",
             required = true
-        ) @RequestPart("resume") file: MultipartFile
+        )
+        @RequestPart("resume")
+        file: MultipartFile
     ): ResponseEntity<ApiResult<ExtractedTextResponse>> {
         extractValidator.validateContentType(file.contentType)
         return ResponseEntity.ok(ApiResult(extractService.pdfToText(file)))
@@ -59,7 +61,11 @@ class ExtractController(
             name = "url",
             description = "이력서 URL",
             required = true
-        ) @RequestParam url: @NotBlank @URL(message = "올바른 URL 형식이 아닙니다.") String?
+        )
+        @URL(message = "올바른 URL 형식이 아닙니다.")
+        @RequestParam
+        @NotBlank
+        url: String
     ): ResponseEntity<ApiResult<ExtractedTextResponse>> {
         return ResponseEntity.ok(ApiResult(extractService.linkToText(url)))
     }

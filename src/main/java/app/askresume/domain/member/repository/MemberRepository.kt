@@ -4,7 +4,7 @@ import app.askresume.domain.member.constant.MemberType
 import app.askresume.domain.member.model.Member
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface MemberRepository : JpaRepository<Member?, Long?> {
+interface MemberRepository : JpaRepository<Member, Long> {
 
     fun findByEmailAndMemberType(email: String, memberType: MemberType): Member?
 
