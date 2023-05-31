@@ -51,7 +51,7 @@ class GptService(
         careerYear: String,
         resumeType: String,
         locale: String,
-        content: String
+        content: String?
     ): List<ChatMessage> {
         val bindingPrompt = String.format(prompt, job, resumeType, difficulty, careerYear, locale)
 

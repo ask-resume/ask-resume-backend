@@ -44,9 +44,15 @@ class ResumeController(
         resumeValidator.validateDifficultyType(request.difficulty)
         val locale = localeValidator.validateLocaleType(request.locale)
 
-        val updatedRequest = request.updateLocale(LocaleType.from(locale).value())
+        log.debug(locale)
 
-        val generate = resumeFacade.generate(updatedRequest)
+        val copyRequest = request.copy(
+            locale = LocaleType.from(locale).value()
+        )
+
+        log.debug(copyRequest.toString())
+
+        val generate = resumeFacade.generate(copyRequest)
         return ResponseEntity.ok(ApiResult(generate))
     }
 }

@@ -1,6 +1,6 @@
 package app.askresume.api.resume.mapper
 
-import app.askresume.api.resume.dto.request.GenerateExpectedQuestionRequest.MyResume
+import app.askresume.api.resume.dto.request.MyResume
 import app.askresume.api.resume.dto.request.ResumeDataRequest
 import app.askresume.domain.resume.constant.ResumeType
 import org.springframework.stereotype.Component
