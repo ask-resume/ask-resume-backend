@@ -47,13 +47,13 @@ dependencies {
 
     // lucy filter & util 추가
     implementation("org.apache.commons:commons-text:1.10.0")
-    implementation("com.navercorp.lucy:lucy-xss-servlet:2.0.0")
+    implementation("com.navercorp.lucy:lucy-xss-servlet:2.0.1")
 
     // jwt
     implementation("io.jsonwebtoken:jjwt:0.9.1")
 
     // jasypt
-    implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4")
+    implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5")
 
     // db
     runtimeOnly("com.h2database:h2")
@@ -69,13 +69,11 @@ dependencies {
 
     // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("io.rest-assured:rest-assured:4.4.0")
 
     implementation("com.google.guava:guava:31.1-jre")
 
     // open ai
     implementation("com.theokanning.openai-gpt3-java:api:0.11.1")
-    //implementation("com.theokanning.openai-gpt3-java:client:0.11.1")
     implementation("com.theokanning.openai-gpt3-java:service:0.11.1")
 
     // pdf box
