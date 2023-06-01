@@ -1,13 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val queryDslVersion = "5.0.0"
-
 plugins {
+
     val kotlinVersion = "1.8.20"
 
     id("org.springframework.boot") version "2.7.5"
     id("io.spring.dependency-management") version "1.0.15.RELEASE"
-    id("com.ewerk.gradle.plugins.querydsl") version "1.0.10"
 
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion
@@ -36,6 +34,10 @@ dependencies {
     // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.0")
 
+    // jackson-module-kotlin 은 매개변수가 없는 생성자가 없더라도 직렬화와 역직렬화를 지원
+    // 코틀린은 매개변수가 없는 생성자를 만들기 위해 생성자의 모든 매개변수에 기본 인자가 필요
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
     // cache
     implementation("org.springframework.boot:spring-boot-starter-cache")
 
@@ -63,14 +65,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
     // querydsl
-    implementation("com.querydsl:querydsl-jpa:${queryDslVersion}")
-    implementation("com.querydsl:querydsl-apt:${queryDslVersion}")
-    kapt("com.querydsl:querydsl-apt:${queryDslVersion}:jpa")
+    implementation("com.querydsl:querydsl-jpa:5.0.0")
+    kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
 
     // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-
-    implementation("com.google.guava:guava:31.1-jre")
 
     // open ai
     implementation("com.theokanning.openai-gpt3-java:api:0.11.1")

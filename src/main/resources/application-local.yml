@@ -3,7 +3,7 @@ spring:
     url: ENC(3chkk+LvuYxJqKjD6ly1f9brtSbkYazTWemsurxpnWLCkou4kzTRHQo7y+GSGEaB7JauoaEJEy6sbRtsVg4sfRy0SgJ3nlwPO7XNVs3wOK3Q8EL0lABAv8+ggCm3L9ViT4p9hW7oI3bSyxGTorgEHwxYNHB9rjvJRVPdMI7mBJ4K0gn+xUaNWQ==)
     username: ENC(EY2UjrJjPFCehvVShq8aOA==)
     password: ENC(L/1/2wgCwnq+qDZSYeM7bePmgZa3jchPZZp2kfAW9Bk=)
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: validate

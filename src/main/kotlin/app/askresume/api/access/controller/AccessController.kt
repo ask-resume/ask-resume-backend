@@ -9,6 +9,7 @@ import app.askresume.api.access.facade.AccessFacade
 import app.askresume.api.member.validator.OauthValidator
 import app.askresume.domain.member.constant.MemberType
 import app.askresume.global.model.ApiResult
+import app.askresume.global.resolver.token.AuthorizationToken
 import app.askresume.global.resolver.token.TokenDto
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -48,8 +49,8 @@ class AccessController(
     @Operation(summary = "소셜 로그인 API", description = "소셜 로그인 API")
     @PostMapping("/oauth/login")
     fun oauthLogin(
-        @RequestBody oauthLoginRequestDto: OauthLoginRequest,
-        token: TokenDto,
+        @Validated @RequestBody oauthLoginRequestDto: OauthLoginRequest,
+        @AuthorizationToken token: TokenDto,
     ): ResponseEntity<ApiResult<LoginResponse>> {
 
         oauthValidator.validateMemberType(oauthLoginRequestDto.memberType)

@@ -1,5 +1,6 @@
 package app.askresume.global.config
 
+import app.askresume.global.resolver.memberinfo.MemberInfo
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -30,15 +31,15 @@ class SwaggerConfig {
     fun api(): Docket {
         return Docket(DocumentationType.OAS_30)
             .select() // ApiSelectorBuilder 생성
-            .apis(RequestHandlerSelectors.basePackage("app.askresume.api")) // API 패키지 경로 todo 패키지 경로 수정
-            .paths(PathSelectors.ant("/api/**")) // path 조건에 따라서 API 문서화 todo API 경로 수정
+            .apis(RequestHandlerSelectors.basePackage("app.askresume.api")) // API 패키지 경로
+            .paths(PathSelectors.ant("/api/**")) // path 조건에 따라서 API 문서화
             .build()
             .apiInfo(apiInfo()) // API 문서에 대한 정보 추가
             .useDefaultResponseMessages(false) // swagger에서 제공하는 기본 응답 코드 설명 제거
             .securityContexts(listOf(securityContext()))
             .securitySchemes(listOf<SecurityScheme>(apiKey()))
             .globalRequestParameters(globalParameters())
-        //.ignoredParameterTypes(MemberInfo::class.java)
+        .ignoredParameterTypes(MemberInfo::class.java)
     }
 
     private fun apiInfo(): ApiInfo? {
@@ -70,7 +71,7 @@ class SwaggerConfig {
         val authorizationScope = AuthorizationScope("global", "accessEverything")
         val authorizationScopes = arrayOfNulls<AuthorizationScope>(1)
         authorizationScopes[0] = authorizationScope
-        return Arrays.asList(SecurityReference(HttpHeaders.AUTHORIZATION, authorizationScopes))
+        return listOf(SecurityReference(HttpHeaders.AUTHORIZATION, authorizationScopes))
     }
 
     private fun apiKey(): ApiKey {

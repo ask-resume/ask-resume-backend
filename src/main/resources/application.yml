@@ -57,9 +57,11 @@ jasypt:
   encryptor:
     password: ${PASSWORD}
 
-# 구글 API 설정
-google:
-  client:
+# oauth
+oauth:
+  google:
+    url: https://www.googleapis.com/oauth2
+    client-url: https://oauth2.googleapis.com
     id: ENC(Kpzzi6NP09y8n4dBVBjh1wmygBFflVlmK4T5Ox8SjSOMgZHQ4anmqWOGecPq1vpU5xO4WcngZAfTBWSV8aE5oOqs9kKGq3JayJkTI+7GT8imbfjJqwGI7A==)
     secret: ENC(m27Z1jgN6RUXKLoZMPFVKuUpdySPaXMeuvKKpdlG48G9eEmEzFhUuufJ8mnHK/6h)
 

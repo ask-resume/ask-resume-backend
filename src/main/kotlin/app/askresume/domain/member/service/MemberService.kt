@@ -30,8 +30,9 @@ class MemberService(
 
     // 이메일 체크
     private fun validateDuplicateMember(email: String, memberType: MemberType) {
-        memberRepository.findByEmailAndMemberType(email, memberType)
-            ?: throw DuplicateMemberException()
+        if(memberRepository.existsByEmailAndMemberType(email, memberType))
+            throw DuplicateMemberException()
+
     }
 
     fun findMemberByEmail(email: String, memberType: MemberType): Member? {

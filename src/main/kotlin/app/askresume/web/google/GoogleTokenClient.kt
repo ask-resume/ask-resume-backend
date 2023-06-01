@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 
 
-@FeignClient(url = "https://oauth2.googleapis.com", name = "googleTokenClient")
+@FeignClient(url = "\${oauth.google.client-url}", name = "googleTokenClient")
 interface GoogleTokenClient {
 
     @PostMapping(value = ["/token"], consumes = ["application/json"])

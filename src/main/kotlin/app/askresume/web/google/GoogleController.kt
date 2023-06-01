@@ -11,10 +11,10 @@ class GoogleController(
     private val googleTokenClient: GoogleTokenClient,
 ) {
 
-    @Value("\${google.client.id}")
+    @Value("\${oauth.google.id}")
     private lateinit var clientId: String
 
-    @Value("\${google.client.secret}")
+    @Value("\${oauth.google.secret}")
     private lateinit var clientSecret: String
 
     @GetMapping("/oauth/google-callback")
