@@ -4,6 +4,7 @@ import app.askresume.api.member.dto.request.ModifyInfoRequest
 import app.askresume.api.member.dto.response.MemberInfoResponse
 import app.askresume.api.member.facade.MyMemberFacade
 import app.askresume.global.model.ApiResult
+import app.askresume.global.resolver.memberinfo.MemberInfo
 import app.askresume.global.resolver.memberinfo.MemberInfoDto
 import app.askresume.global.util.UriUtil
 import io.swagger.v3.oas.annotations.Operation
@@ -29,7 +30,9 @@ class MyMemberController(
         ApiResponse(responseCode = "MEM-003", description = "해당 회원이 존재하지 않음.")
     )
     @GetMapping("/my-member")
-    fun findMyInfo(memberInfoDto: MemberInfoDto): ResponseEntity<ApiResult<MemberInfoResponse>> {
+    fun findMyInfo(
+        @MemberInfo memberInfoDto: MemberInfoDto
+    ): ResponseEntity<ApiResult<MemberInfoResponse>> {
         val memberId: Long = memberInfoDto.memberId
         return ResponseEntity.ok(ApiResult(myMemberFacade.findMemberInfo(memberId)))
     }
@@ -39,7 +42,7 @@ class MyMemberController(
     @PutMapping("/my-member")
     fun modify(
         @Validated @RequestBody request: ModifyInfoRequest,
-        memberInfoDto: MemberInfoDto
+        @MemberInfo memberInfoDto: MemberInfoDto
     ): ResponseEntity<Void> {
 
         val memberId: Long = memberInfoDto.memberId
@@ -51,7 +54,9 @@ class MyMemberController(
     @Tag(name = "my-member")
     @Operation(summary = "회원 탈퇴 API", description = "회원 탈퇴 API")
     @DeleteMapping("/my-member")
-    fun secession(memberInfoDto: MemberInfoDto): ResponseEntity<Void> {
+    fun secession(
+        @MemberInfo memberInfoDto: MemberInfoDto
+    ): ResponseEntity<Void> {
         val memberId: Long = memberInfoDto.memberId
         myMemberFacade.secessionMember(memberId)
 

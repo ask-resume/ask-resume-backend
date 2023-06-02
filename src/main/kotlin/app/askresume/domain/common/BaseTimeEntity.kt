@@ -13,19 +13,21 @@ import javax.persistence.*
 @EntityListeners(value = [AuditingEntityListener::class])
 @MappedSuperclass
 abstract class BaseTimeEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment(value = "id")
-    val id: Long? = null
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
 
     @Comment("등록일")
     @CreatedDate
     @Column(updatable = false)
-    val createdAt: LocalDateTime? = null
+    lateinit var createdAt: LocalDateTime
 
     @Comment("수정일")
     @LastModifiedDate
-    val updatedAt: LocalDateTime? = null
+    @Column(insertable = false)
+    lateinit var updatedAt: LocalDateTime
 
     @ColumnDefault("'Y'")
     @Comment(value = "삭제유무")

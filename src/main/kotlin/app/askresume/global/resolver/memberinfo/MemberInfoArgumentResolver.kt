@@ -34,7 +34,7 @@ class MemberInfoArgumentResolver(
         val token = authorizationHeader.split(" ")[1]
 
         val tokenClaims = tokenManager.getTokenClaims(token)
-        val memberId = (tokenClaims["memberId"] as String).toLong()
+        val memberId = (tokenClaims["memberId"] as Int).toLong()
         val role = tokenClaims["role"] as String
 
         return MemberInfoDto(memberId, Role.from(role))

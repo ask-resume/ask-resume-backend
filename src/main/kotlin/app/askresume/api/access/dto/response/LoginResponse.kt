@@ -7,11 +7,7 @@ import java.util.*
 
 data class LoginResponse(
 
-    @field:Schema(
-        description = "grantType",
-        example = "Bearer",
-        required = true
-    )
+    @field:Schema( description = "grantType", example = "Bearer", required = true )
     val grantType: String,
 
     @field:Schema(

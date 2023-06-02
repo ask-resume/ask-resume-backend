@@ -26,7 +26,7 @@ class AuthenticationInterceptor(
 
         // 2. 토큰 검증
         val token = authorizationHeader.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
-        tokenManager!!.validateToken(token)
+        tokenManager.validateToken(token)
 
         // 3. 토큰 타입
         val tokenClaims = tokenManager.getTokenClaims(token)
