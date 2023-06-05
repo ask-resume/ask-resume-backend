@@ -2,6 +2,8 @@ package app.askresume.oauth.service
 
 import app.askresume.oauth.constant.OAuthProvider
 import app.askresume.oauth.dto.OAuthResponse
+import app.askresume.oauth.model.OAuthAttributes
+import app.askresume.oauth.userinfo.OAuthUserInfo
 import java.net.URI
 
 interface OAuthService {
@@ -10,6 +12,6 @@ interface OAuthService {
 
     fun getToken(code: String, provider: OAuthProvider): OAuthResponse.Token
 
-    fun getUserInfo(accessToken: String, provider: OAuthProvider) : Map<*, *>
+    fun getUserInfo(accessToken: String, provider: OAuthProvider): OAuthUserInfo
 
 }

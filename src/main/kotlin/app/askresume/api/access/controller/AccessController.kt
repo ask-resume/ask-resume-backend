@@ -52,7 +52,6 @@ class AccessController(
         @Validated @RequestBody oauthLoginRequestDto: OauthLoginRequest,
         @AuthorizationToken token: TokenDto,
     ): ResponseEntity<ApiResult<LoginResponse>> {
-
         oauthValidator.validateMemberType(oauthLoginRequestDto.memberType)
         val memberType: MemberType = MemberType.from(oauthLoginRequestDto.memberType)
 

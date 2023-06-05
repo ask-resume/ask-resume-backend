@@ -32,3 +32,6 @@ springfox:
   documentation:
     swagger-ui:
       enabled: off
+
+oauth:
+  client-home: https://ask-resume.com

@@ -2,7 +2,7 @@ package app.askresume.global.interceptor
 
 import app.askresume.global.error.ErrorCode
 import app.askresume.global.error.exception.AuthenticationException
-import app.askresume.global.jwt.constant.TokenType
+import app.askresume.global.jwt.constant.JwtTokenType
 import app.askresume.global.jwt.service.TokenManager
 import app.askresume.global.util.AuthorizationHeaderUtils
 import org.springframework.http.HttpHeaders
@@ -31,7 +31,7 @@ class AuthenticationInterceptor(
         // 3. 토큰 타입
         val tokenClaims = tokenManager.getTokenClaims(token)
         val tokenType = tokenClaims.subject
-        if (!TokenType.isAccessToken(tokenType)) {
+        if (!JwtTokenType.isAccessToken(tokenType)) {
             throw AuthenticationException(ErrorCode.NOT_ACCESS_TOKEN_TYPE)
         }
 

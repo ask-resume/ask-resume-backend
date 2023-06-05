@@ -3,9 +3,9 @@ package app.askresume.global.jwt.service
 import app.askresume.domain.member.constant.Role
 import app.askresume.global.error.ErrorCode
 import app.askresume.global.error.exception.AuthenticationException
-import app.askresume.global.jwt.constant.GrantType
-import app.askresume.global.jwt.constant.TokenType
-import app.askresume.global.jwt.dto.JwtTokenDto
+import app.askresume.global.jwt.constant.JwtGrantType
+import app.askresume.global.jwt.constant.JwtTokenType
+import app.askresume.global.jwt.dto.JwtResponse
 import app.askresume.global.util.LoggerUtil.log
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
@@ -22,19 +22,21 @@ class TokenManager(
 
     private val log = log()
 
-    fun createJwtTokenDto(memberId: Long?, role: Role): JwtTokenDto {
-        val accessTokenExpireTime = createAccessTokenExpireTime()
-        val refreshTokenExpireTime = createRefreshTokenExpireTime()
+    fun createJwtTokenDto(memberId: Long?, role: Role): JwtResponse.TokenDto {
+        val accessTokenExpireDate = createAccessTokenExpireTime()
+        val refreshTokenExpireDate = createRefreshTokenExpireTime()
 
-        val accessToken = createAccessToken(memberId, role, accessTokenExpireTime)
-        val refreshToken = createRefreshToken(memberId, refreshTokenExpireTime)
+        val accessToken = createAccessToken(memberId, role, accessTokenExpireDate)
+        val refreshToken = createRefreshToken(memberId, refreshTokenExpireDate)
 
-        return JwtTokenDto(
-            GrantType.BEARER.type,
+        return JwtResponse.TokenDto(
+            JwtGrantType.BEARER.type,
             accessToken,
-            accessTokenExpireTime,
+            accessTokenExpirationTime.toLong(),
+            accessTokenExpireDate,
             refreshToken,
-            refreshTokenExpireTime
+            refreshTokenExpirationTime.toLong(),
+            refreshTokenExpireDate
         )
     }
 
@@ -48,7 +50,7 @@ class TokenManager(
 
     fun createAccessToken(memberId: Long?, role: Role, expirationTime: Date): String {
         return Jwts.builder()
-            .setSubject(TokenType.ACCESS.name)      // 토큰 제목
+            .setSubject(JwtTokenType.ACCESS.name)   // 토큰 제목
             .setIssuedAt(Date())                    // 토큰 발급 시간
             .setExpiration(expirationTime)          // 토큰 만료 시간
             .claim("memberId", memberId)      // 회원 아이디
@@ -60,7 +62,7 @@ class TokenManager(
 
     fun createRefreshToken(memberId: Long?, expirationTime: Date): String {
         return Jwts.builder()
-            .setSubject(TokenType.REFRESH.name)     // 토큰 제목
+            .setSubject(JwtTokenType.REFRESH.name)  // 토큰 제목
             .setIssuedAt(Date())                    // 토큰 발급 시간
             .setExpiration(expirationTime)          // 토큰 만료 시간
             .claim("memberId", memberId)      // 회원 아이디

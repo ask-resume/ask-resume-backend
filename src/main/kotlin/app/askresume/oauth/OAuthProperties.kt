@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConstructorBinding
 @ConfigurationProperties(prefix = "oauth")
 data class OAuthProperties(
+    val clientHome: String,
     val providers: Map<OAuthProvider, OAuthProviderProperties>
 )
 
@@ -17,5 +18,6 @@ data class OAuthProviderProperties(
     val userInfoUrl: String,
     val tokenUrl: String,
     val redirectUrl: String,
+    val emailUrl: String?,
     val scope: List<String>?,
 )

@@ -23,3 +23,6 @@ token:
 swagger:
   title: "ask-resume API DOCS (로컬)"
   description: "로컬서버 API 문서입니다."
+
+oauth:
+  client-home: http://localhost:4000

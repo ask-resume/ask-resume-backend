@@ -1,8 +1,7 @@
 package app.askresume.global.resolver.token
 
-import app.askresume.global.util.AuthorizationHeaderUtils
+import app.askresume.global.jwt.constant.JwtTokenType
 import org.springframework.core.MethodParameter
-import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 import org.springframework.web.bind.support.WebDataBinderFactory
 import org.springframework.web.context.request.NativeWebRequest
@@ -26,11 +25,13 @@ class AuthorizationTokenResolver : HandlerMethodArgumentResolver {
     ): Any? {
         val request = webRequest.nativeRequest as HttpServletRequest
 
-        val authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION)
-        AuthorizationHeaderUtils.validateAuthorization(authorizationHeader)
+        val accessTokenCookie = if (request.cookies != null) {
+                request.cookies.find { it.name == JwtTokenType.ACCESS.cookieName }
+                    ?: throw Exception("미구현 예외") // TODO
+            } else {
+                throw Exception("미구현 예외") // TODO
+            }
 
-        val accessToken = authorizationHeader.split(" ")[1]
-
-        return TokenDto(authorizationHeader, accessToken)
+        return TokenDto(accessTokenCookie.value)
     }
 }

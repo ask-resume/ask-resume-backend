@@ -57,7 +57,8 @@ class WebConfig(
             .order(1)
             .addPathPatterns("/api/**")
             .excludePathPatterns(
-                "/api/oauth/login",
+                "/api/oauth/**/login",
+                "/api/oauth/**/callback",
                 "/api/login",
                 "/api/sign-up",
                 "/api/access-token/issue",

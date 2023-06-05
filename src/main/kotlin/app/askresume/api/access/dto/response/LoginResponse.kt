@@ -1,6 +1,6 @@
 package app.askresume.api.access.dto.response
 
-import app.askresume.global.jwt.dto.JwtTokenDto
+import app.askresume.global.jwt.dto.JwtResponse
 import com.fasterxml.jackson.annotation.JsonFormat
 import io.swagger.v3.oas.annotations.media.Schema
 import java.util.*
@@ -51,13 +51,13 @@ data class LoginResponse(
 ) {
 
     companion object {
-        fun of(jwtTokenDto: JwtTokenDto): LoginResponse {
+        fun of(jwtTokenDto: JwtResponse.TokenDto): LoginResponse {
             return LoginResponse(
                 grantType = jwtTokenDto.grantType,
                 accessToken = jwtTokenDto.accessToken,
-                accessTokenExpireTime = jwtTokenDto.accessTokenExpireTime,
+                accessTokenExpireTime = jwtTokenDto.accessTokenExpireDate,
                 refreshToken = jwtTokenDto.refreshToken,
-                refreshTokenExpireTime = jwtTokenDto.refreshTokenExpireTime,
+                refreshTokenExpireTime = jwtTokenDto.refreshTokenExpireDate,
             )
         }
     }

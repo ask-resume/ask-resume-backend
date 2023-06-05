@@ -1,11 +1,15 @@
 package app.askresume.oauth.service
 
+import app.askresume.global.jwt.constant.JwtGrantType
 import app.askresume.oauth.OAuthProperties
 import app.askresume.oauth.OAuthProviderProperties
 import app.askresume.oauth.constant.OAuthGrantType
 import app.askresume.oauth.constant.OAuthProvider
+import app.askresume.oauth.constant.OAuthQueryParam
 import app.askresume.oauth.dto.OAuthResponse
-import app.askresume.oauth.dto.OAuthRequest
+import app.askresume.oauth.userinfo.OAuthUserInfo
+import app.askresume.oauth.userinfo.OAuthUserInfoFactory
+import org.springframework.core.ParameterizedTypeReference
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
@@ -18,6 +22,7 @@ import java.nio.charset.StandardCharsets
 @Service
 class OAuthServiceImpl(
     private val oAuthProperties: OAuthProperties,
+    private val oAuthUserInfoFactory: OAuthUserInfoFactory,
 ) : OAuthService {
 
     /**
@@ -31,10 +36,10 @@ class OAuthServiceImpl(
 
         return UriComponentsBuilder
             .fromHttpUrl(providerProperties.authorizationUrl)
-            .queryParam("client_id", providerProperties.clientId)
-            .queryParam("response_type", "code")
-            .queryParam("redirect_uri", providerProperties.redirectUrl)
-            .queryParam("scope", scopeParam)
+            .queryParam(OAuthQueryParam.CLIENT_ID.key, providerProperties.clientId)
+            .queryParam(OAuthQueryParam.RESPONSE_TYPE.key, "code")
+            .queryParam(OAuthQueryParam.REDIRECT_URI.key, providerProperties.redirectUrl)
+            .queryParam(OAuthQueryParam.SCOPE.key, scopeParam)
             .build()
             .toUri()
     }
@@ -44,52 +49,65 @@ class OAuthServiceImpl(
      */
     override fun getToken(code: String, provider: OAuthProvider): OAuthResponse.Token {
         val providerProperties = getProviderProperties(provider)
-        val oauthClient = WebClient.create(providerProperties.tokenUrl)
+        val oAuthClient = WebClient.create(providerProperties.tokenUrl)
 
-        val tokenRequest = OAuthRequest.Token(
-            grantType = OAuthGrantType.AUTHORIZATION_CODE,
-            code = code,
-            providerProperties = providerProperties,
-        )
-
-        return oauthClient.post()
+        return oAuthClient.post()
             .uri { uriBuilder -> uriBuilder
-                .queryParam("grant_type", tokenRequest.grantType)
-                .queryParam("code", tokenRequest.code)
-                .queryParam("client_id", tokenRequest.clientId)
-                .queryParam("client_secret", tokenRequest.clientSecret)
-                .queryParam("redirect_uri", tokenRequest.redirectUrl)
-                .queryParam("access_type", "offline")
-                .queryParam("prompt", "consent")
+                .queryParam(OAuthQueryParam.GRANT_TYPE.key, OAuthGrantType.AUTHORIZATION_CODE)
+                .queryParam(OAuthQueryParam.CODE.key, code)
+                .queryParam(OAuthQueryParam.CLIENT_ID.key, providerProperties.clientId)
+                .queryParam(OAuthQueryParam.CLIENT_SECRET.key, providerProperties.clientSecret)
+                .queryParam(OAuthQueryParam.REDIRECT_URI.key, providerProperties.redirectUrl)
                 .build()
             }
-            .contentType(MediaType.APPLICATION_JSON)
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .retrieve()
             .bodyToMono(OAuthResponse.Token::class.java)
             .block()
-                ?: throw Exception("Provider로부터 Access 토큰을 받아올 수 없습니다.")
+                ?: throw Exception("Provider로부터 Access 토큰을 받아올 수 없습니다.") // TODO
     }
 
     /**
      *
      */
-    override fun getUserInfo(accessToken: String, provider: OAuthProvider): Map<*, *> {
+    override fun getUserInfo(accessToken: String, provider: OAuthProvider): OAuthUserInfo {
         val providerProperties = getProviderProperties(provider)
 
-        val oauthClient = WebClient.create(providerProperties.userInfoUrl)
+        val oAuthClient = WebClient.create(providerProperties.userInfoUrl)
 
-        return oauthClient.get()
+        // Resource 서버로부터 User Info를 가져옵니다.
+        val oAuthUserInfoMap = oAuthClient.get()
             .headers { headers ->
-                headers.add(HttpHeaders.AUTHORIZATION, accessToken)
+                headers.add(HttpHeaders.AUTHORIZATION, "${JwtGrantType.BEARER.type} $accessToken")
             }.retrieve()
-            .bodyToMono(Map::class.java)
+            .bodyToMono(object : ParameterizedTypeReference<MutableMap<String, Any>>() {})
             .block()
-            ?: throw Exception("")
+            ?: throw Exception("") // TODO
+
+        // emailUrl이 별도로 있을 경우 Resource 서버로부터 email 정보를 가져옵니다. (ex: Linked In)
+        providerProperties.emailUrl?.let { emailUrl ->
+            val emailInfo = getEmailInfo(emailUrl, accessToken)
+
+            emailInfo?.let { oAuthUserInfoMap.putAll(emailInfo) }
+        }
+
+        return oAuthUserInfoFactory.create(provider, oAuthUserInfoMap)
     }
 
-    private fun getProviderProperties(provider: OAuthProvider): OAuthProviderProperties {
+    private fun getEmailInfo(emailUrl: String, accessToken: String): Map<String, Any>? {
+        val oAuthClient = WebClient.create(emailUrl)
+
+        return oAuthClient.get()
+            .headers { headers ->
+                headers.add(HttpHeaders.AUTHORIZATION, "${JwtGrantType.BEARER.type} $accessToken")
+            }.retrieve()
+            .bodyToMono(object : ParameterizedTypeReference<Map<String, Any>>() {})
+            .block()
+    }
+
+        private fun getProviderProperties(provider: OAuthProvider): OAuthProviderProperties {
         return oAuthProperties.providers[provider]
-            ?: throw Exception("Provider의 OAuth config 정보를 작성해야합니다. : $provider")
+            ?: throw Exception("Provider의 OAuth config 정보를 작성해야합니다. : $provider") // TODO
     }
 
 }

@@ -11,9 +11,9 @@ import app.askresume.domain.member.model.Member
 import app.askresume.domain.member.service.MemberService
 import app.askresume.global.error.ErrorCode
 import app.askresume.global.error.exception.AuthenticationException
-import app.askresume.global.jwt.constant.GrantType
-import app.askresume.global.jwt.constant.TokenType
-import app.askresume.global.jwt.dto.JwtTokenDto
+import app.askresume.global.jwt.constant.JwtGrantType
+import app.askresume.global.jwt.constant.JwtTokenType
+import app.askresume.global.jwt.dto.JwtResponse
 import app.askresume.global.jwt.service.TokenManager
 import app.askresume.global.util.LoggerUtil.log
 import app.askresume.global.util.SHA256Util
@@ -45,7 +45,6 @@ class AccessFacade(
 
     @Transactional
     fun login(loginRequest: LoginRequest): LoginResponse {
-
         val email = loginRequest.email
         val encryptPassword = SHA256Util.encrypt(loginRequest.password)
         val memberType = MemberType.LOCAL
@@ -63,7 +62,7 @@ class AccessFacade(
         val userInfo = socialLoginApiService.getUserInfo(accessToken)
         log.debug(userInfo.toString())
 
-        val jwtTokenDto: JwtTokenDto
+        val jwtTokenDto: JwtResponse.TokenDto
         val member = memberService.findMemberByEmail(userInfo.email, memberType)
 
         var oauthMember: Member
@@ -90,7 +89,7 @@ class AccessFacade(
         val tokenClaims: Claims = tokenManager.getTokenClaims(accessToken)
         val tokenType = tokenClaims.subject
 
-        if (!TokenType.isAccessToken(tokenType)) {
+        if (!JwtTokenType.isAccessToken(tokenType)) {
             throw AuthenticationException(ErrorCode.NOT_ACCESS_TOKEN_TYPE)
         }
 
@@ -107,7 +106,7 @@ class AccessFacade(
         val accessToken: String = tokenManager.createAccessToken(member.id, member.role, accessTokenExpireTime)
 
         return AccessTokenResponse(
-            grantType = GrantType.BEARER.type,
+            grantType = JwtGrantType.BEARER.type,
             accessToken = accessToken,
             accessTokenExpireTime = accessTokenExpireTime,
         )
