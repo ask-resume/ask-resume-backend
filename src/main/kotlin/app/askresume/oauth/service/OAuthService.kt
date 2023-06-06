@@ -2,7 +2,6 @@ package app.askresume.oauth.service
 
 import app.askresume.oauth.constant.OAuthProvider
 import app.askresume.oauth.dto.OAuthResponse
-import app.askresume.oauth.model.OAuthAttributes
 import app.askresume.oauth.userinfo.OAuthUserInfo
 import java.net.URI
 
