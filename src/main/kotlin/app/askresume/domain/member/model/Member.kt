@@ -3,10 +3,11 @@ package app.askresume.domain.member.model
 import app.askresume.domain.common.BaseTimeEntity
 import app.askresume.domain.member.constant.MemberType
 import app.askresume.domain.member.constant.Role
-import app.askresume.global.jwt.dto.JwtTokenDto
+import app.askresume.global.jwt.dto.JwtResponse
 import app.askresume.global.util.DateTimeUtils
 import org.hibernate.annotations.*
 import java.time.LocalDateTime
+import java.util.Date
 import javax.persistence.*
 import javax.persistence.Entity
 import javax.persistence.Table
@@ -64,9 +65,14 @@ class Member(
     var tokenExpirationTime: LocalDateTime? = tokenExpirationTime
         protected set
 
-    fun updateRefreshToken(jwtTokenDto: JwtTokenDto) {
-        refreshToken = jwtTokenDto.refreshToken
-        tokenExpirationTime = DateTimeUtils.convertToLocalDateTime(jwtTokenDto.refreshTokenExpireTime)
+    /**
+     * 회원의 Refresh 토큰과 만료 Date 정보를 업데이트합니다.
+     * @param refreshToken Refresh 토큰
+     * @param expireDate Refresh 토큰 만료일시
+     */
+    fun updateRefreshToken(refreshToken: String, expireDate: Date) {
+        this.refreshToken = refreshToken
+        tokenExpirationTime = DateTimeUtils.convertToLocalDateTime(expireDate)
     }
 
     fun expireRefreshToken(now: LocalDateTime?) {

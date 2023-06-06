@@ -4,6 +4,7 @@ enum class MemberType {
 
     LOCAL,
     GOOGLE,
+    LINKED_IN,
     ;
 
     companion object {

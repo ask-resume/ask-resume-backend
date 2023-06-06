@@ -1,8 +1,8 @@
 package app.askresume.global.resolver.token
 
-import app.askresume.global.util.AuthorizationHeaderUtils
+import app.askresume.global.cookie.CookieProvider
+import app.askresume.global.jwt.constant.JwtTokenType
 import org.springframework.core.MethodParameter
-import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 import org.springframework.web.bind.support.WebDataBinderFactory
 import org.springframework.web.context.request.NativeWebRequest
@@ -11,11 +11,13 @@ import org.springframework.web.method.support.ModelAndViewContainer
 import javax.servlet.http.HttpServletRequest
 
 @Component
-class AuthorizationTokenResolver : HandlerMethodArgumentResolver {
+class AccessTokenResolver(
+    private val cookieProvider: CookieProvider,
+) : HandlerMethodArgumentResolver {
     override fun supportsParameter(parameter: MethodParameter): Boolean {
-        val hasAuthorizationTokenAnnotation = parameter.hasParameterAnnotation(AuthorizationToken::class.java)
+        val hasAccessTokenAnnotation = parameter.hasParameterAnnotation(AccessToken::class.java)
         val hasTokenDto = TokenDto::class.java.isAssignableFrom(parameter.parameterType)
-        return hasAuthorizationTokenAnnotation && hasTokenDto
+        return hasAccessTokenAnnotation && hasTokenDto
     }
 
     override fun resolveArgument(
@@ -26,11 +28,9 @@ class AuthorizationTokenResolver : HandlerMethodArgumentResolver {
     ): Any? {
         val request = webRequest.nativeRequest as HttpServletRequest
 
-        val authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION)
-        AuthorizationHeaderUtils.validateAuthorization(authorizationHeader)
+        val accessTokenCookie = cookieProvider.getCookie(request.cookies, JwtTokenType.ACCESS.cookieName)
+            ?: throw Exception("미구현 예외") // TODO
 
-        val accessToken = authorizationHeader.split(" ")[1]
-
-        return TokenDto(authorizationHeader, accessToken)
+        return TokenDto(accessTokenCookie.value)
     }
 }
