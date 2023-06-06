@@ -69,7 +69,6 @@ oauth:
       authorization-url: https://accounts.google.com/o/oauth2/v2/auth
       token-url: https://oauth2.googleapis.com/token
       user-info-url: https://www.googleapis.com/oauth2/v2/userinfo
-      redirect-url: http://localhost:8080/api/oauth/google/callback
       scope:
         - https://www.googleapis.com/auth/userinfo.email
         - https://www.googleapis.com/auth/userinfo.profile
@@ -79,7 +78,6 @@ oauth:
       authorization-url: https://www.linkedin.com/oauth/v2/authorization
       token-url: https://www.linkedin.com/oauth/v2/accessToken
       user-info-url: https://api.linkedin.com/v2/me
-      redirect-url: http://localhost:8080/api/oauth/linked-in/callback
       email-url: https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))
       scope:
         - r_emailaddress

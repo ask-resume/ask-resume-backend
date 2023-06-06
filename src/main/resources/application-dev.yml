@@ -21,3 +21,8 @@ swagger:
 
 oauth:
   client_home: https://ask-resume.com
+  providers:
+    google:
+      redirect-url: http://dev.ask-resume.com/api/oauth/google/callback
+    linked-in:
+      redirect-url: http://dev.ask-resume.com/api/oauth/linked-in/callback
