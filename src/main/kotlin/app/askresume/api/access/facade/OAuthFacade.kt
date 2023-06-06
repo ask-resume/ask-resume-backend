@@ -9,6 +9,7 @@ import app.askresume.oauth.constant.OAuthProvider
 import app.askresume.oauth.service.OAuthService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.net.URI
 
 @Service
 @Transactional(readOnly = true)
@@ -17,6 +18,10 @@ class OAuthFacade(
     private val memberService: MemberService,
     private val oAuthService: OAuthService,
 ) {
+
+    fun getAuthorizationUri(provider: OAuthProvider): URI {
+        return oAuthService.authorize(provider)
+    }
 
     @Transactional
     fun joinOrLogin(code: String, provider: OAuthProvider):JwtResponse.TokenSet {
@@ -45,11 +50,6 @@ class OAuthFacade(
         )
 
         return jwtTokenSet
-    }
-
-    fun createAccessTokenByRefreshToken(refreshToken: String): JwtResponse.Token {
-        val member = memberService.findMemberByRefreshToken(refreshToken)
-        return tokenManager.createAccessToken(member.id, member.role)
     }
 
 }
