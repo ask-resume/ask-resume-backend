@@ -22,53 +22,50 @@ class TokenManager(
 
     private val log = log()
 
-    fun createJwtTokenDto(memberId: Long?, role: Role): JwtResponse.TokenDto {
-        val accessTokenExpireDate = createAccessTokenExpireTime()
-        val refreshTokenExpireDate = createRefreshTokenExpireTime()
+    private val MEMBER_ID_KEY = "memberId"
+    private val ROLE_KEY = "role"
 
-        val accessToken = createAccessToken(memberId, role, accessTokenExpireDate)
-        val refreshToken = createRefreshToken(memberId, refreshTokenExpireDate)
+    fun createJwtTokenSet(memberId: Long?, role: Role): JwtResponse.TokenSet {
+        val accessTokenResponse = createAccessToken(memberId, role)
+        val refreshTokenResponse = createRefreshToken(memberId, role)
 
-        return JwtResponse.TokenDto(
-            JwtGrantType.BEARER.type,
-            accessToken,
-            accessTokenExpirationTime.toLong(),
-            accessTokenExpireDate,
-            refreshToken,
-            refreshTokenExpirationTime.toLong(),
-            refreshTokenExpireDate
+        return JwtResponse.TokenSet(
+            accessToken = accessTokenResponse,
+            refreshToken = refreshTokenResponse,
         )
     }
 
-    fun createAccessTokenExpireTime(): Date {
-        return Date(System.currentTimeMillis() + accessTokenExpirationTime.toLong())
+    private fun createTokenExpiration(expirationTime: Long): Date {
+        return Date(System.currentTimeMillis() + expirationTime)
     }
 
-    fun createRefreshTokenExpireTime(): Date {
-        return Date(System.currentTimeMillis() + refreshTokenExpirationTime.toLong())
-    }
+    private fun createToken(memberId: Long?, role: Role, tokenName: String, expirationTime: Long): JwtResponse.Token {
+        val expiration = createTokenExpiration(expirationTime)
 
-    fun createAccessToken(memberId: Long?, role: Role, expirationTime: Date): String {
-        return Jwts.builder()
-            .setSubject(JwtTokenType.ACCESS.name)   // 토큰 제목
+        val accessToken = Jwts.builder()
+            .setSubject(tokenName)                  // 토큰 제목
             .setIssuedAt(Date())                    // 토큰 발급 시간
-            .setExpiration(expirationTime)          // 토큰 만료 시간
-            .claim("memberId", memberId)      // 회원 아이디
-            .claim("role", role)              // 유저 role
+            .setExpiration(expiration)              // 토큰 만료 시간
+            .claim(MEMBER_ID_KEY, memberId)      // 회원 아이디
+            .claim(ROLE_KEY, role)              // 유저 role
             .signWith(SignatureAlgorithm.HS512, tokenSecret.toByteArray(StandardCharsets.UTF_8))
             .setHeaderParam("typ", "JWT")
             .compact()
+
+        return JwtResponse.Token(
+            grantType = JwtGrantType.BEARER.type,
+            token = accessToken,
+            expirationTime = expirationTime,
+            expireDate = expiration,
+        )
     }
 
-    fun createRefreshToken(memberId: Long?, expirationTime: Date): String {
-        return Jwts.builder()
-            .setSubject(JwtTokenType.REFRESH.name)  // 토큰 제목
-            .setIssuedAt(Date())                    // 토큰 발급 시간
-            .setExpiration(expirationTime)          // 토큰 만료 시간
-            .claim("memberId", memberId)      // 회원 아이디
-            .signWith(SignatureAlgorithm.HS512, tokenSecret.toByteArray(StandardCharsets.UTF_8))
-            .setHeaderParam("typ", "JWT")
-            .compact()
+    fun createAccessToken(memberId: Long?, role: Role): JwtResponse.Token {
+        return createToken(memberId, role, JwtTokenType.ACCESS.name, accessTokenExpirationTime.toLong())
+    }
+
+    fun createRefreshToken(memberId: Long?, role: Role): JwtResponse.Token {
+        return createToken(memberId, role, JwtTokenType.REFRESH.name, refreshTokenExpirationTime.toLong())
     }
 
     fun validateToken(token: String) {
@@ -96,5 +93,18 @@ class TokenManager(
 
         return claims
     }
+
+    fun getMemberIdFromAccessToken(token: String): Long {
+        val tokenClaims = getTokenClaims(token)
+        val tokenType = tokenClaims.subject
+
+        if (!JwtTokenType.isAccessToken(tokenType)) {
+            throw AuthenticationException(ErrorCode.NOT_ACCESS_TOKEN_TYPE)
+        }
+
+        return (tokenClaims[MEMBER_ID_KEY] as Int?)?.toLong()
+            ?: throw Exception("미구현 예외") // TODO
+    }
+
 }
 

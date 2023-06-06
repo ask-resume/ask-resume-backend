@@ -5,30 +5,18 @@ import java.util.*
 
 class JwtResponse {
 
-    data class TokenDto(
+    data class Token(
         val grantType: String,
+        val token: String,
+        val expirationTime: Long,
 
-        val accessToken: String,
+        @field:JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+        val expireDate: Date,
+    )
 
-        val accessTokenExpirationTime: Long,
-
-        @field:JsonFormat(
-            shape = JsonFormat.Shape.STRING,
-            pattern = "yyyy-MM-dd HH:mm:ss",
-            timezone = "Asia/Seoul"
-        )
-        val accessTokenExpireDate: Date,
-
-        val refreshToken: String,
-
-        val refreshTokenExpirationTime: Long,
-
-        @field:JsonFormat(
-            shape = JsonFormat.Shape.STRING,
-            pattern = "yyyy-MM-dd HH:mm:ss",
-            timezone = "Asia/Seoul"
-        )
-        val refreshTokenExpireDate: Date,
+    data class TokenSet(
+        val accessToken: Token,
+        val refreshToken: Token,
     )
 
 }

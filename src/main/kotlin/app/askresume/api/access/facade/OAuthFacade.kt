@@ -19,7 +19,7 @@ class OAuthFacade(
 ) {
 
     @Transactional
-    fun joinOrLogin(code: String, provider: OAuthProvider):JwtResponse.TokenDto {
+    fun joinOrLogin(code: String, provider: OAuthProvider):JwtResponse.TokenSet {
         // OAuth Access 토큰을 얻어옵니다.
         val oAuthTokenDto = oAuthService.getToken(code, provider)
         // OAuth Access 토큰으로 OAuth UserInfo를 얻어옵니다.
@@ -38,10 +38,18 @@ class OAuthFacade(
         }
 
         // 토큰 생성
-        val jwtTokenDto = tokenManager.createJwtTokenDto(oAuthMember.id, oAuthMember.role)
-        oAuthMember.updateRefreshToken(jwtTokenDto)
+        val jwtTokenSet = tokenManager.createJwtTokenSet(oAuthMember.id, oAuthMember.role)
+        oAuthMember.updateRefreshToken(
+            refreshToken = jwtTokenSet.refreshToken.token,
+            expireDate = jwtTokenSet.refreshToken.expireDate
+        )
 
-        return jwtTokenDto
+        return jwtTokenSet
+    }
+
+    fun createAccessTokenByRefreshToken(refreshToken: String): JwtResponse.Token {
+        val member = memberService.findMemberByRefreshToken(refreshToken)
+        return tokenManager.createAccessToken(member.id, member.role)
     }
 
 }

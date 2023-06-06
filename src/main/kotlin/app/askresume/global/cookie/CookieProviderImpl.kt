@@ -1,7 +1,9 @@
 package app.askresume.global.cookie
 
+import app.askresume.global.jwt.constant.JwtTokenType
 import org.springframework.http.ResponseCookie
 import org.springframework.stereotype.Service
+import javax.servlet.http.Cookie
 
 @Service
 class CookieProviderImpl : CookieProvider {
@@ -18,6 +20,12 @@ class CookieProviderImpl : CookieProvider {
         maxAge?.let { cookie.maxAge(maxAge) }
 
         return cookie.build()
+    }
+
+    override fun getCookie(cookies: Array<out Cookie>, cookieName: String): Cookie? {
+        return cookies.let {
+            cookies.find { it.name == cookieName }
+        }
     }
 
 }

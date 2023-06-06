@@ -53,7 +53,7 @@ class OAuthServiceImpl(
 
         return oAuthClient.post()
             .uri { uriBuilder -> uriBuilder
-                .queryParam(OAuthQueryParam.GRANT_TYPE.key, OAuthGrantType.AUTHORIZATION_CODE)
+                .queryParam(OAuthQueryParam.GRANT_TYPE.key, OAuthGrantType.AUTHORIZATION_CODE.value)
                 .queryParam(OAuthQueryParam.CODE.key, code)
                 .queryParam(OAuthQueryParam.CLIENT_ID.key, providerProperties.clientId)
                 .queryParam(OAuthQueryParam.CLIENT_SECRET.key, providerProperties.clientSecret)
