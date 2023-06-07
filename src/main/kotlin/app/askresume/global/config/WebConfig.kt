@@ -4,7 +4,8 @@ import app.askresume.global.config.xss.HtmlCharacterEscapes
 import app.askresume.global.interceptor.AdminAuthorizationInterceptor
 import app.askresume.global.interceptor.AuthenticationInterceptor
 import app.askresume.global.resolver.memberinfo.MemberInfoArgumentResolver
-import app.askresume.global.resolver.token.AuthorizationTokenResolver
+import app.askresume.global.resolver.token.AccessTokenResolver
+import app.askresume.global.resolver.token.RefreshTokenResolver
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.navercorp.lucy.security.xss.servletfilter.XssEscapeServletFilter
 import org.springframework.boot.web.servlet.FilterRegistrationBean
@@ -25,7 +26,8 @@ import java.util.*
 @Configuration
 class WebConfig(
     private val memberInfoArgumentResolver: MemberInfoArgumentResolver,
-    private val authorizationTokenResolver: AuthorizationTokenResolver,
+    private val accessTokenResolver: AccessTokenResolver,
+    private val refreshTokenResolver: RefreshTokenResolver,
     private val authenticationInterceptor: AuthenticationInterceptor,
     private val adminAuthorizationInterceptor: AdminAuthorizationInterceptor,
     private val objectMapper: ObjectMapper,
@@ -57,7 +59,8 @@ class WebConfig(
             .order(1)
             .addPathPatterns("/api/**")
             .excludePathPatterns(
-                "/api/oauth/login",
+                "/api/oauth/**/login",
+                "/api/oauth/**/callback",
                 "/api/login",
                 "/api/sign-up",
                 "/api/access-token/issue",
@@ -78,7 +81,8 @@ class WebConfig(
 
     override fun addArgumentResolvers(resolvers: MutableList<HandlerMethodArgumentResolver>) {
         resolvers.add(memberInfoArgumentResolver)
-        resolvers.add(authorizationTokenResolver)
+        resolvers.add(accessTokenResolver)
+        resolvers.add(refreshTokenResolver)
     }
 
 

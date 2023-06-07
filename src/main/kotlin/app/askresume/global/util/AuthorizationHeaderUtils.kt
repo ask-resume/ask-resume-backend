@@ -2,7 +2,7 @@ package app.askresume.global.util
 
 import app.askresume.global.error.ErrorCode
 import app.askresume.global.error.exception.AuthenticationException
-import app.askresume.global.jwt.constant.GrantType
+import app.askresume.global.jwt.constant.JwtGrantType
 import org.springframework.util.StringUtils
 
 /**
@@ -20,7 +20,7 @@ object AuthorizationHeaderUtils {
 
         // 2. authorizationHeader Bearer 체크
         val authorizations = authorizationHeader.split(" ")
-        if (authorizations.size < 2 || GrantType.BEARER.type != authorizations[0]) {
+        if (authorizations.size < 2 || JwtGrantType.BEARER.type != authorizations[0]) {
             throw AuthenticationException(ErrorCode.NOT_VALID_BEARER_GRANT_TYPE)
         }
     }

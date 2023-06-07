@@ -30,6 +30,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
     // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.0")
@@ -83,6 +84,9 @@ dependencies {
 
     // JSOUP
     implementation("org.jsoup:jsoup:1.15.4")
+
+    // WebClient : Spring5 이후 RestTemplate을 대체하기 위해 나온 비동기 & 논블로킹 네트워크 요청 라이브러리
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
 }
 
 dependencyManagement {

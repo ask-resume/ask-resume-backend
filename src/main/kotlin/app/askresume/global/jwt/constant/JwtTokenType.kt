@@ -1,10 +1,12 @@
 package app.askresume.global.jwt.constant
 
 
-enum class TokenType {
+enum class JwtTokenType(
+    val cookieName: String,
+) {
 
-    ACCESS,
-    REFRESH,
+    ACCESS("access_token"),
+    REFRESH("refresh_token"),
     ;
 
     companion object {

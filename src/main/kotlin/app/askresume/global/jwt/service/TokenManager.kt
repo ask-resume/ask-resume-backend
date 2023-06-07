@@ -3,9 +3,9 @@ package app.askresume.global.jwt.service
 import app.askresume.domain.member.constant.Role
 import app.askresume.global.error.ErrorCode
 import app.askresume.global.error.exception.AuthenticationException
-import app.askresume.global.jwt.constant.GrantType
-import app.askresume.global.jwt.constant.TokenType
-import app.askresume.global.jwt.dto.JwtTokenDto
+import app.askresume.global.jwt.constant.JwtGrantType
+import app.askresume.global.jwt.constant.JwtTokenType
+import app.askresume.global.jwt.dto.JwtResponse
 import app.askresume.global.util.LoggerUtil.log
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
@@ -22,51 +22,51 @@ class TokenManager(
 
     private val log = log()
 
-    fun createJwtTokenDto(memberId: Long?, role: Role): JwtTokenDto {
-        val accessTokenExpireTime = createAccessTokenExpireTime()
-        val refreshTokenExpireTime = createRefreshTokenExpireTime()
+    private val MEMBER_ID_KEY = "memberId"
+    private val ROLE_KEY = "role"
 
-        val accessToken = createAccessToken(memberId, role, accessTokenExpireTime)
-        val refreshToken = createRefreshToken(memberId, refreshTokenExpireTime)
+    fun createJwtTokenSet(memberId: Long?, role: Role): JwtResponse.TokenSet {
+        val accessTokenResponse = createAccessToken(memberId, role)
+        val refreshTokenResponse = createRefreshToken(memberId, role)
 
-        return JwtTokenDto(
-            GrantType.BEARER.type,
-            accessToken,
-            accessTokenExpireTime,
-            refreshToken,
-            refreshTokenExpireTime
+        return JwtResponse.TokenSet(
+            accessToken = accessTokenResponse,
+            refreshToken = refreshTokenResponse,
         )
     }
 
-    fun createAccessTokenExpireTime(): Date {
-        return Date(System.currentTimeMillis() + accessTokenExpirationTime.toLong())
+    private fun createTokenExpiration(expirationTime: Long): Date {
+        return Date(System.currentTimeMillis() + expirationTime)
     }
 
-    fun createRefreshTokenExpireTime(): Date {
-        return Date(System.currentTimeMillis() + refreshTokenExpirationTime.toLong())
-    }
+    private fun createToken(memberId: Long?, role: Role, tokenType: JwtTokenType, expirationTime: Long): JwtResponse.Token {
+        val expiration = createTokenExpiration(expirationTime)
 
-    fun createAccessToken(memberId: Long?, role: Role, expirationTime: Date): String {
-        return Jwts.builder()
-            .setSubject(TokenType.ACCESS.name)      // 토큰 제목
+        val token = Jwts.builder()
+            .setSubject(tokenType.name)                  // 토큰 제목
             .setIssuedAt(Date())                    // 토큰 발급 시간
-            .setExpiration(expirationTime)          // 토큰 만료 시간
-            .claim("memberId", memberId)      // 회원 아이디
-            .claim("role", role)              // 유저 role
+            .setExpiration(expiration)              // 토큰 만료 시간
+            .claim(MEMBER_ID_KEY, memberId)      // 회원 아이디
+            .claim(ROLE_KEY, role)              // 유저 role
             .signWith(SignatureAlgorithm.HS512, tokenSecret.toByteArray(StandardCharsets.UTF_8))
             .setHeaderParam("typ", "JWT")
             .compact()
+
+        return JwtResponse.Token(
+            grantType = JwtGrantType.BEARER.type,
+            tokenType = tokenType,
+            token = token,
+            expirationTime = expirationTime,
+            expireDate = expiration,
+        )
     }
 
-    fun createRefreshToken(memberId: Long?, expirationTime: Date): String {
-        return Jwts.builder()
-            .setSubject(TokenType.REFRESH.name)     // 토큰 제목
-            .setIssuedAt(Date())                    // 토큰 발급 시간
-            .setExpiration(expirationTime)          // 토큰 만료 시간
-            .claim("memberId", memberId)      // 회원 아이디
-            .signWith(SignatureAlgorithm.HS512, tokenSecret.toByteArray(StandardCharsets.UTF_8))
-            .setHeaderParam("typ", "JWT")
-            .compact()
+    fun createAccessToken(memberId: Long?, role: Role): JwtResponse.Token {
+        return createToken(memberId, role, JwtTokenType.ACCESS, accessTokenExpirationTime.toLong())
+    }
+
+    fun createRefreshToken(memberId: Long?, role: Role): JwtResponse.Token {
+        return createToken(memberId, role, JwtTokenType.REFRESH, refreshTokenExpirationTime.toLong())
     }
 
     fun validateToken(token: String) {
@@ -94,5 +94,18 @@ class TokenManager(
 
         return claims
     }
+
+    fun getMemberIdFromAccessToken(token: String): Long {
+        val tokenClaims = getTokenClaims(token)
+        val tokenType = tokenClaims.subject
+
+        if (!JwtTokenType.isAccessToken(tokenType)) {
+            throw AuthenticationException(ErrorCode.NOT_ACCESS_TOKEN_TYPE)
+        }
+
+        return (tokenClaims[MEMBER_ID_KEY] as Int?)?.toLong()
+            ?: throw Exception("미구현 예외") // TODO
+    }
+
 }
 

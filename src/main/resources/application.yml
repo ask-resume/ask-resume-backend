@@ -25,6 +25,9 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
+  jackson:
+    property-naming-strategy: SNAKE_CASE # snake_case로 작성된 JSON을 camelCase DTO에 매핑해주는 옵션
+
 file:
   licensed:
     content: application/pdf
@@ -59,12 +62,26 @@ jasypt:
 
 # oauth
 oauth:
-  google:
-    url: https://www.googleapis.com/oauth2
-    client-url: https://oauth2.googleapis.com
-    id: ENC(Kpzzi6NP09y8n4dBVBjh1wmygBFflVlmK4T5Ox8SjSOMgZHQ4anmqWOGecPq1vpU5xO4WcngZAfTBWSV8aE5oOqs9kKGq3JayJkTI+7GT8imbfjJqwGI7A==)
-    secret: ENC(m27Z1jgN6RUXKLoZMPFVKuUpdySPaXMeuvKKpdlG48G9eEmEzFhUuufJ8mnHK/6h)
-
+  providers:
+    google:
+      client-id: ENC(Kpzzi6NP09y8n4dBVBjh1wmygBFflVlmK4T5Ox8SjSOMgZHQ4anmqWOGecPq1vpU5xO4WcngZAfTBWSV8aE5oOqs9kKGq3JayJkTI+7GT8imbfjJqwGI7A==)
+      client-secret: ENC(m27Z1jgN6RUXKLoZMPFVKuUpdySPaXMeuvKKpdlG48G9eEmEzFhUuufJ8mnHK/6h)
+      authorization-url: https://accounts.google.com/o/oauth2/v2/auth
+      token-url: https://oauth2.googleapis.com/token
+      user-info-url: https://www.googleapis.com/oauth2/v2/userinfo
+      scope:
+        - https://www.googleapis.com/auth/userinfo.email
+        - https://www.googleapis.com/auth/userinfo.profile
+    linked-in:
+      client-id: ENC(QmIUlZAGU7cG4rpg3WqvNDZhX+19zYFO)
+      client-secret: ENC(rAWWvcn7WujOAz7fb0eNOuz0o/aiS0/mQQa+99qmRTU=)
+      authorization-url: https://www.linkedin.com/oauth/v2/authorization
+      token-url: https://www.linkedin.com/oauth/v2/accessToken
+      user-info-url: https://api.linkedin.com/v2/me
+      email-url: https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))
+      scope:
+        - r_emailaddress
+        - r_liteprofile
 
 # 외 다른 내용은 GptConfig 에서 수정
 openai:

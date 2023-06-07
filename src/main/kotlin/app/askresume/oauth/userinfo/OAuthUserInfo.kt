@@ -1,16 +1,19 @@
-package app.askresume.oauth.model
+package app.askresume.oauth.userinfo
 
 import app.askresume.domain.member.constant.MemberType
 import app.askresume.domain.member.constant.Role
 import app.askresume.domain.member.model.Member
 
-data class OAuthAttributes(
-    val email: String,
-    val name: String,
-    val profile: String,
-    val locale: String,
-    val memberType: MemberType,
+abstract class OAuthUserInfo(
+    protected val attributes: Map<String, Any>,
 ) {
+
+    abstract val email: String
+    abstract val name: String
+    abstract val profile: String?
+    abstract val locale: String
+    abstract val memberType: MemberType
+
     fun toMemberEntity(memberType: MemberType, role: Role): Member {
         return Member(
             username = name,
@@ -22,4 +25,3 @@ data class OAuthAttributes(
         )
     }
 }
-
