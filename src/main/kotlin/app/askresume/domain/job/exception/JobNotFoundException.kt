@@ -7,8 +7,8 @@ open class JobNotFoundException(
     jobId: Long,
     override val cause: Throwable? = null,
 ) : NewBusinessException(
-    ErrorCodes.ENTITY_NOT_FOUND,
-    "new.job.not.exists",
-    arrayOf(jobId),
-    cause,
+    codeBook = ErrorCodes.ENTITY_NOT_FOUND,
+    properties = "new.job.not.exists",
+    arguments = arrayOf(jobId),
+    cause = cause,
 )
