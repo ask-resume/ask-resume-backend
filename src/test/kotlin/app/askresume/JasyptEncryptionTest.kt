@@ -10,7 +10,7 @@ class JasyptEncryptionTest {
 
     @Test
     fun jasyptTest() {
-        val password = "" // 아무거나 적어놔야 test 됨
+        val password = "1111" // 아무거나 적어놔야 test 됨
         val encryptor = PooledPBEStringEncryptor()
         encryptor.setPoolSize(4)
         encryptor.setPassword(password)
