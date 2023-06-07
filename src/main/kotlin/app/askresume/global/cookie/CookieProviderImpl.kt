@@ -1,13 +1,16 @@
 package app.askresume.global.cookie
 
 import app.askresume.global.jwt.dto.JwtResponse
+import org.springframework.core.env.Environment
 import org.springframework.http.ResponseCookie
 import org.springframework.stereotype.Service
 import java.time.Duration
 import javax.servlet.http.Cookie
 
 @Service
-class CookieProviderImpl : CookieProvider {
+class CookieProviderImpl(
+    private val environment: Environment,
+) : CookieProvider {
 
     override fun createCookie(cookieOption: CookieOption): ResponseCookie {
         val (key, value, httpOnly, secure, domain, path, maxAge) = cookieOption
@@ -24,14 +27,17 @@ class CookieProviderImpl : CookieProvider {
     }
 
     override fun createTokenCookie(tokenDto: JwtResponse.Token, domain: String): ResponseCookie {
+        val isProdActive = environment.activeProfiles.any { it == "prod" }
+
         val cookieOption = CookieOption(
             name = tokenDto.tokenType.cookieName,
             value = tokenDto.token,
             domain = domain,
             maxAge = Duration.ofMillis(tokenDto.expirationTime),
             httpOnly = true,
-            secure = true,
+            secure = isProdActive,
         )
+
         return createCookie(cookieOption)
     }
 

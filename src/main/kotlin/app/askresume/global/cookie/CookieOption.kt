@@ -10,4 +10,5 @@ data class CookieOption(
     val domain: String? = null,
     val path: String = "/",
     val maxAge: Duration? = null,
+    val sameSite: String? = null,
 )

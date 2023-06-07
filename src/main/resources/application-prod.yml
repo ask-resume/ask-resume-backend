@@ -34,6 +34,7 @@ springfox:
       enabled: off
 
 oauth:
+  domain: ask-resume.com
   client-home: https://ask-resume.com
   providers:
     google:
