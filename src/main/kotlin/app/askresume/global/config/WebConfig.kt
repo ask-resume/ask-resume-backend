@@ -70,7 +70,8 @@ class WebConfig(
                 "/api/v1/extract/link",
                 "/api/v1/extract/pdf",
                 "/api/test/server",
-                "/api/test/bind"
+                "/api/test/bind",
+                "/api/my-member/submit" // TODO : 개발 완료 시 반드시 제거하기
             )
 
         // 권한 체크
