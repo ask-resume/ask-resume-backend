@@ -1,13 +1,13 @@
 package app.askresume.domain.job.service
 
 import app.askresume.api.job.dto.response.JobResponse
+import app.askresume.domain.job.exception.JobNotFoundException
 import app.askresume.domain.job.model.Job
 import app.askresume.domain.job.model.JobMaster
 import app.askresume.domain.job.repository.JobMasterRepository
 import app.askresume.domain.job.repository.JobRepository
 import app.askresume.domain.locale.constant.LocaleType
-import app.askresume.global.error.ErrorCode
-import app.askresume.global.error.exception.EntityNotFoundException
+import app.askresume.global.util.LoggerUtil.log
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -19,6 +19,8 @@ class JobService(
     private val jobRepository: JobRepository,
     private val jobMasterRepository: JobMasterRepository,
 ) {
+
+    val log = log()
 
     fun saveJobMaster(jobMaster: JobMaster): JobMaster {
         return jobMasterRepository.save(jobMaster)
@@ -35,6 +37,6 @@ class JobService(
 
     fun findJobNameById(jobId: Long): JobMaster {
         return jobMasterRepository.findByIdOrNull(jobId)
-            ?: throw EntityNotFoundException(ErrorCode.JOB_NOT_EXISTS)
+            ?: throw JobNotFoundException(jobId)
     }
 }
