@@ -1,12 +1,12 @@
 package app.askresume.domain.prompt.model
 
-import app.askresume.domain.common.BaseTimeEntity
+import app.askresume.domain.common.BaseEntity
 import app.askresume.domain.prompt.constant.PromptType
 import org.hibernate.annotations.*
 import javax.persistence.*
 import javax.persistence.Entity
 
-@SQLDelete(sql = "UPDATE prompt SET deleted_at = 'N' WHERE id = ?")
+@SQLDelete(sql = "UPDATE prompt SET is_deleted = 'N' WHERE id = ?")
 @Entity
 class Prompt(
 
@@ -24,4 +24,4 @@ class Prompt(
     @Column(length = 200)
     val description: String? = null,
 
-) : BaseTimeEntity()
+) : BaseEntity()

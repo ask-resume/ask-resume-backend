@@ -3,7 +3,6 @@ package app.askresume.domain.member.model
 import app.askresume.domain.common.BaseTimeEntity
 import app.askresume.domain.member.constant.MemberType
 import app.askresume.domain.member.constant.Role
-import app.askresume.global.jwt.dto.JwtResponse
 import app.askresume.global.util.DateTimeUtils
 import org.hibernate.annotations.*
 import java.time.LocalDateTime
@@ -12,7 +11,7 @@ import javax.persistence.*
 import javax.persistence.Entity
 import javax.persistence.Table
 
-@SQLDelete(sql = "UPDATE member SET deleted_at = 'N' WHERE id = ?")
+@SQLDelete(sql = "UPDATE member SET is_deleted = 'N' WHERE id = ?")
 @Entity
 @Table(uniqueConstraints = [UniqueConstraint(name = "iduk", columnNames = ["email", "memberType"])])
 class Member(

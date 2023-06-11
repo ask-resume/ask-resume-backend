@@ -1,12 +1,13 @@
 package app.askresume.domain.job.model
 
+import app.askresume.domain.common.BaseEntity
 import app.askresume.domain.common.BaseTimeEntity
 import app.askresume.domain.locale.constant.LocaleType
 import org.hibernate.annotations.*
 import javax.persistence.*
 import javax.persistence.Entity
 
-@SQLDelete(sql = "UPDATE job SET deleted_at = 'N' WHERE id = ?")
+@SQLDelete(sql = "UPDATE job SET is_deleted = 'N' WHERE id = ?")
 @Entity
 class Job(
 
@@ -24,4 +25,4 @@ class Job(
     @Enumerated(EnumType.STRING)
     val locale: LocaleType,
 
-    ) : BaseTimeEntity()
+    ) : BaseEntity()
