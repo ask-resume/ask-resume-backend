@@ -7,11 +7,13 @@ enum class ErrorCodes(
     val description: String
 ) {
 
+    ENUM_VALIDATE_NOT_EXIST("VAL-001", "enum validate check fail") ,
+
     ENTITY_NOT_FOUND("ENY-001", "entity 데이터가 존재하지 않습니다."),
     ;
 
     fun toHttpStatus(): HttpStatus = when (this) {
-        ENTITY_NOT_FOUND -> HttpStatus.BAD_REQUEST
+        ENUM_VALIDATE_NOT_EXIST,ENTITY_NOT_FOUND -> HttpStatus.BAD_REQUEST
     }
 
 }
