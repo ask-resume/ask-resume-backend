@@ -1,7 +1,7 @@
-package app.askresume.domain.generative.model
+package app.askresume.domain.generative.interview.model
 
 import app.askresume.domain.common.BaseTimeEntity
-import app.askresume.domain.generative.constant.Satisfaction
+import app.askresume.domain.submit.constant.Satisfaction
 import org.hibernate.annotations.Comment
 import javax.persistence.Column
 import javax.persistence.Entity

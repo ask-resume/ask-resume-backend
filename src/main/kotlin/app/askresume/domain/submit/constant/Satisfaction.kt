@@ -1,4 +1,4 @@
-package app.askresume.domain.generative.constant
+package app.askresume.domain.submit.constant
 
 enum class Satisfaction {
 

@@ -1,8 +1,9 @@
-package app.askresume.domain.generative.model
+package app.askresume.domain.submit.model
 
 import app.askresume.domain.common.BaseTimeEntity
-import app.askresume.domain.generative.constant.ServiceType
-import app.askresume.domain.generative.constant.SubmitStatus
+import app.askresume.domain.generative.interview.model.ResultInterviewMaker
+import app.askresume.domain.submit.constant.ServiceType
+import app.askresume.domain.submit.constant.SubmitStatus
 import org.hibernate.annotations.Comment
 import javax.persistence.*
 

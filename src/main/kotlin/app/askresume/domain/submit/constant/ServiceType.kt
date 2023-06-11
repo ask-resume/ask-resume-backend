@@ -1,4 +1,4 @@
-package app.askresume.domain.generative.constant
+package app.askresume.domain.submit.constant
 
 import app.askresume.domain.locale.constant.LocaleType
 

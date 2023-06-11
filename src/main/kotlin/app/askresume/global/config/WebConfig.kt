@@ -41,7 +41,7 @@ class WebConfig(
                 "http://localhost:4000",
                 "http://localhost:3000",
                 "https://ask-resume.com",
-                "http://ask-resume.com"
+                "http://ask-resume.com",
             )
             .allowedMethods(
                 HttpMethod.GET.name,
@@ -72,7 +72,8 @@ class WebConfig(
                 "/api/v1/extract/link",
                 "/api/v1/extract/pdf",
                 "/api/test/server",
-                "/api/test/bind"
+                "/api/test/bind",
+                "/api/generative/interview-maker",
             )
 
         // 권한 체크

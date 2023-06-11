@@ -1,7 +1,8 @@
-package app.askresume.domain.generative.model
+package app.askresume.domain.submit.model
 
 import app.askresume.domain.common.BaseTimeEntity
-import app.askresume.domain.generative.constant.SubmitDataStatus
+import app.askresume.domain.generative.interview.model.ResultInterviewMaker
+import app.askresume.domain.submit.constant.SubmitDataStatus
 import com.vladmihalcea.hibernate.type.json.JsonType
 import org.hibernate.annotations.Comment
 import org.hibernate.annotations.Type
@@ -11,7 +12,11 @@ import javax.persistence.*
 @TypeDef(name = "json", typeClass = JsonType::class)
 @Entity
 class SubmitData(
-    parameter: HashMap<String, Any>
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sbumit")
+    val sbumit : Submit,
+
+    parameter: HashMap<String, Any>,
 ) : BaseTimeEntity() {
 
     @Comment("파라미터")
@@ -31,7 +36,8 @@ class SubmitData(
     var submitDataStatus: SubmitDataStatus = SubmitDataStatus.WAITING
         protected set
 
-    @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+
+    @OneToMany(cascade = [CascadeType.ALL])
     @JoinColumn(name = "submit_data_id")
     var resultInterviewMakerList: MutableList<ResultInterviewMaker> = mutableListOf()
         protected set
