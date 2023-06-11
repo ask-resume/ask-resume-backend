@@ -87,6 +87,9 @@ dependencies {
 
     // WebClient : Spring5 이후 RestTemplate을 대체하기 위해 나온 비동기 & 논블로킹 네트워크 요청 라이브러리
     implementation("org.springframework.boot:spring-boot-starter-webflux")
+
+    // json -> jpa
+    implementation("com.vladmihalcea:hibernate-types-52:2.16.2")
 }
 
 dependencyManagement {
