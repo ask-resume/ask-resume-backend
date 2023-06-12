@@ -24,12 +24,6 @@ class InterviewMakerFacade(
         //val jobMasterName = jobService.findJobMasterNameById(request.jobId)
         val jobMasterName = "테스트"
 
-        val submit = submitService.save(
-            title = "아직 어떻게 할지 고민중",
-            serviceType = ServiceType.INTERVIEW_MAKER,
-            dataCount = resumeData.size
-        )
-
         val list = resumeData.map { data ->
             InterviewMakerDto(
                 jobName = jobMasterName,
@@ -41,6 +35,11 @@ class InterviewMakerFacade(
             )
         }.toMutableList()
 
-        submitDataService.save(submit, list)
+        submitService.save(
+            title = "아직 어떻게 할지 고민중",
+            serviceType = ServiceType.INTERVIEW_MAKER,
+            dataCount = resumeData.size,
+            submitList = list,
+        )
     }
 }

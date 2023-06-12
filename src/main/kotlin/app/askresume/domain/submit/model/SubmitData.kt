@@ -12,10 +12,6 @@ import javax.persistence.*
 @TypeDef(name = "json", typeClass = JsonType::class)
 @Entity
 class SubmitData(
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sbumit")
-    val sbumit : Submit,
-
     parameter: HashMap<String, Any>,
 ) : BaseTimeEntity() {
 

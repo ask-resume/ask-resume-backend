@@ -22,7 +22,7 @@ class ResultInterviewMaker(
 
     @Comment("모범 답안")
     @Column(columnDefinition= "text",nullable = false)
-    var bestAnswer : String = question
+    var bestAnswer : String = bestAnswer
         protected set
 
     @Enumerated(EnumType.STRING)

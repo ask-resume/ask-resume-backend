@@ -45,4 +45,8 @@ class Submit(
     @JoinColumn(name = "submit_id")
     var resultInterviewMakerList: MutableList<ResultInterviewMaker> = mutableListOf()
         protected set
+
+    fun addSubmitList(submitList: List<SubmitData>) {
+        submitDataList.addAll(submitList)
+    }
 }
