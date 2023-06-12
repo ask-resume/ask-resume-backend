@@ -33,11 +33,8 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
     // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.0")
-
-    // jackson-module-kotlin 은 매개변수가 없는 생성자가 없더라도 직렬화와 역직렬화를 지원
-    // 코틀린은 매개변수가 없는 생성자를 만들기 위해 생성자의 모든 매개변수에 기본 인자가 필요
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     // cache
     implementation("org.springframework.boot:spring-boot-starter-cache")

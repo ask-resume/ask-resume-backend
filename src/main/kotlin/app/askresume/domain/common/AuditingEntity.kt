@@ -28,8 +28,8 @@ abstract class BaseEntity : BaseTimeEntity() {
 @MappedSuperclass
 abstract class BaseTimeEntity {
 
-    @Id
     @Comment(value = "id")
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
