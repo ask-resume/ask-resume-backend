@@ -7,7 +7,7 @@ open class DifficultyNotExistsException(
     override val cause: Throwable? = null,
 ) : NewBusinessException(
     codeBook = ErrorCodes.ENUM_VALIDATE_NOT_EXIST,
-    properties = "new.job.not.exists",
+    properties = "difficulty.not.exists",
     arguments = arrayOf(),
     cause = cause,
 )

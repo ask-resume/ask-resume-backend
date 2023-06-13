@@ -50,7 +50,7 @@ class Submit(
      * 비즈니스 로직
      */
 
-    fun addSubmitList(submitList: List<SubmitData>) {
+    fun addToSubmitList(submitList: List<SubmitData>) {
         submitDataList.addAll(submitList)
     }
 }

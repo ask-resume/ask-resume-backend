@@ -32,7 +32,7 @@ class InterviewMakerController(
             language = LocaleType.from(locale).value()
         )
 
-        interviewMakerFacade.save(copyRequest)
+        interviewMakerFacade.saveSubmit(copyRequest)
 
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
