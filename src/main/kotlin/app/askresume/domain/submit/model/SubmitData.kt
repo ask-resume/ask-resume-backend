@@ -15,7 +15,7 @@ class SubmitData(
     parameter: HashMap<String, Any>,
 ) : BaseTimeEntity() {
 
-    @Comment("파라미터")
+    @Comment("데이터")
     @Type(type = "json")
     @Column(columnDefinition = "json")
     var parameter: HashMap<String, Any> = parameter

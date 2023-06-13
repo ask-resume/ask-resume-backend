@@ -28,7 +28,7 @@ data class InterviewMakerRequest(
 
     @field:Schema(description = "이력서 상세 내용", required = true)
     @field:Valid
-    val contents: ResumeInformation
+    val contents: ResumeInformationDto
 )
 
 data class InterviewMakerDto(
@@ -37,10 +37,10 @@ data class InterviewMakerDto(
     val careerYear: String,
     val language: String,
     val resumeType: String,
-    val content: String,
+    val contents: String,
 )
 
-data class ResumeInformation(
+data class ResumeInformationDto(
 
     @field:Schema(description = "자기소개서")
     @field:Valid
