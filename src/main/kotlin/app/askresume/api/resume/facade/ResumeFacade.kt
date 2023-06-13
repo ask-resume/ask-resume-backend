@@ -26,9 +26,6 @@ class ResumeFacade(
     val log = log()
 
     fun generate(request: GenerateExpectedQuestionRequest): WhatGeneratedResponse {
-
-        log.debug("이력서 생성 update request : {}", request.toString())
-
         val job = jobService.findJobNameById(request.jobId).masterName
         val difficulty = request.difficulty
         val careerYear = careerYearMapper.toCareer(request.careerYear)
@@ -37,11 +34,9 @@ class ResumeFacade(
 
         val prompt = promptService.findByPromptType(PromptType.QUESTIONS_AND_MODEL_ANSWERS)
 
-        val response = gptService.createdExpectedQuestionsAndAnswer(prompt, job, difficulty, careerYear, locale, resumeData)
-
         // request 내용, 생성된 질문 저장
 
         // 리스폰
-        return response
+        return gptService.createdExpectedQuestionsAndAnswer(prompt, job, difficulty, careerYear, locale, resumeData)
     }
 }

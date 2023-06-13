@@ -28,12 +28,11 @@ class JobController(
     @Operation(summary = "언어별로 직업 리스트를 조회하는 API", description = "언어별로 직업 리스트를 조회하는 API")
     @GetMapping("/v1/jobs")
     fun findJobs(): ResponseEntity<ApiResult<List<JobResponse>>> {
-
         var language = LocaleContextHolder.getLocale().language
-        log.debug(language)
         language = localeValidator.validateLocaleType(language)
+
         val localeType = LocaleType.from(language)
-        log.debug(localeType.toString())
+
         return ResponseEntity.ok(ApiResult(jobFacade.findJobs(localeType)))
     }
 

@@ -11,6 +11,7 @@ import com.navercorp.lucy.security.xss.servletfilter.XssEscapeServletFilter
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.support.ResourceBundleMessageSource
 import org.springframework.http.HttpMethod
 import org.springframework.http.converter.HttpMessageConverter
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver
 import java.util.*
+
 
 @Configuration
 class WebConfig(
@@ -114,12 +116,21 @@ class WebConfig(
     }
 
     @Bean
-    fun localeResolver(): LocaleResolver? {
+    fun localeResolver(): LocaleResolver {
         val localeResolver = AcceptHeaderLocaleResolver()
 
         // 언어 & 국가정보가 없는 경우 미국으로 인식하도록 설정
         localeResolver.defaultLocale = Locale.US
         return localeResolver
+    }
+
+    @Bean
+    fun messageSource(): ResourceBundleMessageSource {
+        val messageSource = ResourceBundleMessageSource()
+        messageSource.setUseCodeAsDefaultMessage(true)
+        messageSource.setBasenames("message/messages")
+        messageSource.setDefaultEncoding("UTF-8")
+        return messageSource
     }
 
 }

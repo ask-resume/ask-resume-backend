@@ -25,9 +25,6 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 
-  jackson:
-    property-naming-strategy: SNAKE_CASE # snake_case로 작성된 JSON을 camelCase DTO에 매핑해주는 옵션
-
   data:
     web:
       pageable:
