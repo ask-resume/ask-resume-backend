@@ -1,6 +1,6 @@
 package app.askresume.api.submit.facade
 
-import app.askresume.api.submit.dto.SubmitParam
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -8,14 +8,17 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(readOnly = true)
 class SubmitFacade {
 
-    val TOTAL_ELEMENTS = 1027
+    companion object {
+        const val TOTAL_ELEMENTS = 230613
+    }
 
-    fun findMySubmits(requestParams: SubmitParam.MySubmits): Map<String, Any> {
-        val (page, pageSize) = requestParams
+    fun findMySubmits(pageable: Pageable): Map<String, Any> {
+        val page = pageable.pageNumber
+        val pageSize = pageable.pageSize
         val list = mutableListOf<Map<String, Any>>()
 
-        val firstElement = TOTAL_ELEMENTS - (page - 1).coerceAtLeast(0) * pageSize
-        val lastElement = (TOTAL_ELEMENTS - (page * pageSize) + 1).coerceAtLeast(1)
+        val firstElement = TOTAL_ELEMENTS - page.coerceAtLeast(0) * pageSize
+        val lastElement = (TOTAL_ELEMENTS - ((page + 1) * pageSize) + 1).coerceAtLeast(1)
 
         for (i in firstElement downTo lastElement) {
             val item = mapOf(
@@ -34,8 +37,8 @@ class SubmitFacade {
         }
 
         return mapOf(
-            "page" to requestParams.page,
-            "pageSIze" to requestParams.pageSize,
+            "page" to page,
+            "pageSize" to pageSize,
             "totalElements" to TOTAL_ELEMENTS,
             "list" to list,
         )

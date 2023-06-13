@@ -28,6 +28,13 @@ spring:
   jackson:
     property-naming-strategy: SNAKE_CASE # snake_case로 작성된 JSON을 camelCase DTO에 매핑해주는 옵션
 
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+        max-page-size: 100
+        size-parameter: pageSize
+
 file:
   licensed:
     content: application/pdf
