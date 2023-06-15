@@ -1,9 +1,12 @@
 package app.askresume.global.config
 
 import app.askresume.global.resolver.memberinfo.MemberInfo
+import com.fasterxml.classmate.TypeResolver
+import io.swagger.annotations.ApiModelProperty
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpHeaders
 import springfox.documentation.builders.ApiInfoBuilder
 import springfox.documentation.builders.PathSelectors
@@ -16,7 +19,9 @@ import springfox.documentation.spring.web.plugins.Docket
 import java.util.*
 
 @Configuration
-class SwaggerConfig {
+class SwaggerConfig(
+    private val typeResolver: TypeResolver,
+) {
 
     @Value("\${swagger.title}")
     private lateinit var TITLE: String
@@ -39,7 +44,8 @@ class SwaggerConfig {
             .securityContexts(listOf(securityContext()))
             .securitySchemes(listOf<SecurityScheme>(apiKey()))
             .globalRequestParameters(globalParameters())
-        .ignoredParameterTypes(MemberInfo::class.java)
+            .ignoredParameterTypes(MemberInfo::class.java)
+            .directModelSubstitute(Pageable::class.java, MyPageable::class.java) // JPA Pageable에 Swagger 적용
     }
 
     private fun apiInfo(): ApiInfo? {
@@ -77,5 +83,16 @@ class SwaggerConfig {
     private fun apiKey(): ApiKey {
         return ApiKey(HttpHeaders.AUTHORIZATION, HttpHeaders.AUTHORIZATION, "header")
     }
+
+    data class MyPageable(
+        @ApiModelProperty(value = "페이지 번호")
+        var page: Int? = null,
+
+        @ApiModelProperty(value = "페이지 크기")
+        var pageSize: Int? = null,
+
+        @ApiModelProperty(value = "정렬 (사용 예시: 컬럼명,ASC)")
+        var sort: List<String>? = null
+    )
 
 }
