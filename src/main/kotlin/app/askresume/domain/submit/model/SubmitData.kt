@@ -13,6 +13,9 @@ import javax.persistence.*
 @Entity
 class SubmitData(
     parameter: HashMap<String, Any>,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    val submit: Submit,
 ) : BaseTimeEntity() {
 
     @Comment("데이터")
@@ -30,11 +33,5 @@ class SubmitData(
     @Comment("상태")
     @Column(name = "status", nullable = false, length = 30)
     var submitDataStatus: SubmitDataStatus = SubmitDataStatus.WAITING
-        protected set
-
-
-    @OneToMany(cascade = [CascadeType.ALL])
-    @JoinColumn(name = "submit_data_id")
-    var resultInterviewMakerList: MutableList<ResultInterviewMaker> = mutableListOf()
         protected set
 }

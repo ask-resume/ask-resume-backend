@@ -35,22 +35,4 @@ class Submit(
     @Column(nullable = false)
     var dataCount: Int = dataCount
         protected set
-
-    @OneToMany(cascade = [CascadeType.ALL])
-    @JoinColumn(name = "submit_id")
-    var submitDataList: MutableList<SubmitData> = mutableListOf()
-        protected set
-
-    @OneToMany(cascade = [CascadeType.ALL])
-    @JoinColumn(name = "submit_id")
-    var resultInterviewMakerList: MutableList<ResultInterviewMaker> = mutableListOf()
-        protected set
-
-    /**
-     * 비즈니스 로직
-     */
-
-    fun addToSubmitList(submitList: List<SubmitData>) {
-        submitDataList.addAll(submitList)
-    }
 }

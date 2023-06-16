@@ -22,12 +22,9 @@ class SubmitDataService(
     ) {
         val submit = submitRepository.findSubmitById(submitId)
 
-        submit.addToSubmitList(
-            parameters.map { param ->
-                SubmitData(param)
-            }
-        )
-
+        parameters.map { param ->
+            submitDataRepository.save(SubmitData(param, submit))
+        }
     }
 
 }

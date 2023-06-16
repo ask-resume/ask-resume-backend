@@ -1,7 +1,7 @@
 package app.askresume.api.generative.mapper
 
 import app.askresume.api.generative.dto.ResumeDataDto
-import app.askresume.api.generative.dto.ResumeInformation
+import app.askresume.api.generative.dto.ResumeInformationDto
 import app.askresume.domain.generative.interview.constant.ResumeType
 
 fun toCareer(careerYear: Int): String {
@@ -12,7 +12,7 @@ fun toCareer(careerYear: Int): String {
     }
 }
 
-fun toResumeData(contents: ResumeInformation): List<ResumeDataDto> {
+fun toResumeData(contents: ResumeInformationDto): List<ResumeDataDto> {
     val mappings = mapOf(
         ResumeType.INTRODUCTION.value() to contents.introduction,
         ResumeType.CAREER.value() to contents.career,

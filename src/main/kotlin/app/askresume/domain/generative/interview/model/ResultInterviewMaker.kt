@@ -2,17 +2,17 @@ package app.askresume.domain.generative.interview.model
 
 import app.askresume.domain.common.BaseTimeEntity
 import app.askresume.domain.submit.constant.Satisfaction
+import app.askresume.domain.submit.model.SubmitData
 import org.hibernate.annotations.Comment
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.EnumType
-import javax.persistence.Enumerated
+import javax.persistence.*
 
 @Entity
 class ResultInterviewMaker(
     question : String,
     bestAnswer : String,
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    val submitData: SubmitData,
 ) : BaseTimeEntity() {
 
     @Comment("질문")
@@ -30,6 +30,4 @@ class ResultInterviewMaker(
     @Column(nullable = false, length = 30)
     var satisfaction : Satisfaction = Satisfaction.NO_RESPONSE
         protected set
-
-
 }
