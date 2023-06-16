@@ -1,6 +1,6 @@
 package app.askresume.domain.job.model
 
-import app.askresume.domain.common.BaseTimeEntity
+import app.askresume.domain.common.BaseEntity
 import org.hibernate.annotations.Comment
 import org.hibernate.annotations.SQLDelete
 import javax.persistence.Column
@@ -9,7 +9,7 @@ import javax.persistence.FetchType
 import javax.persistence.OneToMany
 
 
-@SQLDelete(sql = "UPDATE job_master SET deleted_at = 'N' WHERE id = ?")
+@SQLDelete(sql = "UPDATE job_master SET is_deleted = 'N' WHERE id = ?")
 @Entity
 class JobMaster(
 
@@ -17,7 +17,7 @@ class JobMaster(
     @Column(length = 150, nullable = false)
     val masterName: String,
 
-    ) : BaseTimeEntity() {
+    ) : BaseEntity() {
 
     @OneToMany(mappedBy = "jobMaster", fetch = FetchType.LAZY)
     val jobs: List<Job> = ArrayList()

@@ -89,4 +89,5 @@ oauth:
 
 # 외 다른 내용은 GptConfig 에서 수정
 openai:
+  url: https://api.openai.com
   token: ENC(0cqGX1kttHKlPJJiEpjkN/ncwaG2aTEHcWnhWdm07ElZjU6i6Mw2UytcPG2b19UFfyVUegGzEOhnakQrTRD1SA==)

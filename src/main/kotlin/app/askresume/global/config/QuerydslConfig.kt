@@ -1,4 +1,4 @@
-package app.askresume.global.config.querydsl
+package app.askresume.global.config
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.context.annotation.Bean
@@ -7,12 +7,11 @@ import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
 @Configuration
-class QueryDslConfig {
+class QuerydslConfig {
 
     @PersistenceContext
-    private lateinit var em: EntityManager
+    private lateinit var entityManager: EntityManager
 
     @Bean
-    fun init() = JPAQueryFactory(em)
-
+    fun jpaQueryFactory() = JPAQueryFactory(entityManager)
 }

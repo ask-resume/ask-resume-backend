@@ -73,6 +73,7 @@ class WebConfig(
                 "/api/v1/extract/pdf",
                 "/api/test/server",
                 "/api/test/bind",
+                "/api/generative/interview-maker",
                 "/api/my-member/submit" // TODO : 개발 완료 시 반드시 제거하기
             )
 

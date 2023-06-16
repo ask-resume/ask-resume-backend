@@ -39,4 +39,10 @@ class JobService(
         return jobMasterRepository.findByIdOrNull(jobId)
             ?: throw JobNotFoundException(jobId)
     }
+
+    fun findJobMasterNameById(jobId: Long): String {
+        return jobMasterRepository.findByIdOrNull(jobId)
+            ?.masterName
+            ?: throw JobNotFoundException(jobId)
+    }
 }
