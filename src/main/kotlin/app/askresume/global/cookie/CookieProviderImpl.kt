@@ -13,13 +13,14 @@ class CookieProviderImpl(
 ) : CookieProvider {
 
     override fun createCookie(cookieOption: CookieOption): ResponseCookie {
-        val (key, value, httpOnly, secure, domain, path, maxAge) = cookieOption
+        val (key, value, httpOnly, secure, domain, path, maxAge, sameSite) = cookieOption
 
         val cookie = ResponseCookie.from(key, value)
             .httpOnly(httpOnly)
             .secure(secure)
             .domain(domain)
             .path(path)
+            .sameSite(sameSite)
 
         maxAge?.let { cookie.maxAge(maxAge) }
 
@@ -27,7 +28,7 @@ class CookieProviderImpl(
     }
 
     override fun createTokenCookie(tokenDto: JwtResponse.Token, domain: String): ResponseCookie {
-        val isProdActive = environment.activeProfiles.any { it == "prod" }
+        val isDev = environment.activeProfiles.any { profile -> profile == "dev" }
 
         val cookieOption = CookieOption(
             name = tokenDto.tokenType.cookieName,
@@ -35,7 +36,8 @@ class CookieProviderImpl(
             domain = domain,
             maxAge = Duration.ofMillis(tokenDto.expirationTime),
             httpOnly = true,
-            secure = isProdActive,
+            secure = true,
+            sameSite = if (isDev) "None" else "Strict" // "dev" 환경에서만 서드 파티 쿠키를 허용합니다.
         )
 
         return createCookie(cookieOption)

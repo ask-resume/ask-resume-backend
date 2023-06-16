@@ -43,10 +43,10 @@ class TokenManager(
         val expiration = createTokenExpiration(expirationTime)
 
         val token = Jwts.builder()
-            .setSubject(tokenType.name)                  // 토큰 제목
-            .setIssuedAt(Date())                    // 토큰 발급 시간
-            .setExpiration(expiration)              // 토큰 만료 시간
-            .claim(MEMBER_ID_KEY, memberId)      // 회원 아이디
+            .setSubject(tokenType.name)         // 토큰 제목
+            .setIssuedAt(Date())                // 토큰 발급 시간
+            .setExpiration(expiration)          // 토큰 만료 시간
+            .claim(MEMBER_ID_KEY, memberId)     // 회원 아이디
             .claim(ROLE_KEY, role)              // 유저 role
             .signWith(SignatureAlgorithm.HS512, tokenSecret.toByteArray(StandardCharsets.UTF_8))
             .setHeaderParam("typ", "JWT")
