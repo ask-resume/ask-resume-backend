@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.net.URI
-import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Tag(name = "oauth2", description = "OAuth2.0 API")
@@ -48,16 +47,14 @@ class OAuthController(
     fun loginCallback(
         @PathVariable provider: String,
         code: String,
-        request: HttpServletRequest,
         response: HttpServletResponse,
     ): ResponseEntity<Void> {
         val providerEnum = OAuthProvider.fromKebabCase(provider)
         val jwtTokenSet = oAuthFacade.joinOrLogin(code, providerEnum)
 
-        val domain = request.serverName
         val jwtCookies = arrayOf(
-            cookieProvider.createTokenCookie(jwtTokenSet.accessToken, domain),
-            cookieProvider.createTokenCookie(jwtTokenSet.refreshToken, domain)
+            cookieProvider.createTokenCookie(jwtTokenSet.accessToken, oAuthProperties.domain),
+            cookieProvider.createTokenCookie(jwtTokenSet.refreshToken, oAuthProperties.domain)
         )
 
         val headers = HttpHeaders()

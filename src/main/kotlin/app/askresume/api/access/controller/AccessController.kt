@@ -11,6 +11,7 @@ import app.askresume.global.model.ApiResult
 import app.askresume.global.resolver.token.AccessToken
 import app.askresume.global.resolver.token.RefreshToken
 import app.askresume.global.resolver.token.TokenDto
+import app.askresume.oauth.OAuthProperties
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpHeaders
@@ -29,6 +30,7 @@ import javax.servlet.http.HttpServletRequest
 class AccessController(
     private val accessFacade: AccessFacade,
     private val cookieProvider: CookieProvider,
+    private val oAuthProperties: OAuthProperties,
 ) {
 
     @Tag(name = "authentication")
@@ -52,8 +54,7 @@ class AccessController(
     fun logout(@AccessToken token: TokenDto, request: HttpServletRequest): ResponseEntity<Void> {
         accessFacade.logout(token.token)
 
-        val domain = request.serverName
-        val expiredCookies = getAccessAndRefreshTokenCookies(domain, Duration.ZERO)
+        val expiredCookies = getAccessAndRefreshTokenCookies(oAuthProperties.domain, Duration.ZERO)
 
         val headers = HttpHeaders()
         expiredCookies.forEach { headers.add(HttpHeaders.SET_COOKIE, it.toString()) }
@@ -75,15 +76,11 @@ class AccessController(
     @Tag(name = "authentication")
     @Operation(summary = "Access Token 재발급 API", description = "쿠키에 저장된 Refresh 토큰을 읽어와 만료된 Access 토큰을 재발급해줍니다.")
     @GetMapping("/refresh")
-    fun createAccessToken(
-        @RefreshToken token: TokenDto,
-        request: HttpServletRequest,
-    ): ResponseEntity<Void> {
+    fun createAccessToken(@RefreshToken token: TokenDto): ResponseEntity<Void> {
         val accessTokenDto = accessFacade.createAccessTokenByRefreshToken(token.token)
 
         val headers = HttpHeaders()
-        val domain = request.serverName
-        headers.add(HttpHeaders.SET_COOKIE, cookieProvider.createTokenCookie(accessTokenDto, domain).toString())
+        headers.add(HttpHeaders.SET_COOKIE, cookieProvider.createTokenCookie(accessTokenDto, oAuthProperties.domain).toString())
 
         return ResponseEntity
             .ok()

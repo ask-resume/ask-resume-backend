@@ -25,6 +25,7 @@ swagger:
   description: "로컬서버 API 문서입니다."
 
 oauth:
+  domain: localhost
   client-home: http://localhost:4000
   providers:
     google:

@@ -20,7 +20,8 @@ swagger:
   description: "개발서버 API 문서입니다."
 
 oauth:
-  client_home: https://ask-resume.com
+  domain: localhost
+  client_home: http://localhost:4000
   providers:
     google:
       redirect-url: http://dev.ask-resume.com/api/oauth/google/callback
