@@ -12,6 +12,10 @@ spring:
         format_sql: true # SQL 예쁘게 출력
         default_batch_fetch_size: 1000 # 일대다 컬렉션 조회 시 성능 최적화
 
+  messages:
+    basename: message/messages
+    encoding: UTF-8
+
   servlet:
     multipart:
       max-file-size: 3MB # 파일 업로드 요청 시 하나의 파일 크기를 10MB 제한
@@ -20,6 +24,13 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+  data:
+    web:
+      pageable:
+        default-page-size: 10
+        max-page-size: 100
+        size-parameter: pageSize
 
 file:
   licensed:

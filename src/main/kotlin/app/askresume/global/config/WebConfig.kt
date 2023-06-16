@@ -41,7 +41,7 @@ class WebConfig(
                 "http://localhost:4000",
                 "http://localhost:3000",
                 "https://ask-resume.com",
-                "http://ask-resume.com",
+                "http://ask-resume.com"
             )
             .allowedMethods(
                 HttpMethod.GET.name,
@@ -74,6 +74,7 @@ class WebConfig(
                 "/api/test/server",
                 "/api/test/bind",
                 "/api/generative/interview-maker",
+                "/api/my-member/submit" // TODO : 개발 완료 시 반드시 제거하기
             )
 
         // 권한 체크
