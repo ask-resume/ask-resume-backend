@@ -26,7 +26,7 @@ class OAuthController(
     @Tag(name = "oauth2")
     @Operation(
         summary = "OAuth2.0 로그인 API",
-        description = "클라이언트에서 이 API를 호출하면 벤더사(provider)의 로그인 페이지로 리다이렉트된 후 OAuth2.0 로그인이 진행됩니다. (302 Redirect) 만약 로그인에 성공하면 백엔드에 설정된 클라이언트 페이지로 리다이렉트됩니다."
+        description = "🛑 절대 이 API를 비동기 (axios, ajax, fetch) 로 호출하지 마세요!<br>반드시 해당 URL을 '링크'로 걸어 클라이언트가 아닌 서버측에서 OAuth 로그인을 진행해야 구글의 CORS 보안정책을 통과할 수 있습니다.<br><br>벤더사(provider)의 로그인 페이지로 리다이렉트된 후 OAuth2.0 로그인이 진행됩니다. (302 Redirect) 만약 로그인에 성공하면 백엔드에 설정된 클라이언트 페이지로 리다이렉트됩니다."
     )
     @GetMapping("/{provider}/login")
     fun login(@PathVariable provider: String, response: HttpServletResponse): ResponseEntity<String> {

@@ -36,11 +36,7 @@ class ExtractController(
     )
     @PostMapping(value = ["/v1/extract/pdf"], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
     fun extractTextFromPdf(
-        @Parameter(
-            name = "resume",
-            description = "이력서PDF파일, maxSize: 3MB, 확장자: pdf)",
-            required = true
-        )
+        @Parameter(name = "resume", description = "이력서PDF파일, maxSize: 3MB, 확장자: pdf)", required = true)
         @RequestPart("resume")
         file: MultipartFile
     ): ResponseEntity<ApiResult<ExtractedTextResponse>> {
@@ -57,11 +53,7 @@ class ExtractController(
     )
     @GetMapping("/v1/extract/link")
     fun scrapeWebPage(
-        @Parameter(
-            name = "url",
-            description = "이력서 URL",
-            required = true
-        )
+        @Parameter(name = "url", description = "이력서 URL", required = true)
         @URL(message = "올바른 URL 형식이 아닙니다.")
         @RequestParam
         @NotBlank
