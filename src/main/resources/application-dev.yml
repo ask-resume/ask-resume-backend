@@ -10,6 +10,7 @@ spring:
     properties:
       dialect: org.hibernate.dialect.MySQL8Dialect
 
+
 logging:
   level:
     app.askresume: debug # todo 패키지 수정
