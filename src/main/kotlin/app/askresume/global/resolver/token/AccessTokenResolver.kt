@@ -29,7 +29,6 @@ class AccessTokenResolver(
         val request = webRequest.nativeRequest as HttpServletRequest
 
         val accessTokenCookie = cookieProvider.getCookie(request.cookies, JwtTokenType.ACCESS.cookieName)
-            ?: throw Exception("미구현 예외") // TODO
 
         return TokenDto(accessTokenCookie.value)
     }
