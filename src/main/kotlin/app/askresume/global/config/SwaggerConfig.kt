@@ -91,7 +91,7 @@ class SwaggerConfig(
         @ApiModelProperty(value = "페이지 크기")
         var pageSize: Int? = null,
 
-        @ApiModelProperty(value = "정렬 (사용 예시: 컬럼명,ASC)")
+        @ApiModelProperty(value = "정렬 (사용 예시: 컬럼명,ASC 또는 DESC)")
         var sort: List<String>? = null
     )
 
