@@ -26,3 +26,10 @@ oauth:
       redirect-url: http://dev.ask-resume.com/api/oauth/google/callback
     linked-in:
       redirect-url: http://dev.ask-resume.com/api/oauth/linked-in/callback
+
+# Actuator Config
+management:
+  endpoint:
+    web:
+      exposure:
+        include: "*"
