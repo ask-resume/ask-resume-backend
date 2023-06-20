@@ -34,3 +34,10 @@ oauth:
       redirect-url: http://localhost:8080/api/oauth/google/callback
     linked-in:
       redirect-url: http://localhost:8080/api/oauth/linked-in/callback
+
+# Actuator Config
+management:
+  endpoint:
+    web:
+      exposure:
+        include: "*"
