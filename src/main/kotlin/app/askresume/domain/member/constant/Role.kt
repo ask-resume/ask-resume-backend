@@ -8,5 +8,6 @@ enum class Role {
     companion object {
         fun from(role: String): Role = valueOf(role)
     }
+
 }
 

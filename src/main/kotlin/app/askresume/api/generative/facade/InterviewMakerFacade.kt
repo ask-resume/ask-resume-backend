@@ -9,6 +9,7 @@ import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.service.SubmitDataService
 import app.askresume.domain.submit.service.SubmitService
 import app.askresume.global.annotation.Facade
+import app.askresume.global.resolver.memberinfo.MemberInfoDto
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.transaction.annotation.Transactional
 
@@ -23,7 +24,7 @@ class InterviewMakerFacade(
 
     @Suppress("UNCHECKED_CAST")
     @Transactional
-    fun saveSubmit(request: InterviewMakerRequest) {
+    fun saveSubmit(request: InterviewMakerRequest, memberInfoDto: MemberInfoDto) {
         val resumeData = toResumeData(request.contents)
         val jobMasterName = jobService.findJobMasterNameById(request.jobId)
 
@@ -46,6 +47,7 @@ class InterviewMakerFacade(
             title = "아직 어떻게 할지 고민중",
             serviceType = ServiceType.INTERVIEW_MAKER,
             dataCount = resumeData.size,
+            memberId = memberInfoDto.memberId,
         )
 
         submitDataService.addToSubmitData(

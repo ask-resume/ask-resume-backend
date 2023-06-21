@@ -5,6 +5,8 @@ import app.askresume.api.generative.facade.InterviewMakerFacade
 import app.askresume.domain.generative.interview.validator.InterviewValidator
 import app.askresume.domain.locale.constant.LocaleType
 import app.askresume.domain.locale.validator.LocaleValidator
+import app.askresume.global.resolver.memberinfo.MemberInfo
+import app.askresume.global.resolver.memberinfo.MemberInfoDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
@@ -23,7 +25,8 @@ class InterviewMakerController(
 
     @PostMapping
     fun submit(
-        @Validated @RequestBody request : InterviewMakerRequest
+        @Validated @RequestBody request : InterviewMakerRequest,
+        @MemberInfo memberInfoDto: MemberInfoDto,
     ) : ResponseEntity<Void> {
         interviewValidator.validateDifficultyType(request.difficulty)
         val locale = localeValidator.validateLocaleType(request.language)
@@ -32,7 +35,7 @@ class InterviewMakerController(
             language = LocaleType.from(locale).value()
         )
 
-        interviewMakerFacade.saveSubmit(copyRequest)
+        interviewMakerFacade.saveSubmit(copyRequest, memberInfoDto)
 
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }

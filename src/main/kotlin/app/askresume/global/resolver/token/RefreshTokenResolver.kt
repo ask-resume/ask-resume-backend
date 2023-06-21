@@ -29,7 +29,6 @@ class RefreshTokenResolver(
         val request = webRequest.nativeRequest as HttpServletRequest
 
         val refreshTokenCookie = cookieProvider.getCookie(request.cookies, JwtTokenType.REFRESH.cookieName)
-            ?: throw Exception("미구현 예외") // TODO
 
         return TokenDto(refreshTokenCookie.value)
     }
