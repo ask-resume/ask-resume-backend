@@ -43,7 +43,7 @@ class InterviewMakerFacade(
         }
 
         val submitId = submitService.saveSubmit(
-            title = "아직 어떻게 할지 고민중",
+            title = "${interviewMakerDtoList[0].contents.substring(0, 30)}...",
             serviceType = ServiceType.INTERVIEW_MAKER,
             dataCount = resumeData.size,
         )
