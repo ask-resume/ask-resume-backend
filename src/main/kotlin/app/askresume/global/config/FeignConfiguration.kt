@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 
 @Configuration
-@EnableFeignClients(basePackages = ["app.askresume"]) // todo 패키지명 수정
+@EnableFeignClients(basePackages = ["app.askresume"])
 @Import(FeignClientsConfiguration::class)
 class FeignConfiguration {
 
@@ -21,7 +21,7 @@ class FeignConfiguration {
     fun errorDecoder() = FeignClientExceptionErrorDecoder()
 
     @Bean
-    fun retryer() = Retryer.Default(1000, 2000, 3)
+    fun retryer() = Retryer.Default(30000, 30000, 1)
 
 }
 

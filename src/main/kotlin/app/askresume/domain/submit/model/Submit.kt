@@ -1,12 +1,13 @@
 package app.askresume.domain.submit.model
 
 import app.askresume.domain.common.BaseTimeEntity
-import app.askresume.domain.generative.interview.model.ResultInterviewMaker
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.constant.SubmitStatus
 import org.hibernate.annotations.Comment
+import org.hibernate.annotations.Where
 import javax.persistence.*
 
+@Where(clause = "is_deleted = 'Y'")
 @Entity
 class Submit(
     title: String,

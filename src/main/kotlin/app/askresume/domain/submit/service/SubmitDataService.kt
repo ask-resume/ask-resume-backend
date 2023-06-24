@@ -6,7 +6,6 @@ import app.askresume.domain.submit.repository.SubmitRepository
 import app.askresume.domain.submit.repository.findSubmitById
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.HashMap
 
 @Service
 @Transactional(readOnly = true)
@@ -18,7 +17,7 @@ class SubmitDataService(
     @Transactional
     fun addToSubmitData(
         submitId: Long,
-        parameters: List<HashMap<String, Any>>
+        parameters: List<Map<String, Any>>
     ) {
         val submit = submitRepository.findSubmitById(submitId)
 

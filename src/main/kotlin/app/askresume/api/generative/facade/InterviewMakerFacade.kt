@@ -1,9 +1,9 @@
 package app.askresume.api.generative.facade
 
-import app.askresume.api.generative.dto.InterviewMakerDto
-import app.askresume.api.generative.dto.InterviewMakerRequest
 import app.askresume.api.generative.mapper.toCareer
 import app.askresume.api.generative.mapper.toResumeData
+import app.askresume.api.generative.vo.InterviewMakerRequest
+import app.askresume.domain.generative.interview.dto.InterviewMakerDto
 import app.askresume.domain.job.service.JobService
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.service.SubmitDataService
@@ -21,7 +21,6 @@ class InterviewMakerFacade(
     private val objectMapper: ObjectMapper,
 ) {
 
-    @Suppress("UNCHECKED_CAST")
     @Transactional
     fun saveSubmit(request: InterviewMakerRequest) {
         val resumeData = toResumeData(request.contents)
@@ -34,16 +33,16 @@ class InterviewMakerFacade(
                 careerYear = toCareer(request.careerYear),
                 language = request.language,
                 resumeType = data.resumeType,
-                contents = data.content
+                content = data.content
             )
         }.toMutableList()
 
         val parameters = interviewMakerDtoList.map { dto ->
-            objectMapper.convertValue(dto, Map::class.java) as HashMap<String, Any>
+            objectMapper.convertValue(dto, Map::class.java) as Map<String, Any>
         }
 
         val submitId = submitService.saveSubmit(
-            title = "${interviewMakerDtoList[0].contents.substring(0, 30)}...",
+            title = "${interviewMakerDtoList[0].content.substring(0, 30)}...",
             serviceType = ServiceType.INTERVIEW_MAKER,
             dataCount = resumeData.size,
         )

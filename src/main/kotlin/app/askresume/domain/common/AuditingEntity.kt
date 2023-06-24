@@ -21,7 +21,6 @@ abstract class BaseEntity : BaseTimeEntity() {
     val updatedBy: Long? = null
 }
 
-@Where(clause = "deleted_at = 'Y'")
 @DynamicInsert
 @DynamicUpdate
 @EntityListeners(value = [AuditingEntityListener::class])

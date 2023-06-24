@@ -1,6 +1,6 @@
 package app.askresume.api.generative.controller
 
-import app.askresume.api.generative.dto.InterviewMakerRequest
+import app.askresume.api.generative.vo.InterviewMakerRequest
 import app.askresume.api.generative.facade.InterviewMakerFacade
 import app.askresume.domain.generative.interview.validator.InterviewValidator
 import app.askresume.domain.locale.constant.LocaleType

@@ -11,14 +11,21 @@ import org.springframework.transaction.annotation.Transactional
 class SubmitService(
     private val submitRepository: SubmitRepository,
 ) {
-
     @Transactional
     fun saveSubmit(
         title: String,
         serviceType: ServiceType,
         dataCount: Int,
-    ): Long? {
-        val submit = Submit(title, serviceType, dataCount)
-        return submitRepository.save(submit).id
+    ): Long {
+
+        val newSubmit = Submit(
+            title = title,
+            serviceType = serviceType,
+            dataCount = dataCount
+        )
+
+        return submitRepository.save(
+            newSubmit
+        ).id!!
     }
 }

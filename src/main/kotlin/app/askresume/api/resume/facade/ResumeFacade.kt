@@ -32,7 +32,7 @@ class ResumeFacade(
         val locale = request.locale
         val resumeData = generateExpectedQuestionMapper.toResumeData(request.contents)
 
-        val prompt = promptService.findByPromptType(PromptType.QUESTIONS_AND_MODEL_ANSWERS)
+        val prompt = promptService.findByPromptType(PromptType.INTERVIEW_MAKER)
 
         // request 내용, 생성된 질문 저장
 
