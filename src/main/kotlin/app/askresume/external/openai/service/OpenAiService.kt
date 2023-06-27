@@ -5,6 +5,7 @@ import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.external.openai.client.OpenAiClient
 import app.askresume.external.openai.constant.OpenAiRole
 import app.askresume.external.openai.dto.ChatCompletionsMessageDto
+import app.askresume.external.openai.dto.ChatCompletionsMessageResponse
 import app.askresume.external.openai.dto.ChatCompletionsRequest
 import app.askresume.global.jwt.constant.GrantType
 import org.springframework.beans.factory.annotation.Value
@@ -19,8 +20,8 @@ class OpenAiService(
 ) {
 
 
-    @Value("\${openai.token}")
-    lateinit var token : String
+    @Value("\${external.openai.token}")
+    lateinit var token: String
 
     fun createdChatCompletionsRequest(
         serviceType: ServiceType,
@@ -44,11 +45,12 @@ class OpenAiService(
                 ),
             )
         )
-
     }
 
-    fun requestOpenAi(request: ChatCompletionsRequest) {
-        openAiClient.createChatCompletion(
+    fun requestOpenAiChatCompletion(
+        request: ChatCompletionsRequest
+    ): ChatCompletionsMessageResponse {
+        return openAiClient.createChatCompletion(
             accessToken = "${GrantType.BEARER.type} $token",
             request = request
         )
