@@ -46,8 +46,8 @@ feign:
   client:
     config:
       default:
-        connectTimeout: 30000
-        readTimeout: 30000
+        connectTimeout: 300000
+        readTimeout: 300000
 
 # Swagger 설정
 swagger:
