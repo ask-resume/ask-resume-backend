@@ -35,4 +35,11 @@ class SubmitData(
     @Column(name = "status", nullable = false, length = 30)
     var submitDataStatus: SubmitDataStatus = SubmitDataStatus.WAITING
         protected set
+
+    /** 비즈니스 로직 **/
+
+    fun updateStatus(changeStatus: SubmitDataStatus) {
+        this.submitDataStatus = changeStatus
+    }
+
 }

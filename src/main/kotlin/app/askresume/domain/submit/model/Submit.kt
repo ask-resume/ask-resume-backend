@@ -36,4 +36,10 @@ class Submit(
     @Column(nullable = false)
     var dataCount: Int = dataCount
         protected set
+
+    /** 비즈니스 **/
+
+    fun updateStatus(changeStatus: SubmitStatus) {
+        this.submitStatus = changeStatus
+    }
 }

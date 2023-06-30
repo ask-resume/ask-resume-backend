@@ -31,7 +31,7 @@ VALUES ( 'INTERVIEW_MAKER'
           Never add anything else. numbers, letters, etc.
 
           {
-              "predictionResponse" : [
+              "interviews" : [
                   { "question" : "content", "bestAnswer" : "content" },
                   { repetition }
               ]
