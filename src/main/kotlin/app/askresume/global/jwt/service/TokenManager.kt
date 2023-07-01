@@ -3,7 +3,7 @@ package app.askresume.global.jwt.service
 import app.askresume.domain.member.constant.Role
 import app.askresume.global.error.ErrorCode
 import app.askresume.global.error.exception.AuthenticationException
-import app.askresume.global.jwt.constant.JwtGrantType
+import app.askresume.global.jwt.constant.GrantType
 import app.askresume.global.jwt.constant.JwtTokenType
 import app.askresume.global.jwt.dto.JwtResponse
 import app.askresume.global.util.LoggerUtil.log
@@ -53,7 +53,7 @@ class TokenManager(
             .compact()
 
         return JwtResponse.Token(
-            grantType = JwtGrantType.BEARER.type,
+            grantType = GrantType.BEARER.type,
             tokenType = tokenType,
             token = token,
             expirationTime = expirationTime,

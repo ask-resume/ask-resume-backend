@@ -1,4 +1,4 @@
-package app.askresume.api.generative.dto
+package app.askresume.api.generative.vo
 
 import io.swagger.v3.oas.annotations.media.Schema
 import org.hibernate.validator.constraints.Length
@@ -28,19 +28,11 @@ data class InterviewMakerRequest(
 
     @field:Schema(description = "이력서 상세 내용", required = true)
     @field:Valid
-    val contents: ResumeInformationDto
+    val contents: ResumeInformationVo
 )
 
-data class InterviewMakerDto(
-    val jobName: String,
-    val difficulty: String,
-    val careerYear: String,
-    val language: String,
-    val resumeType: String,
-    val contents: String,
-)
 
-data class ResumeInformationDto(
+data class ResumeInformationVo(
 
     @field:Schema(description = "자기소개서")
     @field:Valid
@@ -76,7 +68,7 @@ data class Content(
     val content: String
 )
 
-data class ResumeDataDto(
+data class ResumeDataVo(
     @field:Schema(description = "이력서 타입", example = "introduction", required = true)
     @field:NotBlank
     val resumeType: String,

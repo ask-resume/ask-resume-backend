@@ -27,7 +27,7 @@ class GptService(
 
     val log = log()
 
-    @Value("\${openai.token}")
+    @Value("\${external.openai.token}")
     private lateinit var OPENAI_TOKEN: String
 
     private val executorService = Executors.newFixedThreadPool(1)

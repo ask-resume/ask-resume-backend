@@ -8,6 +8,7 @@ import java.time.ZonedDateTime
 import javax.persistence.*
 
 @MappedSuperclass
+@EntityListeners(value = [AuditingEntityListener::class])
 abstract class BaseEntity : BaseTimeEntity() {
 
     @Comment("등록자")
@@ -21,10 +22,8 @@ abstract class BaseEntity : BaseTimeEntity() {
     val updatedBy: Long? = null
 }
 
-@Where(clause = "deleted_at = 'Y'")
 @DynamicInsert
 @DynamicUpdate
-@EntityListeners(value = [AuditingEntityListener::class])
 @MappedSuperclass
 abstract class BaseTimeEntity {
 

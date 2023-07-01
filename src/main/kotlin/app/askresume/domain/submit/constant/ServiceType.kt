@@ -1,8 +1,5 @@
 package app.askresume.domain.submit.constant
 
-import app.askresume.domain.locale.constant.LocaleType
-
-
 enum class ServiceType {
 
     INTERVIEW_MAKER,

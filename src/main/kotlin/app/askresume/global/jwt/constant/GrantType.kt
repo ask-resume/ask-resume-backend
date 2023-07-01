@@ -1,6 +1,6 @@
 package app.askresume.global.jwt.constant
 
-enum class JwtGrantType(
+enum class GrantType(
     val type: String,
 ) {
 
