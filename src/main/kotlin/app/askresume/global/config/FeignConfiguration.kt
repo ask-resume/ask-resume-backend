@@ -14,6 +14,10 @@ import org.springframework.context.annotation.Import
 @Import(FeignClientsConfiguration::class)
 class FeignConfiguration {
 
+    val INITIAL_BACKOFF_PERIOD: Long = 1000 * 5
+    val MAX_BACKOFF_PERIOD: Long = 1000 * 5
+    val MAX_RETRY_ATTEMPTS = 3
+
     @Bean
     fun feignLoggerLevel() = Logger.Level.FULL
 
@@ -21,7 +25,7 @@ class FeignConfiguration {
     fun errorDecoder() = FeignClientExceptionErrorDecoder()
 
     @Bean
-    fun retryer() = Retryer.Default(30000, 30000, 1)
+    fun retryer() = Retryer.Default(INITIAL_BACKOFF_PERIOD, MAX_BACKOFF_PERIOD, MAX_RETRY_ATTEMPTS)
 
 }
 

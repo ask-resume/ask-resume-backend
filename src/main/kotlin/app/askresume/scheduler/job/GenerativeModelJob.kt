@@ -3,10 +3,8 @@ package app.askresume.scheduler.job
 import app.askresume.domain.generative.factory.GenerativeFactory
 import app.askresume.domain.result.service.ResultService
 import app.askresume.domain.submit.constant.SubmitDataStatus
-import app.askresume.domain.submit.constant.SubmitStatus
 import app.askresume.domain.submit.service.SubmitDataService
 import app.askresume.domain.submit.service.SubmitQueryService
-import app.askresume.domain.submit.service.SubmitService
 import app.askresume.external.openai.service.OpenAiService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -14,8 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class GenerativeModelJob(
     private val submitQueryService: SubmitQueryService,
-    private val submitService: SubmitService,
-    private val submitDataService : SubmitDataService,
+    private val submitDataService: SubmitDataService,
     private val openAiService: OpenAiService,
     private val resultService: ResultService,
     private val generativeFactory: GenerativeFactory,
@@ -27,12 +24,11 @@ class GenerativeModelJob(
 
         if (submitQueryData != null) {
 
-            val serviceType = submitQueryData.serviceType
-            val submitDataId = submitQueryData.submitDataId
+            val (submitId, submitDataId, serviceType, parameter) = submitQueryData
 
             val createdChatCompletionsRequest = openAiService.createdChatCompletionsRequest(
                 serviceType = serviceType,
-                parameter = submitQueryData.parameter,
+                parameter = parameter,
             )
 
             // 데이터로 요청
@@ -41,7 +37,7 @@ class GenerativeModelJob(
             // 결과 저장
             val generativeService = generativeFactory.createGenerativeProvider(serviceType)
             generativeService.saveGenerativeResult(
-                submitDataId = submitQueryData.submitDataId,
+                submitDataId = submitDataId,
                 choices = response.choices
             )
 

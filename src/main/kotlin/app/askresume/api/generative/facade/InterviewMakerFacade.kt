@@ -21,6 +21,9 @@ class InterviewMakerFacade(
     private val objectMapper: ObjectMapper,
 ) {
 
+    private val TITLE_SUBSTRING_MIN_SIZE: Int = 0
+    private val TITLE_SUBSTRING_MAX_SIZE: Int = 30
+
     @Transactional
     fun saveSubmit(request: InterviewMakerRequest) {
         val resumeData = toResumeData(request.contents)
@@ -42,13 +45,18 @@ class InterviewMakerFacade(
         }
 
         val submitId = submitService.saveSubmit(
-            title = "${interviewMakerDtoList[0].content.substring(0, 30)}...",
+            title = "${
+                interviewMakerDtoList[0].content.substring(
+                    TITLE_SUBSTRING_MIN_SIZE,
+                    TITLE_SUBSTRING_MAX_SIZE
+                )
+            }...",
             serviceType = ServiceType.INTERVIEW_MAKER,
             dataCount = resumeData.size,
         )
 
         submitDataService.addToSubmitData(
-            submitId = submitId!!,
+            submitId = submitId,
             parameters = parameters,
         )
     }
