@@ -41,7 +41,10 @@ oauth:
 
 # Actuator Config
 management:
-  endpoint:
+  endpoints:
     web:
       exposure:
-        include: "*"
+        include:
+          - "health"
+          - "metrics"
+          - "prometheus"

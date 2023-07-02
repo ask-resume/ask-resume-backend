@@ -90,6 +90,8 @@ dependencies {
 
     // Actuator
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    // Prometheus
+    implementation("io.micrometer:micrometer-registry-prometheus")
 }
 
 dependencyManagement {
