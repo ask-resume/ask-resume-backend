@@ -29,6 +29,5 @@ class ResultService(
                         totalTokens = totalTokens,
             )
         )
-
     }
 }

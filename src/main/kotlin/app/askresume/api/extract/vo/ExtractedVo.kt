@@ -1,4 +1,4 @@
-package app.askresume.api.extract.dto.response
+package app.askresume.api.extract.vo
 
 import io.swagger.v3.oas.annotations.media.Schema
 
@@ -10,4 +10,4 @@ data class ExtractedTextResponse(
     )
     val text: String,
 
-)
+    )

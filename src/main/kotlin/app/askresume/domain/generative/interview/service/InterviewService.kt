@@ -1,6 +1,6 @@
 package app.askresume.domain.generative.interview.service
 
-import app.askresume.domain.generative.interview.InterviewRepository
+import app.askresume.domain.generative.interview.repository.InterviewRepository
 import app.askresume.domain.generative.interview.dto.InterviewMakerResultDtoList
 import app.askresume.domain.generative.interview.model.ResultInterviewMaker
 import app.askresume.domain.generative.service.GenerativeService
@@ -10,7 +10,6 @@ import app.askresume.external.openai.dto.ChoicesDto
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.security.PrivateKey
 
 @Service
 @Transactional(readOnly = true)
