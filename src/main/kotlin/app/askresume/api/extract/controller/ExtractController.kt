@@ -44,21 +44,4 @@ class ExtractController(
         return ResponseEntity.ok(ApiResult(extractService.pdfToText(file)))
     }
 
-    @ApiIgnore(value = "가상DOM 등을 사용하는 사이트에서 동작 이슈가 있어, 수정전까지 Ignore")
-    @Tag(name = "extract")
-    @Operation(summary = "Link를 Text로 전환하는 API", description = "Link를 Text로 전환하는 API")
-    @ApiResponses(
-        ApiResponse(responseCode = "500", description = "서버 오류 발생(관리자 문의)"),
-        ApiResponse(responseCode = "500", description = "(FILE-002) 텍스트 추출 중 에러 발생.")
-    )
-    @GetMapping("/v1/extract/link")
-    fun scrapeWebPage(
-        @Parameter(name = "url", description = "이력서 URL", required = true)
-        @URL(message = "올바른 URL 형식이 아닙니다.")
-        @RequestParam
-        @NotBlank
-        url: String
-    ): ResponseEntity<ApiResult<ExtractedTextResponse>> {
-        return ResponseEntity.ok(ApiResult(extractService.linkToText(url)))
-    }
 }

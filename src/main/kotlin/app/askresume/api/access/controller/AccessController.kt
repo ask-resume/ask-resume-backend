@@ -34,21 +34,6 @@ class AccessController(
 ) {
 
     @Tag(name = "authentication")
-    @Operation(summary = "일반 로그인 API", description = "일반 로그인 API")
-    @PostMapping("/login")
-    fun login(@RequestBody loginRequest: LoginRequest): ResponseEntity<ApiResult<JwtResponse.TokenSet>> {
-        return ResponseEntity.ok(ApiResult(accessFacade.login(loginRequest)))
-    }
-
-    @Tag(name = "authentication")
-    @Operation(summary = "일반 회원가입 API", description = "일반 회원가입 API")
-    @PostMapping("/sign-up")
-    fun register(@Validated @RequestBody signUpRequest: SignUpRequest): ResponseEntity<Void> {
-        accessFacade.register(signUpRequest)
-        return ResponseEntity.status(HttpStatus.CREATED).build()
-    }
-
-    @Tag(name = "authentication")
     @Operation(summary = "로그아웃 API", description = "로그아웃시 refresh token 만료 처리")
     @PostMapping("/logout")
     fun logout(@AccessToken token: TokenDto, request: HttpServletRequest): ResponseEntity<Void> {

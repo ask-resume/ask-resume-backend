@@ -39,20 +39,5 @@ class ExtractService {
         return ExtractedTextResponse(text)
     }
 
-    fun linkToText(url: String): ExtractedTextResponse {
-        val text = try {
-            val doc = Jsoup.connect(url).get()
-            val elements = doc.allElements
-
-            val body = elements.toString().replace("(?is)<body.*?>\\s*(.*?)\\s*</body>".toRegex(), "$1")
-
-            body.replace("<.*?>".toRegex(), "").replace("(?m)^\\s*$[\n\r]{1,}".toRegex(), "")
-        } catch (e: IOException) {
-            log.error("Elements를 TEXT로 저장하는 도중 ERROR 발생 \n에러 내용 : {}", e.message)
-            throw BusinessException(ErrorCode.TEXT_EXTRACTION_FAILED)
-        }
-
-        return ExtractedTextResponse(text)
-    }
 }
 
