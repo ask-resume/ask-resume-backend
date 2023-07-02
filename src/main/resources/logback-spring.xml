@@ -4,7 +4,8 @@
     <!--  NOTE : 파일이 생성되는 위치 의논 필요  -->
     <property name="ACTIVE_PROFILE" value="${spring.profiles.active}" />
 
-    <property name="LOG_PATH" value="/logs" />
+    <property name="LOG_PATH" value="${user.home}/logs" />
+
     <!-- log file name -->
     <property name="LOG_FILE_NAME" value="askResume" />
     <!-- pattern -->
