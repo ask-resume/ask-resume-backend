@@ -12,14 +12,12 @@ import javax.persistence.OneToMany
 @SQLDelete(sql = "UPDATE job_master SET is_deleted = 'N' WHERE id = ?")
 @Entity
 class JobMaster(
+    masterName: String,
+    ) : BaseEntity() {
 
     @Comment(value = "작업마스터명")
     @Column(length = 150, nullable = false)
-    val masterName: String,
+    var masterName: String = masterName
+        protected set
 
-    ) : BaseEntity() {
-
-    @OneToMany(mappedBy = "jobMaster", fetch = FetchType.LAZY)
-    val jobs: List<Job> = ArrayList()
 }
-

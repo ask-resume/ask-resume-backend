@@ -1,22 +1,28 @@
-package app.askresume.domain.job.repository.impl
+package app.askresume.domain.job.repository.query
 
-import app.askresume.api.job.dto.response.JobResponse
-import app.askresume.api.job.dto.response.QJobResponse
+import app.askresume.domain.job.dto.JobDto
+import app.askresume.domain.job.dto.QJobDto
 import app.askresume.domain.job.model.QJob.job
 import app.askresume.domain.job.model.QJobMaster.jobMaster
-import app.askresume.domain.job.repository.JobRepositoryCustom
 import app.askresume.domain.locale.constant.LocaleType
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Repository
 
 @Repository
-class JobRepositoryCustomImpl(
+class JobDataRepositoryQuery(
     private val queryFactory: JPAQueryFactory,
-) : JobRepositoryCustom {
+) {
 
-    override fun findJobs(locale: LocaleType): List<JobResponse> {
+    fun findJobs(locale: LocaleType): List<JobDto> {
         return queryFactory
-            .select(QJobResponse(jobMaster.id, job.name))
+            .select(
+                QJobDto(
+                    jobMaster.id,
+                    job.name,
+                    jobMaster.createdAt,
+                    jobMaster.updatedAt,
+                )
+            )
             .from(jobMaster)
             .leftJoin(job)
             .on(jobMaster.id.eq(job.jobMaster.id))
