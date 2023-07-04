@@ -1,29 +1,26 @@
 package app.askresume.api.extract.controller
 
-import app.askresume.api.extract.dto.response.ExtractedTextResponse
-import app.askresume.api.extract.service.ExtractService
-import app.askresume.api.extract.validator.ExtractValidator
+import app.askresume.api.extract.facade.ExtractFacade
+import app.askresume.api.extract.vo.ExtractedTextResponse
+import app.askresume.domain.extract.validator.ExtractValidator
 import app.askresume.global.model.ApiResult
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.hibernate.validator.constraints.URL
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
-import springfox.documentation.annotations.ApiIgnore
-import javax.validation.constraints.NotBlank
 
 @Tag(name = "extract", description = "특정 Input을 text로 추출하는 API")
 @Validated
 @RestController
 @RequestMapping("/api")
 class ExtractController(
-    private val extractService: ExtractService,
+    private val extractFacade: ExtractFacade,
     private val extractValidator: ExtractValidator,
 ) {
 
@@ -41,7 +38,7 @@ class ExtractController(
         file: MultipartFile
     ): ResponseEntity<ApiResult<ExtractedTextResponse>> {
         extractValidator.validateContentType(file.contentType)
-        return ResponseEntity.ok(ApiResult(extractService.pdfToText(file)))
+        return ResponseEntity.ok(ApiResult(extractFacade.pdfToText(file)))
     }
 
 }

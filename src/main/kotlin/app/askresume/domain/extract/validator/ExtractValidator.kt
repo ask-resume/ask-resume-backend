@@ -1,7 +1,6 @@
-package app.askresume.api.extract.validator
+package app.askresume.domain.extract.validator
 
-import app.askresume.global.error.ErrorCode
-import app.askresume.global.error.exception.BusinessException
+import app.askresume.domain.extract.exception.NotPermittedContentTypeException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
@@ -16,7 +15,7 @@ class ExtractValidator {
             .filter { type -> !type.equals(contentType, ignoreCase = true) }.toList()
 
         if (contentTypes.size != 0)
-            throw BusinessException(ErrorCode.NOT_PERMITTED_CONTENT_TYPE)
+            throw NotPermittedContentTypeException()
     }
 }
 
