@@ -72,10 +72,6 @@ dependencies {
     // pdf box
     implementation("org.apache.pdfbox:pdfbox:2.0.27")
 
-    // emoji java
-    implementation("com.vdurmont:emoji-java:5.1.1")
-
-
     // WebClient : Spring5 이후 RestTemplate을 대체하기 위해 나온 비동기 & 논블로킹 네트워크 요청 라이브러리
     implementation("org.springframework.boot:spring-boot-starter-webflux")
 
