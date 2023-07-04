@@ -12,5 +12,4 @@ interface MemberRepository : JpaRepository<Member, Long> {
 
     fun findByRefreshToken(refreshToken: String): Member?
 
-    fun findMemberByEmailAndPasswordAndMemberType(email: String, password: String, memberType: MemberType): Member?
 }

@@ -1,6 +1,8 @@
 package app.askresume.oauth.userinfo
 
 import app.askresume.domain.member.constant.MemberType
+import app.askresume.oauth.constant.OAuthProvider
+import app.askresume.oauth.exception.CannotReadOAuthUserInfoException
 
 class LinkedInUserInfo(
     attributes: Map<String, Any>,
@@ -12,7 +14,7 @@ class LinkedInUserInfo(
             val handle = elements?.get(0) as? Map<*, *>
             val handle2 = handle?.get("handle~") as? Map<*, *>
             return handle2?.get("emailAddress") as? String
-                ?: throw Exception("링크드인 OAuth User Info 생성 실패") // TODO
+                ?: throw CannotReadOAuthUserInfoException(OAuthProvider.LINKED_IN.name)
         }
     override val name: String
         get() {
@@ -30,7 +32,7 @@ class LinkedInUserInfo(
             val firstName = attributes["firstName"] as? Map<*, *>
             val preferredLocale = firstName?.get("preferredLocale") as? Map<*, *>
             return preferredLocale?.get("language") as? String
-                ?: throw Exception("링크드인 OAuth User Info 생성 실패") // TODO
+                ?: throw CannotReadOAuthUserInfoException(OAuthProvider.LINKED_IN.name)
         }
     override val memberType get() = MemberType.LINKED_IN
 

@@ -2,7 +2,6 @@ package app.askresume.domain.member.constant
 
 enum class MemberType {
 
-    LOCAL,
     GOOGLE,
     LINKED_IN,
     ;

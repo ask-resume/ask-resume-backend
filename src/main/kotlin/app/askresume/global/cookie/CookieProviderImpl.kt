@@ -1,5 +1,6 @@
 package app.askresume.global.cookie
 
+import app.askresume.global.cookie.exception.CookieNotFoundException
 import app.askresume.global.jwt.dto.JwtResponse
 import org.springframework.core.env.Environment
 import org.springframework.http.ResponseCookie
@@ -43,10 +44,10 @@ class CookieProviderImpl(
         return createCookie(cookieOption)
     }
 
-    override fun getCookie(cookies: Array<out Cookie>, cookieName: String): Cookie? {
+    override fun getCookie(cookies: Array<out Cookie>, cookieName: String): Cookie {
         return cookies.let {
             cookies.find { it.name == cookieName }
-        }
+        } ?: throw CookieNotFoundException(cookieName)
     }
 
 }

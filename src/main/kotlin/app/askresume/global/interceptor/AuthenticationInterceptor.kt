@@ -22,7 +22,6 @@ class AuthenticationInterceptor(
 
         // 1. Authorization Header 검증
         val accessTokenCookie = cookieProvider.getCookie(request.cookies, JwtTokenType.ACCESS.cookieName)
-            ?: throw Exception("미구현 예외") // TODO
 
         // 2. 토큰 검증
         val accessToken = accessTokenCookie.value
