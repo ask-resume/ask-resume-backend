@@ -22,7 +22,6 @@ enum class ErrorCode(
     INVALID_MEMBER_TYPE(HttpStatus.BAD_REQUEST, "MEM-001", "invalid.member.type"),
     ALREADY_REGISTERED_MEMBER(HttpStatus.BAD_REQUEST, "MEM-002", "already.registered.member"),
     MEMBER_NOT_EXISTS(HttpStatus.BAD_REQUEST, "MEM-003", "member.not.exists"),
-    EMAIL_OR_PASSWORD_INCONSISTENCY(HttpStatus.BAD_REQUEST, "MEM-004", "email.or.password.inconsistency"),
     SIGNUP_PASSWORD_INCONSISTENCY(HttpStatus.BAD_REQUEST, "MEM-005", "signup.password.inconsistency"),
 
     /** 이력서  */
