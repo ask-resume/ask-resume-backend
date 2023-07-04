@@ -27,7 +27,7 @@ class InterviewMakerFacade(
     @Transactional
     fun saveSubmit(request: InterviewMakerRequest) {
         val resumeData = toResumeData(request.contents)
-        val jobMasterName = jobService.findJobMasterNameById(request.jobId)
+        val jobMasterName = jobService.findJobMasterName(request.jobId)
 
         val interviewMakerDtoList = resumeData.map { data ->
             InterviewMakerDto(
