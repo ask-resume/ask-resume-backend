@@ -20,10 +20,6 @@ class Member(
     @Column(length = 50, nullable = false)
     val email: String,
 
-    @Comment(value = "비밀번호")
-    @Column(length = 200)
-    val password: String? = null,
-
     @Enumerated(EnumType.STRING)
     @Comment(value = "맴버 타입")
     @Column(length = 10, nullable = false)
