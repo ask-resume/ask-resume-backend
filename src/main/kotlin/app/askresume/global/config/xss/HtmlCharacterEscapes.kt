@@ -23,11 +23,15 @@ class HtmlCharacterEscapes : CharacterEscapes() {
     override fun getEscapeCodesForAscii() = asciiEscapes
 
     override fun getEscapeSequence(ch: Int): SerializableString {
-        return SerializedString(
-            StringEscapeUtils.escapeHtml4(
-                ch.toChar().toString()
-            )
-        )
+        val charAt = ch.toChar()
+        return if (Character.isHighSurrogate(charAt) || Character.isLowSurrogate(charAt)) {
+            val sb = StringBuilder()
+            sb.append("\\u")
+            sb.append(String.format("%04x", ch))
+            SerializedString(sb.toString())
+        } else {
+            SerializedString(StringEscapeUtils.escapeHtml4(charAt.toString()))
+        }
     }
 }
 
