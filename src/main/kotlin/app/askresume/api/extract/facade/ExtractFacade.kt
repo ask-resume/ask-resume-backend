@@ -6,7 +6,6 @@ import app.askresume.global.annotation.Facade
 import app.askresume.global.util.LoggerUtil.log
 import org.springframework.web.multipart.MultipartFile
 
-
 @Facade
 class ExtractFacade(
     private val extractService: ExtractService
@@ -17,6 +16,4 @@ class ExtractFacade(
     fun pdfToText(file: MultipartFile): ExtractedTextResponse {
         return extractService.pdfToText(file)
     }
-
 }
-

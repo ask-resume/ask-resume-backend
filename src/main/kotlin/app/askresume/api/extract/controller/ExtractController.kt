@@ -28,7 +28,6 @@ class ExtractController(
     @Operation(summary = "이력서를 Text로 전환 API", description = "이력서를 Text로 전환 API")
     @ApiResponses(
         ApiResponse(responseCode = "500", description = "서버 오류 발생(관리자 문의)"),
-        ApiResponse(responseCode = "500", description = "(FILE-002) 텍스트 추출 중 에러 발생."),
         ApiResponse(responseCode = "400", description = "(FILE-001) 허용되지 않은 CONTENT TYPE.")
     )
     @PostMapping(value = ["/v1/extract/pdf"], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
