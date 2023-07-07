@@ -19,7 +19,6 @@ class OpenAiService(
     private val promptService: PromptService,
 ) {
 
-
     @Value("\${external.openai.token}")
     lateinit var token: String
 

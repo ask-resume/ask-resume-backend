@@ -1,7 +1,5 @@
 package app.askresume.domain.generative.interview.dto
 
-import io.swagger.v3.oas.annotations.media.Schema
-
 data class InterviewMakerDto(
     val jobName: String,
     val difficulty: String,

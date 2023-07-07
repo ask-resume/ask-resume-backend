@@ -1,6 +1,6 @@
 package app.askresume.domain.generative.factory
 
-import app.askresume.domain.generative.interview.InterviewRepository
+import app.askresume.domain.generative.interview.repository.InterviewRepository
 import app.askresume.domain.generative.interview.service.InterviewService
 import app.askresume.domain.generative.service.GenerativeService
 import app.askresume.domain.submit.constant.ServiceType

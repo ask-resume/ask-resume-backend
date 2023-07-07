@@ -1,12 +1,12 @@
-INSERT INTO JOB_MASTER (id, master_name)
-VALUES (1, 'backend developer'),
-       (2, 'frontend developer');
+INSERT INTO JOB_MASTER (id, master_name, created_at)
+VALUES (1, 'backend developer', now()),
+       (2, 'frontend developer', now());
 
-INSERT INTO JOB (locale, name, job_master_id)
-VALUES ('KO', '백엔드 개발자', 1),
-       ('EN', 'backend developer', 1),
-       ('KO', '프론트 개발자', 2),
-       ('EN', 'front developer', 2);
+INSERT INTO JOB (locale, name, job_master_id, created_at)
+VALUES ('KO', '백엔드 개발자', 1, now()),
+       ('EN', 'backend developer', 1, now()),
+       ('KO', '프론트 개발자', 2, now()),
+       ('EN', 'front developer', 2, now());
 
 INSERT INTO PROMPT (prompt_type, description, content)
 VALUES ( 'INTERVIEW_MAKER'
@@ -37,5 +37,4 @@ VALUES ( 'INTERVIEW_MAKER'
               ]
           }
 
-          - You don''t write '','' at the end.'
-       )
+          - You don''t write '','' at the end.')

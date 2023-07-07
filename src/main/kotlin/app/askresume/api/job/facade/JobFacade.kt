@@ -1,19 +1,18 @@
 package app.askresume.api.job.facade
 
-import app.askresume.api.job.dto.response.JobResponse
-import app.askresume.domain.job.service.JobService
+import app.askresume.api.job.mapper.JobMapper
+import app.askresume.api.job.vo.JobResponse
+import app.askresume.domain.job.service.JobQueryService
 import app.askresume.domain.locale.constant.LocaleType
 import app.askresume.global.annotation.Facade
-import org.springframework.stereotype.Service
 
 @Facade
 class JobFacade(
-    private val jobService: JobService,
+    private val jobQueryService: JobQueryService,
+    private val jobMapper: JobMapper,
 ) {
 
     fun findJobs(locale: LocaleType): List<JobResponse> {
-        return jobService.findJobs(locale)
+        return jobMapper.jobDtoToJobResponse(jobQueryService.findJobs(locale))
     }
-
 }
-
