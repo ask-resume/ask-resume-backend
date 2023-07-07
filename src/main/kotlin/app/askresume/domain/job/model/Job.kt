@@ -12,6 +12,7 @@ class Job(
     @ManyToOne
     @Comment(value = "직업마스터 ID")
     val jobMaster: JobMaster,
+
     name: String,
     locale: LocaleType,
 ) : BaseEntity() {
