@@ -32,6 +32,11 @@ class Submit(
     var submitStatus: SubmitStatus = SubmitStatus.WAITING
         protected set
 
+    @Comment("시도 횟수")
+    @Column(nullable = false)
+    var attempts: Int = 0
+        protected set
+
     @Comment("데이터 개수")
     @Column(nullable = false)
     var dataCount: Int = dataCount
