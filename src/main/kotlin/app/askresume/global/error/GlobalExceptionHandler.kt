@@ -2,7 +2,7 @@ package app.askresume.global.error
 
 import app.askresume.global.error.exception.BusinessException
 import app.askresume.global.error.exception.NewBusinessException
-import app.askresume.global.util.LoggerUtil.log
+import app.askresume.global.util.LoggerUtil.logger
 import org.springframework.context.MessageSource
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.http.HttpStatus
@@ -20,7 +20,7 @@ class GlobalExceptionHandler(
     private val messageSource: MessageSource,
 ) {
 
-    private val log = log()
+    private val log = logger()
 
     companion object {
         private const val ERROR_LOG_MESSAGE = "[ERROR] {} : {}"

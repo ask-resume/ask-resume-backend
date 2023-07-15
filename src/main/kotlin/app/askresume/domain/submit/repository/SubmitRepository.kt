@@ -8,6 +8,4 @@ import org.springframework.data.repository.findByIdOrNull
 fun SubmitRepository.findSubmitById(id: Long): Submit = findByIdOrNull(id)
     ?: throw SubmitNotFoundException(id)
 
-interface SubmitRepository : JpaRepository<Submit, Long> {
-}
-
+interface SubmitRepository : JpaRepository<Submit, Long>

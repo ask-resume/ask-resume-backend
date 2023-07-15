@@ -47,4 +47,8 @@ class Submit(
     fun updateStatus(changeStatus: SubmitStatus) {
         this.submitStatus = changeStatus
     }
+
+    fun plusAttempts() {
+        this.attempts++
+    }
 }

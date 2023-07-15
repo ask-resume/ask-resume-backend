@@ -7,7 +7,7 @@ import app.askresume.global.jwt.constant.GrantType
 import app.askresume.global.jwt.constant.JwtTokenType
 import app.askresume.global.jwt.dto.JwtResponse
 import app.askresume.global.jwt.exception.JwtClaimNotExistsException
-import app.askresume.global.util.LoggerUtil.log
+import app.askresume.global.util.LoggerUtil.logger
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
@@ -21,7 +21,7 @@ class TokenManager(
     private val tokenSecret: String,
 ) {
 
-    private val log = log()
+    private val log = logger()
 
     companion object {
         private const val MEMBER_ID_KEY = "memberId"

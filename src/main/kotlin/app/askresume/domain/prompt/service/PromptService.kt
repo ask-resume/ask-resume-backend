@@ -5,7 +5,7 @@ import app.askresume.domain.prompt.repository.PromptRepository
 import app.askresume.domain.prompt.repository.findPromptByPromptType
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.mapper.SubmitDataMapper
-import app.askresume.global.util.LoggerUtil.log
+import app.askresume.global.util.LoggerUtil.logger
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -18,7 +18,7 @@ class PromptService(
     private val submitDataMapper: SubmitDataMapper,
 ) {
 
-    val log = log()
+    val log = logger()
 
     @Cacheable(cacheNames = ["promptCache"], key = "#promptType.toString()")
     fun findByPromptType(promptType: PromptType): String {

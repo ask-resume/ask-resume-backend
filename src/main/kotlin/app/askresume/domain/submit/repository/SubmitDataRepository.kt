@@ -1,6 +1,8 @@
 package app.askresume.domain.submit.repository
 
+import app.askresume.domain.submit.constant.SubmitDataStatus
 import app.askresume.domain.submit.exception.SubmitDataNotFoundException
+import app.askresume.domain.submit.model.Submit
 import app.askresume.domain.submit.model.SubmitData
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.findByIdOrNull
@@ -10,4 +12,7 @@ fun SubmitDataRepository.findSubmitDataById(id: Long): SubmitData =
 
 
 interface SubmitDataRepository : JpaRepository<SubmitData, Long> {
+
+    fun countBySubmitAndSubmitDataStatus(submit: Submit, submitDataStatus: SubmitDataStatus) : Int
+
 }
