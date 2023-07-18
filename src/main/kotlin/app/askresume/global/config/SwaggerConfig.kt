@@ -7,7 +7,17 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.domain.Pageable
+import org.springframework.core.env.Environment
 import org.springframework.http.HttpHeaders
+import org.springframework.util.StringUtils
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType
+import org.springframework.boot.actuate.endpoint.ExposableEndpoint
+import org.springframework.boot.actuate.endpoint.web.*
+import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier
+import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier
+import org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping
 import springfox.documentation.builders.ApiInfoBuilder
 import springfox.documentation.builders.PathSelectors
 import springfox.documentation.builders.RequestHandlerSelectors
@@ -17,6 +27,7 @@ import springfox.documentation.spi.DocumentationType
 import springfox.documentation.spi.service.contexts.SecurityContext
 import springfox.documentation.spring.web.plugins.Docket
 import java.util.*
+import kotlin.collections.ArrayList
 
 @Configuration
 class SwaggerConfig(
@@ -82,6 +93,45 @@ class SwaggerConfig(
 
     private fun apiKey(): ApiKey {
         return ApiKey(HttpHeaders.AUTHORIZATION, HttpHeaders.AUTHORIZATION, "header")
+    }
+    // Swagger & Actuator 적용 환경에서 필요한 설정
+    @Bean
+    fun webEndpointServletHandlerMapping(
+        webEndpointsSupplier: WebEndpointsSupplier,
+        servletEndpointsSupplier: ServletEndpointsSupplier,
+        controllerEndpointsSupplier: ControllerEndpointsSupplier,
+        endpointMediaTypes: EndpointMediaTypes?,
+        corsProperties: CorsEndpointProperties,
+        webEndpointProperties: WebEndpointProperties,
+        environment: Environment
+    ): WebMvcEndpointHandlerMapping? {
+        val allEndpoints: MutableList<ExposableEndpoint<*>?> = ArrayList()
+        val webEndpoints: Collection<ExposableWebEndpoint?> = webEndpointsSupplier.getEndpoints()
+        allEndpoints.addAll(webEndpoints)
+        allEndpoints.addAll(servletEndpointsSupplier.getEndpoints())
+        allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints())
+        val basePath: String = webEndpointProperties.getBasePath()
+        val endpointMapping = EndpointMapping(basePath)
+        val shouldRegisterLinksMapping = shouldRegisterLinksMapping(webEndpointProperties, environment, basePath)
+        return WebMvcEndpointHandlerMapping(
+            endpointMapping,
+            webEndpoints,
+            endpointMediaTypes,
+            corsProperties.toCorsConfiguration(),
+            EndpointLinksResolver(allEndpoints, basePath),
+            shouldRegisterLinksMapping,
+            null
+        )
+    }
+
+    private fun shouldRegisterLinksMapping(
+        webEndpointProperties: WebEndpointProperties,
+        environment: Environment,
+        basePath: String
+    ): Boolean {
+        return webEndpointProperties.getDiscovery()
+            .isEnabled() && (StringUtils.hasText(basePath) || ManagementPortType.get(environment)
+            .equals(ManagementPortType.DIFFERENT))
     }
 
     data class MyPageable(

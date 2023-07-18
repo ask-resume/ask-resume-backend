@@ -1,9 +1,9 @@
 package app.askresume.api.generative.facade
 
-import app.askresume.api.generative.dto.InterviewMakerDto
-import app.askresume.api.generative.dto.InterviewMakerRequest
 import app.askresume.api.generative.mapper.toCareer
 import app.askresume.api.generative.mapper.toResumeData
+import app.askresume.api.generative.vo.InterviewMakerRequest
+import app.askresume.domain.generative.interview.dto.InterviewMakerDto
 import app.askresume.domain.job.service.JobService
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.service.SubmitDataService
@@ -22,11 +22,10 @@ class InterviewMakerFacade(
     private val objectMapper: ObjectMapper,
 ) {
 
-    @Suppress("UNCHECKED_CAST")
     @Transactional
     fun saveSubmit(request: InterviewMakerRequest, memberInfoDto: MemberInfoDto) {
         val resumeData = toResumeData(request.contents)
-        val jobMasterName = jobService.findJobMasterNameById(request.jobId)
+        val jobMasterName = jobService.findJobMasterName(request.jobId)
 
         val interviewMakerDtoList = resumeData.map { data ->
             InterviewMakerDto(
@@ -35,24 +34,34 @@ class InterviewMakerFacade(
                 careerYear = toCareer(request.careerYear),
                 language = request.language,
                 resumeType = data.resumeType,
-                contents = data.content
+                content = data.content
             )
         }.toMutableList()
 
         val parameters = interviewMakerDtoList.map { dto ->
-            objectMapper.convertValue(dto, Map::class.java) as HashMap<String, Any>
+            objectMapper.convertValue(dto, Map::class.java) as Map<String, Any>
         }
 
         val submitId = submitService.saveSubmit(
-            title = "아직 어떻게 할지 고민중",
+            title = "${
+                interviewMakerDtoList[0].content.substring(
+                    Companion.TITLE_SUBSTRING_MIN_SIZE,
+                    Companion.TITLE_SUBSTRING_MAX_SIZE
+                )
+            }...",
             serviceType = ServiceType.INTERVIEW_MAKER,
             dataCount = resumeData.size,
             memberId = memberInfoDto.memberId,
         )
 
         submitDataService.addToSubmitData(
-            submitId = submitId!!,
+            submitId = submitId,
             parameters = parameters,
         )
+    }
+
+    companion object {
+        const val TITLE_SUBSTRING_MIN_SIZE: Int = 0
+        const val TITLE_SUBSTRING_MAX_SIZE: Int = 30
     }
 }

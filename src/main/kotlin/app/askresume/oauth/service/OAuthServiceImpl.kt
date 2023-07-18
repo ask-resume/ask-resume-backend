@@ -1,6 +1,6 @@
 package app.askresume.oauth.service
 
-import app.askresume.global.jwt.constant.JwtGrantType
+import app.askresume.global.jwt.constant.GrantType
 import app.askresume.oauth.OAuthProperties
 import app.askresume.oauth.OAuthProviderProperties
 import app.askresume.oauth.constant.OAuthGrantType
@@ -78,7 +78,7 @@ class OAuthServiceImpl(
         // Resource 서버로부터 User Info를 가져옵니다.
         val oAuthUserInfoMap = oAuthClient.get()
             .headers { headers ->
-                headers.add(HttpHeaders.AUTHORIZATION, "${JwtGrantType.BEARER.type} $accessToken")
+                headers.add(HttpHeaders.AUTHORIZATION, "${GrantType.BEARER.type} $accessToken")
             }.retrieve()
             .bodyToMono(object : ParameterizedTypeReference<MutableMap<String, Any>>() {})
             .block()
@@ -99,7 +99,7 @@ class OAuthServiceImpl(
 
         return oAuthClient.get()
             .headers { headers ->
-                headers.add(HttpHeaders.AUTHORIZATION, "${JwtGrantType.BEARER.type} $accessToken")
+                headers.add(HttpHeaders.AUTHORIZATION, "${GrantType.BEARER.type} $accessToken")
             }.retrieve()
             .bodyToMono(object : ParameterizedTypeReference<Map<String, Any>>() {})
             .block()

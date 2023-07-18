@@ -2,8 +2,10 @@ package app.askresume.domain.submit.service
 
 import app.askresume.domain.member.repository.MemberRepository
 import app.askresume.domain.submit.constant.ServiceType
+import app.askresume.domain.submit.constant.SubmitStatus
 import app.askresume.domain.submit.model.Submit
 import app.askresume.domain.submit.repository.SubmitRepository
+import app.askresume.domain.submit.repository.findSubmitById
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -15,23 +17,29 @@ class SubmitService(
     private val submitRepository: SubmitRepository,
     private val memberRepository: MemberRepository,
 ) {
-
     @Transactional
     fun saveSubmit(
         title: String,
         serviceType: ServiceType,
         dataCount: Int,
         memberId: Long,
-    ): Long? {
+    ): Long {
         val member = memberRepository.getReferenceById(memberId)
 
-        val submit = Submit(
-            title = title,
-            serviceType = serviceType,
-            dataCount = dataCount,
-            member = member
-        )
-        return submitRepository.save(submit).id
+        return submitRepository.save(
+            Submit(
+                title = title,
+                serviceType = serviceType,
+                dataCount = dataCount,
+                member = member
+            )
+        ).id!!
+    }
+
+    @Transactional
+    fun updateStatus(submitId: Long, changeStatus: SubmitStatus) {
+        val submit = submitRepository.findSubmitById(submitId)
+        submit.updateStatus(changeStatus)
     }
 
     /**

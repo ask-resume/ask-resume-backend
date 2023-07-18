@@ -47,7 +47,7 @@ class CookieProviderImpl(
     override fun getCookie(cookies: Array<out Cookie>, cookieName: String): Cookie {
         return cookies.let {
             cookies.find { it.name == cookieName }
-        } ?: throw CookieNotFoundException(cookieName = cookieName)
+        } ?: throw CookieNotFoundException(cookieName)
     }
 
 }

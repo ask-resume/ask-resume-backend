@@ -69,24 +69,19 @@ dependencies {
     // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-    // open ai
-    implementation("com.theokanning.openai-gpt3-java:api:0.11.1")
-    implementation("com.theokanning.openai-gpt3-java:service:0.11.1")
-
     // pdf box
     implementation("org.apache.pdfbox:pdfbox:2.0.27")
-
-    // emoji java
-    implementation("com.vdurmont:emoji-java:5.1.1")
-
-    // JSOUP
-    implementation("org.jsoup:jsoup:1.15.4")
 
     // WebClient : Spring5 이후 RestTemplate을 대체하기 위해 나온 비동기 & 논블로킹 네트워크 요청 라이브러리
     implementation("org.springframework.boot:spring-boot-starter-webflux")
 
     // json -> jpa
     implementation("com.vladmihalcea:hibernate-types-52:2.16.2")
+
+    // Actuator
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    // Prometheus
+    implementation("io.micrometer:micrometer-registry-prometheus")
 }
 
 dependencyManagement {

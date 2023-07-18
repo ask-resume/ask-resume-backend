@@ -1,13 +1,9 @@
 package app.askresume.api.access.controller
 
-import app.askresume.api.access.dto.request.LoginRequest
-import app.askresume.api.access.dto.request.SignUpRequest
 import app.askresume.api.access.facade.AccessFacade
 import app.askresume.global.cookie.CookieOption
 import app.askresume.global.cookie.CookieProvider
 import app.askresume.global.jwt.constant.JwtTokenType
-import app.askresume.global.jwt.dto.JwtResponse
-import app.askresume.global.model.ApiResult
 import app.askresume.global.resolver.token.AccessToken
 import app.askresume.global.resolver.token.RefreshToken
 import app.askresume.global.resolver.token.TokenDto
@@ -15,14 +11,11 @@ import app.askresume.oauth.OAuthProperties
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpHeaders
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseCookie
 import org.springframework.http.ResponseEntity
-import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.time.Duration
 import javax.servlet.http.HttpServletRequest
-
 
 @Tag(name = "authentication", description = "로그인/로그아웃/토큰재발급 API")
 @RestController
@@ -32,21 +25,6 @@ class AccessController(
     private val cookieProvider: CookieProvider,
     private val oAuthProperties: OAuthProperties,
 ) {
-
-    @Tag(name = "authentication")
-    @Operation(summary = "일반 로그인 API", description = "일반 로그인 API")
-    @PostMapping("/login")
-    fun login(@RequestBody loginRequest: LoginRequest): ResponseEntity<ApiResult<JwtResponse.TokenSet>> {
-        return ResponseEntity.ok(ApiResult(accessFacade.login(loginRequest)))
-    }
-
-    @Tag(name = "authentication")
-    @Operation(summary = "일반 회원가입 API", description = "일반 회원가입 API")
-    @PostMapping("/sign-up")
-    fun register(@Validated @RequestBody signUpRequest: SignUpRequest): ResponseEntity<Void> {
-        accessFacade.register(signUpRequest)
-        return ResponseEntity.status(HttpStatus.CREATED).build()
-    }
 
     @Tag(name = "authentication")
     @Operation(summary = "로그아웃 API", description = "로그아웃시 refresh token 만료 처리")

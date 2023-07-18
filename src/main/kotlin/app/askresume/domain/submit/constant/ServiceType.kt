@@ -1,6 +1,5 @@
 package app.askresume.domain.submit.constant
 
-
 enum class ServiceType {
 
     INTERVIEW_MAKER,

@@ -1,7 +1,7 @@
 package app.askresume.api.job.controller
 
-import app.askresume.api.job.dto.response.JobResponse
 import app.askresume.api.job.facade.JobFacade
+import app.askresume.api.job.vo.JobResponse
 import app.askresume.domain.locale.constant.LocaleType
 import app.askresume.domain.locale.validator.LocaleValidator
 import app.askresume.global.model.ApiResult

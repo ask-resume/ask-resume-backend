@@ -10,7 +10,11 @@ spring:
       path: /h2-console
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: embedded
 
 logging:
   level:
@@ -34,3 +38,13 @@ oauth:
       redirect-url: http://localhost:8080/api/oauth/google/callback
     linked-in:
       redirect-url: http://localhost:8080/api/oauth/linked-in/callback
+
+# Actuator Config
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "health"
+          - "metrics"
+          - "prometheus"

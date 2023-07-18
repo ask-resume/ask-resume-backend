@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.repository.findByIdOrNull
 
-fun SubmitRepository.findSubmitById(id : Long) : Submit = findByIdOrNull(id)
+fun SubmitRepository.findSubmitById(id: Long): Submit = findByIdOrNull(id)
     ?: throw SubmitNotFoundException(id)
 
 interface SubmitRepository : JpaRepository<Submit, Long> {
