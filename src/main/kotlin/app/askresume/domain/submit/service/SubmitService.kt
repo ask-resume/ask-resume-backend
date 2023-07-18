@@ -1,5 +1,6 @@
 package app.askresume.domain.submit.service
 
+import app.askresume.domain.member.repository.MemberRepository
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.constant.SubmitDataStatus
 import app.askresume.domain.submit.constant.SubmitStatus
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(readOnly = true)
 class SubmitService(
     private val submitRepository: SubmitRepository,
+    private val submitDataRepository: SubmitDataRepository,
     private val memberRepository: MemberRepository,
 ) {
     @Transactional

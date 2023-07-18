@@ -52,7 +52,7 @@ class GenerativeModelJob(
                     submitId = submitId,
                     submitDataId = submitDataId,
                 )
-                throw e
+                throw Exception()
             }
         } ?: run {
             log.trace("submit data가 없어, sleep 진행.")
@@ -60,7 +60,7 @@ class GenerativeModelJob(
         }
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     fun generativeModelJobSuccess(
         submitId: Long,
         submitDataId: Long,
@@ -84,6 +84,8 @@ class GenerativeModelJob(
             totalTokens = response.usage.totalTokens
         )
 
+        throw Exception()
+
         // 성공으로 업데이트
         submitDataService.updateStatus(
             submitDataId = submitDataId,
@@ -94,7 +96,7 @@ class GenerativeModelJob(
         submitService.verifyAllSubmittedDataSuccess(submitId = submitId)
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional
     fun generativeModelJobFail(
         submitId: Long,
         submitDataId: Long,
