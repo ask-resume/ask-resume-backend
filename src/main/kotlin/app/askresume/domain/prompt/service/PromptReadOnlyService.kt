@@ -13,8 +13,9 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional(readOnly = true)
-class PromptService(
+class PromptReadOnlyService(
     private val promptRepository: PromptRepository,
+
     private val submitDataMapper: SubmitDataMapper,
 ) {
 
@@ -30,25 +31,20 @@ class PromptService(
         parameter: Map<String, Any>
     ): String {
 
-        // TODO 인터페이스 활용해야함
-        if (serviceType == ServiceType.INTERVIEW_MAKER) {
-            val prompt = findByPromptType(PromptType.INTERVIEW_MAKER)
-            val interviewMakerDto = submitDataMapper.mapToInterviewMakerDto(parameter)
+        return when (serviceType) {
+            ServiceType.INTERVIEW_MAKER -> {
+                val prompt = findByPromptType(PromptType.INTERVIEW_MAKER)
+                val interviewMakerDto = submitDataMapper.mapToInterviewMakerDto(parameter)
 
-            val bindingPrompt = String.format(
-                prompt,
-                interviewMakerDto.jobName,
-                interviewMakerDto.resumeType,
-                interviewMakerDto.difficulty,
-                interviewMakerDto.careerYear,
-                interviewMakerDto.language
-            )
-            log.debug(bindingPrompt)
-
-            return bindingPrompt
-        } else {
-            // TODO 나중에 바꿔야함
-            throw RuntimeException("나중에 바꿔야함")
+                String.format(
+                    prompt,
+                    interviewMakerDto.jobName,
+                    interviewMakerDto.resumeType,
+                    interviewMakerDto.difficulty,
+                    interviewMakerDto.careerYear,
+                    interviewMakerDto.language
+                )
+            }
         }
     }
 }

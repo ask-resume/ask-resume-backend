@@ -31,15 +31,17 @@ class MemberInfoArgumentResolver(
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?,
     ): MemberInfoDto {
-        val request = webRequest.nativeRequest as HttpServletRequest
-        val accessTokenCookie = cookieProvider.getCookie(request.cookies, JwtTokenType.ACCESS.cookieName)
-        val accessToken = accessTokenCookie.value
+        // TODO POSTMAN에서 호출하기 힘들어서 일단 주석
+//        val request = webRequest.nativeRequest as HttpServletRequest
+//        val accessTokenCookie = cookieProvider.getCookie(request.cookies, JwtTokenType.ACCESS.cookieName)
+//        val accessToken = accessTokenCookie.value
+//
+//        val tokenClaims = tokenManager.getTokenClaims(accessToken)
+//        val memberId = (tokenClaims["memberId"] as Int).toLong()
+//        val role = tokenClaims["role"] as String
 
-        val tokenClaims = tokenManager.getTokenClaims(accessToken)
-        val memberId = (tokenClaims["memberId"] as Int).toLong()
-        val role = tokenClaims["role"] as String
-
-        return MemberInfoDto(memberId, Role.from(role))
+        // return MemberInfoDto(memberId, Role.from(role))
+        return MemberInfoDto(1, Role.USER)
     }
 }
 

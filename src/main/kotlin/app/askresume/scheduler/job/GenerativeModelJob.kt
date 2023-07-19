@@ -1,6 +1,7 @@
 package app.askresume.scheduler.job
 
 import app.askresume.domain.generative.factory.GenerativeFactory
+import app.askresume.domain.prompt.service.PromptReadOnlyService
 import app.askresume.domain.result.service.ResultService
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.constant.SubmitDataStatus
@@ -8,10 +9,10 @@ import app.askresume.domain.submit.service.SubmitDataService
 import app.askresume.domain.submit.service.SubmitQueryService
 import app.askresume.domain.submit.service.SubmitService
 import app.askresume.external.openai.dto.ChatCompletionsMessageResponse
+import app.askresume.external.openai.mapper.OpenAiMapper
 import app.askresume.external.openai.service.OpenAiService
 import app.askresume.global.util.LoggerUtil.logger
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 
 @Service
@@ -19,9 +20,12 @@ class GenerativeModelJob(
     private val submitService: SubmitService,
     private val submitQueryService: SubmitQueryService,
     private val submitDataService: SubmitDataService,
-    private val openAiService: OpenAiService,
     private val resultService: ResultService,
+    private val promptReadOnlyService: PromptReadOnlyService,
     private val generativeFactory: GenerativeFactory,
+
+    private val openAiMapper: OpenAiMapper,
+    private val openAiService: OpenAiService,
 ) {
     val log = logger()
 
@@ -33,9 +37,15 @@ class GenerativeModelJob(
             val (submitId, submitDataId, serviceType, parameter) = this
 
             // 프롬프트 호출
-            val createdChatCompletionsRequest = openAiService.createdChatCompletionsRequest(
+            val prompt = promptReadOnlyService.findPromptAndFormatting(
                 serviceType = serviceType,
-                parameter = parameter,
+                parameter = parameter
+            )
+
+            // 데이터 mapping 진행
+            val createdChatCompletionsRequest = openAiMapper.promptAndContentToChatCompletionsRequest(
+                prompt = prompt,
+                content = parameter["content"] as String
             )
 
             try {
@@ -48,19 +58,20 @@ class GenerativeModelJob(
                     response = response,
                 )
             } catch (e: Exception) {
+                log.error(OPEN_AI_ERROR_MESSAGE, e.javaClass.simpleName, e.message, e)
+
                 generativeModelJobFail(
                     submitId = submitId,
                     submitDataId = submitDataId,
                 )
-                throw Exception()
             }
         } ?: run {
-            log.trace("submit data가 없어, sleep 진행.")
+            log.info("submit data가 없어, sleep 진행.")
             Thread.sleep(SLEEP_TIME)
         }
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     fun generativeModelJobSuccess(
         submitId: Long,
         submitDataId: Long,
@@ -83,8 +94,6 @@ class GenerativeModelJob(
             contentToken = response.usage.completionTokens,
             totalTokens = response.usage.totalTokens
         )
-
-        throw Exception()
 
         // 성공으로 업데이트
         submitDataService.updateStatus(
@@ -110,8 +119,10 @@ class GenerativeModelJob(
         submitService.increaseAttemptsAndCheckFailure(submitId = submitId)
     }
 
-
     companion object {
-        const val SLEEP_TIME: Long = 1000 * 10 // 1000ms * 10 = 10s
+        private const val SLEEP_TIME: Long = 1_000 * 10 // 1000ms * 10 = 10s
+
+        private const val OPEN_AI_ERROR_MESSAGE = "[ERROR] {}, : {}"
+
     }
 }

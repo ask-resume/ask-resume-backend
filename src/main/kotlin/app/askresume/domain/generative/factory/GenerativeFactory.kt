@@ -7,6 +7,7 @@ import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.repository.SubmitDataRepository
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class GenerativeFactory(
@@ -16,6 +17,7 @@ class GenerativeFactory(
     private val interviewRepository: InterviewRepository
 ) {
 
+    @Transactional
     fun createGenerativeProvider(serviceType: ServiceType): GenerativeService {
         return when (serviceType) {
             ServiceType.INTERVIEW_MAKER -> InterviewService(

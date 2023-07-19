@@ -23,10 +23,10 @@ class ResultService(
         resultRepository.save(
             Result(
                 model = model,
-                        created = created,
-                        promptTokens = promptTokens,
-                        contentToken = contentToken,
-                        totalTokens = totalTokens,
+                created = created,
+                promptTokens = promptTokens,
+                contentToken = contentToken,
+                totalTokens = totalTokens,
             )
         )
     }

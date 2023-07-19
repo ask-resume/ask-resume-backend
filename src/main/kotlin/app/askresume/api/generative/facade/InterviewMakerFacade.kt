@@ -45,8 +45,8 @@ class InterviewMakerFacade(
         val submitId = submitService.saveSubmit(
             title = "${
                 interviewMakerDtoList[0].content.substring(
-                    Companion.TITLE_SUBSTRING_MIN_SIZE,
-                    Companion.TITLE_SUBSTRING_MAX_SIZE
+                    TITLE_SUBSTRING_MIN_SIZE,
+                    TITLE_SUBSTRING_MAX_SIZE
                 )
             }...",
             serviceType = ServiceType.INTERVIEW_MAKER,
@@ -61,7 +61,7 @@ class InterviewMakerFacade(
     }
 
     companion object {
-        const val TITLE_SUBSTRING_MIN_SIZE: Int = 0
-        const val TITLE_SUBSTRING_MAX_SIZE: Int = 30
+        private const val TITLE_SUBSTRING_MIN_SIZE: Int = 0
+        private const val TITLE_SUBSTRING_MAX_SIZE: Int = 30
     }
 }
