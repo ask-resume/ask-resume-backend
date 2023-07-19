@@ -63,8 +63,6 @@ class WebConfig(
             .excludePathPatterns(
                 "/api/oauth/**/login",
                 "/api/oauth/**/callback",
-                "/api/login",
-                "/api/sign-up",
                 "/api/access-token/issue",
                 "/api/logout",
                 "/api/v1/resume/generate",
