@@ -1,3 +1,6 @@
+INSERT INTO MEMBER (email, member_type, locale, `role`, username, profile, refresh_token, token_expiration_time)
+VALUES ('example@example.com', 'GOOGLE', 'en', 'USER', 'john_doe', 'Some profile information', 'some_refresh_token', now());
+
 INSERT INTO JOB_MASTER (id, master_name, created_at)
 VALUES (1, 'backend developer', now()),
        (2, 'frontend developer', now());

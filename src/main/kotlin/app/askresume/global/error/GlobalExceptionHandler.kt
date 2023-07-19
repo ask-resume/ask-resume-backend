@@ -22,10 +22,6 @@ class GlobalExceptionHandler(
 
     private val log = logger()
 
-    companion object {
-        private const val ERROR_LOG_MESSAGE = "[ERROR] {} : {}"
-    }
-
     // binding error가 발생할 경우
     @ExceptionHandler(BindException::class)
     protected fun handleBindException(e: BindException): ResponseEntity<ErrorResponse> {
@@ -68,7 +64,7 @@ class GlobalExceptionHandler(
     // 비즈니스 로직 실행 중 오류 발생
     @ExceptionHandler(value = [BusinessException::class])
     protected fun handBusinessException(e: BusinessException): ResponseEntity<ErrorResponse> {
-        val logMessage = messageSource!!.getMessage(e.message!!, null, Locale.KOREA)
+        val logMessage = messageSource.getMessage(e.message!!, null, Locale.KOREA)
         val userMessage = messageSource.getMessage(e.message!!, null, LocaleContextHolder.getLocale())
 
         log.error(ERROR_LOG_MESSAGE, e.javaClass.simpleName, logMessage, e)
@@ -104,7 +100,7 @@ class GlobalExceptionHandler(
     }
 
     private fun getErrorResponseResponseEntity(e: Exception, errorCode: ErrorCode): ResponseEntity<ErrorResponse> {
-        val logMessage = messageSource!!.getMessage(errorCode.properties, null, Locale.KOREAN)
+        val logMessage = messageSource.getMessage(errorCode.properties, null, Locale.KOREAN)
         val userMessage = messageSource.getMessage(errorCode.properties, null, LocaleContextHolder.getLocale())
 
         log.error(ERROR_LOG_MESSAGE, e.javaClass.simpleName, logMessage, e)
@@ -112,5 +108,10 @@ class GlobalExceptionHandler(
         val errorResponse = ErrorResponse.of(errorCode.errorCode, userMessage)
         return ResponseEntity.status(errorCode.httpStatus)
             .body(errorResponse)
+    }
+
+
+    companion object {
+        private const val ERROR_LOG_MESSAGE = "[ERROR] {} : {}"
     }
 }
