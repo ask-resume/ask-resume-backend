@@ -48,7 +48,7 @@ class SubmitService(
     @Transactional
     fun increaseAttemptsAndCheckFailure(submitId: Long) {
         val submit = submitRepository.findSubmitById(submitId)
-        submit.plusAttempts()
+        submit.increaseAttempts()
 
         if (submit.attempts == 3) {
             updateStatus(
