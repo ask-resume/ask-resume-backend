@@ -1,6 +1,6 @@
 package app.askresume.external.openai.service
 
-import app.askresume.domain.prompt.service.PromptService
+import app.askresume.domain.prompt.service.PromptReadOnlyService
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.external.openai.client.OpenAiClient
 import app.askresume.external.openai.constant.OpenAiRole
@@ -16,35 +16,10 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(readOnly = true)
 class OpenAiService(
     private val openAiClient: OpenAiClient,
-    private val promptService: PromptService,
 ) {
 
     @Value("\${external.openai.token}")
-    lateinit var token: String
-
-    fun createdChatCompletionsRequest(
-        serviceType: ServiceType,
-        parameter: Map<String, Any>
-    ): ChatCompletionsRequest {
-
-        val prompt = promptService.findPromptAndFormatting(
-            serviceType = serviceType,
-            parameter = parameter
-        )
-
-        return ChatCompletionsRequest(
-            messages = arrayListOf(
-                ChatCompletionsMessageDto(
-                    role = OpenAiRole.SYSTEM.value,
-                    content = prompt
-                ),
-                ChatCompletionsMessageDto(
-                    role = OpenAiRole.USER.value,
-                    content = parameter["content"] as String
-                ),
-            )
-        )
-    }
+    private lateinit var token: String
 
     fun requestOpenAiChatCompletion(
         request: ChatCompletionsRequest

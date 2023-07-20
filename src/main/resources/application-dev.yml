@@ -13,7 +13,7 @@ spring:
 
 logging:
   level:
-    app.askresume: debug # todo 패키지 수정
+    app.askresume: debug
 
 # Swagger 설정
 swagger:

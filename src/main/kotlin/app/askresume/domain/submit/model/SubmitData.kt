@@ -25,11 +25,6 @@ class SubmitData(
     var parameter: Map<String, Any> = parameter
         protected set
 
-    @Comment("시도 횟수")
-    @Column(nullable = false)
-    var attempts: Int = 0
-        protected set
-
     @Enumerated(EnumType.STRING)
     @Comment("상태")
     @Column(name = "status", nullable = false, length = 30)

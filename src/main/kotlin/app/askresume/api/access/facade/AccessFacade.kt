@@ -3,7 +3,7 @@ package app.askresume.api.access.facade
 import app.askresume.domain.member.service.MemberService
 import app.askresume.global.jwt.dto.JwtResponse
 import app.askresume.global.jwt.service.TokenManager
-import app.askresume.global.util.LoggerUtil.log
+import app.askresume.global.util.LoggerUtil.logger
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -15,7 +15,7 @@ class AccessFacade(
     private val tokenManager: TokenManager,
 ) {
 
-    val log = log()
+    val log = logger()
 
     fun logout(accessToken: String) {
         // 토큰 검증

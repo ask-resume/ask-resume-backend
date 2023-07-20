@@ -1,6 +1,6 @@
 package app.askresume.global.error
 
-import app.askresume.global.util.LoggerUtil.log
+import app.askresume.global.util.LoggerUtil.logger
 import feign.FeignException
 import feign.Response
 import feign.RetryableException
@@ -11,7 +11,7 @@ class FeignClientExceptionErrorDecoder(
     private val errorDecoder: ErrorDecoder = ErrorDecoder.Default(),
 ) : ErrorDecoder {
 
-    private val log = log()
+    private val log = logger()
 
     override fun decode(methodKey: String, response: Response): Exception {
         log.error("{} 요청 실패, status : {}, reason : {}", methodKey, response.status(), response.reason())

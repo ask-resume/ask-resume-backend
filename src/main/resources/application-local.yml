@@ -18,7 +18,7 @@ spring:
 
 logging:
   level:
-    app.askresume: debug # todo 패키지 수정
+    app.askresume: debug
 
 # JWT Token 설정 // 개발환경 인증 편하게 하기 위해
 token:

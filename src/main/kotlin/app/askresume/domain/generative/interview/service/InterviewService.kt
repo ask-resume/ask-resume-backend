@@ -19,12 +19,12 @@ class InterviewService(
     private val submitDataRepository: SubmitDataRepository,
 ) : GenerativeService {
 
+    @Transactional
     override fun saveGenerativeResult(
         submitDataId: Long,
         choices: List<ChoicesDto>
     ) {
         val submitData = submitDataRepository.findSubmitDataById(submitDataId)
-
         val result = objectMapper.readValue(choices[0].message.content, InterviewMakerResultDtoList::class.java)
 
         val resultInterviewMakerList = result.interviews.map { dto ->
