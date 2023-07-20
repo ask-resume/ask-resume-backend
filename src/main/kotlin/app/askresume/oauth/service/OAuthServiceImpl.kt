@@ -3,17 +3,22 @@ package app.askresume.oauth.service
 import app.askresume.global.jwt.constant.GrantType
 import app.askresume.oauth.OAuthProperties
 import app.askresume.oauth.OAuthProviderProperties
+import app.askresume.oauth.client.OAuthEmailInfoClient
+import app.askresume.oauth.client.OAuthTokenClient
+import app.askresume.oauth.client.OAuthUserInfoClient
 import app.askresume.oauth.constant.OAuthGrantType
 import app.askresume.oauth.constant.OAuthProvider
 import app.askresume.oauth.constant.OAuthQueryParam
 import app.askresume.oauth.dto.OAuthResponse
 import app.askresume.oauth.userinfo.OAuthUserInfo
 import app.askresume.oauth.userinfo.OAuthUserInfoFactory
-import org.springframework.core.ParameterizedTypeReference
-import org.springframework.http.HttpHeaders
-import org.springframework.http.MediaType
+import feign.Feign
+import feign.Logger
+import feign.jackson.JacksonDecoder
+import feign.jackson.JacksonEncoder
+import feign.slf4j.Slf4jLogger
+import org.springframework.core.env.Environment
 import org.springframework.stereotype.Service
-import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.util.UriComponentsBuilder
 import java.net.URI
 import java.net.URLEncoder
@@ -21,12 +26,36 @@ import java.nio.charset.StandardCharsets
 
 @Service
 class OAuthServiceImpl(
+    private val environment: Environment,
     private val oAuthProperties: OAuthProperties,
     private val oAuthUserInfoFactory: OAuthUserInfoFactory,
 ) : OAuthService {
 
     /**
-     *
+     * 공통 Feign Client를 생성합니다.
+     * TODO : 함수를 oauth 모듈 밖으로 뺄지 결정하기 (프로젝트 여기저기서 갖다쓰기 위해)
+     */
+    private fun <T> getOAuthClient(clazz: Class<T>, url: String): T {
+        val isLocalOrDev = environment.activeProfiles.any { profile ->
+            listOf("local", "dev").contains(profile)
+        }
+
+        var feignClientBuilder = Feign.builder()
+            .encoder(JacksonEncoder())
+            .decoder(JacksonDecoder())
+
+        if (isLocalOrDev) {
+            feignClientBuilder = feignClientBuilder
+                .logger(Slf4jLogger(clazz))
+                .logLevel(Logger.Level.FULL)
+        }
+
+        return feignClientBuilder
+            .target(clazz, url)
+    }
+
+    /**
+     * OAuth 인증을 위한 URI를 생성해 반환합니다.
      */
     override fun authorize(provider: OAuthProvider): URI {
         val providerProperties = getProviderProperties(provider)
@@ -45,67 +74,55 @@ class OAuthServiceImpl(
     }
 
     /**
-     *
+     * OAuth 서버로부터 액세스 토큰을 가져옵니다.
      */
     override fun getToken(code: String, provider: OAuthProvider): OAuthResponse.Token {
         val providerProperties = getProviderProperties(provider)
-        val oAuthClient = WebClient.create(providerProperties.tokenUrl)
+        val oAuthTokenClient = getOAuthClient(OAuthTokenClient::class.java, providerProperties.tokenUrl)
 
-        return oAuthClient.post()
-            .uri { uriBuilder -> uriBuilder
-                .queryParam(OAuthQueryParam.GRANT_TYPE.key, OAuthGrantType.AUTHORIZATION_CODE.value)
-                .queryParam(OAuthQueryParam.CODE.key, code)
-                .queryParam(OAuthQueryParam.CLIENT_ID.key, providerProperties.clientId)
-                .queryParam(OAuthQueryParam.CLIENT_SECRET.key, providerProperties.clientSecret)
-                .queryParam(OAuthQueryParam.REDIRECT_URI.key, providerProperties.redirectUrl)
-                .build()
-            }
-            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .retrieve()
-            .bodyToMono(OAuthResponse.Token::class.java)
-            .block()
-                ?: throw Exception("Provider로부터 Access 토큰을 받아올 수 없습니다.") // TODO
+        return oAuthTokenClient.getToken(
+            tokenUrl = URI(providerProperties.tokenUrl),
+            grantType = OAuthGrantType.AUTHORIZATION_CODE.value,
+            code = code,
+            clientId = providerProperties.clientId,
+            clientSecret = providerProperties.clientSecret,
+            redirectUri = providerProperties.redirectUrl,
+        )
     }
 
     /**
-     *
+     * OAuth Resource 서버로부터 유저 정보를 가져옵니다.
      */
     override fun getUserInfo(accessToken: String, provider: OAuthProvider): OAuthUserInfo {
         val providerProperties = getProviderProperties(provider)
-
-        val oAuthClient = WebClient.create(providerProperties.userInfoUrl)
+        val oAuthUserInfoClient = getOAuthClient(OAuthUserInfoClient::class.java, providerProperties.tokenUrl)
 
         // Resource 서버로부터 User Info를 가져옵니다.
-        val oAuthUserInfoMap = oAuthClient.get()
-            .headers { headers ->
-                headers.add(HttpHeaders.AUTHORIZATION, "${GrantType.BEARER.type} $accessToken")
-            }.retrieve()
-            .bodyToMono(object : ParameterizedTypeReference<MutableMap<String, Any>>() {})
-            .block()
-            ?: throw Exception("") // TODO
+        val oAuthUserInfoMap = oAuthUserInfoClient.getUserInfo(
+            userInfoUrl = URI(providerProperties.userInfoUrl),
+            token = "${GrantType.BEARER.type} $accessToken"
+        )
 
         // emailUrl이 별도로 있을 경우 Resource 서버로부터 email 정보를 가져옵니다. (ex: Linked In)
         providerProperties.emailUrl?.let { emailUrl ->
             val emailInfo = getEmailInfo(emailUrl, accessToken)
 
-            emailInfo?.let { oAuthUserInfoMap.putAll(emailInfo) }
+            emailInfo.let { oAuthUserInfoMap.putAll(emailInfo) }
         }
 
         return oAuthUserInfoFactory.create(provider, oAuthUserInfoMap)
     }
 
-    private fun getEmailInfo(emailUrl: String, accessToken: String): Map<String, Any>? {
-        val oAuthClient = WebClient.create(emailUrl)
+    private fun getEmailInfo(emailUrl: String, accessToken: String): Map<String, Any> {
+        val oAuthEmailInfoClient = getOAuthClient(OAuthEmailInfoClient::class.java, emailUrl)
 
-        return oAuthClient.get()
-            .headers { headers ->
-                headers.add(HttpHeaders.AUTHORIZATION, "${GrantType.BEARER.type} $accessToken")
-            }.retrieve()
-            .bodyToMono(object : ParameterizedTypeReference<Map<String, Any>>() {})
-            .block()
+        return oAuthEmailInfoClient.getEmailInfo(
+            emailUrl = URI(emailUrl),
+            token = "${GrantType.BEARER.type} $accessToken"
+        )
     }
 
-        private fun getProviderProperties(provider: OAuthProvider): OAuthProviderProperties {
+    private fun getProviderProperties(provider: OAuthProvider): OAuthProviderProperties {
         return oAuthProperties.providers[provider]
             ?: throw Exception("Provider의 OAuth config 정보를 작성해야합니다. : $provider") // TODO
     }

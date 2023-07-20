@@ -29,7 +29,6 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
     // Kotlin
@@ -82,6 +81,12 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     // Prometheus
     implementation("io.micrometer:micrometer-registry-prometheus")
+
+    // Feign
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    implementation("io.github.openfeign:feign-core:12.4")
+    implementation("io.github.openfeign:feign-slf4j:12.4")
+    implementation("io.github.openfeign:feign-jackson:12.4")
 }
 
 dependencyManagement {
