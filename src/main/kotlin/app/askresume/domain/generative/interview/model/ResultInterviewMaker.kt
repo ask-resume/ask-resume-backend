@@ -4,8 +4,10 @@ import app.askresume.domain.common.BaseTimeEntity
 import app.askresume.domain.submit.constant.Satisfaction
 import app.askresume.domain.submit.model.SubmitData
 import org.hibernate.annotations.Comment
+import org.hibernate.annotations.Where
 import javax.persistence.*
 
+@Where(clause = "is_deleted = false")
 @Entity
 class ResultInterviewMaker(
     question : String,

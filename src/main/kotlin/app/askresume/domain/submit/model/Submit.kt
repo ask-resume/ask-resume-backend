@@ -8,7 +8,7 @@ import org.hibernate.annotations.Comment
 import org.hibernate.annotations.Where
 import javax.persistence.*
 
-@Where(clause = "is_deleted = 'Y'")
+@Where(clause = "is_deleted = false")
 @Entity
 class Submit(
     title: String,

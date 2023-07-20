@@ -9,7 +9,7 @@ import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.Where
 import javax.persistence.*
 
-@Where(clause = "is_deleted = 'Y'")
+@Where(clause = "is_deleted = false")
 @TypeDef(name = "json", typeClass = JsonType::class)
 @Entity
 class SubmitData(

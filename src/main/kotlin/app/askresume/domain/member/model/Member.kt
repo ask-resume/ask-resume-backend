@@ -11,8 +11,9 @@ import javax.persistence.*
 import javax.persistence.Entity
 import javax.persistence.Table
 
-@SQLDelete(sql = "UPDATE member SET is_deleted = 'N' WHERE id = ?")
 @Entity
+@Where(clause = "is_deleted = false")
+@SQLDelete(sql = "UPDATE member SET is_deleted = true WHERE id = ?")
 @Table(uniqueConstraints = [UniqueConstraint(name = "iduk", columnNames = ["email", "memberType"])])
 class Member(
 

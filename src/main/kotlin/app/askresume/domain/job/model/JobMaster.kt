@@ -3,13 +3,15 @@ package app.askresume.domain.job.model
 import app.askresume.domain.common.BaseEntity
 import org.hibernate.annotations.Comment
 import org.hibernate.annotations.SQLDelete
+import org.hibernate.annotations.Where
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.OneToMany
 
 
-@SQLDelete(sql = "UPDATE job_master SET is_deleted = 'N' WHERE id = ?")
+@Where(clause = "is_deleted = false")
+@SQLDelete(sql = "UPDATE job_master SET is_deleted = true WHERE id = ?")
 @Entity
 class JobMaster(
     masterName: String,

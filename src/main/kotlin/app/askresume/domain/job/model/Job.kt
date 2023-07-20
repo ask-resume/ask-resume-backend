@@ -6,7 +6,8 @@ import org.hibernate.annotations.*
 import javax.persistence.*
 import javax.persistence.Entity
 
-@SQLDelete(sql = "UPDATE job SET is_deleted = 'N' WHERE id = ?")
+@Where(clause = "is_deleted = false")
+@SQLDelete(sql = "UPDATE job SET is_deleted = true WHERE id = ?")
 @Entity
 class Job(
     @ManyToOne

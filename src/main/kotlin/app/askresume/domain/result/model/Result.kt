@@ -2,9 +2,11 @@ package app.askresume.domain.result.model
 
 import app.askresume.domain.common.BaseTimeEntity
 import org.hibernate.annotations.Comment
+import org.hibernate.annotations.Where
 import javax.persistence.Column
 import javax.persistence.Entity
 
+@Where(clause = "is_deleted = false")
 @Entity
 class Result(
     model: String,
