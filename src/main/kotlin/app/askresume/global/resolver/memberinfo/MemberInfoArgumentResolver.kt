@@ -40,8 +40,8 @@ class MemberInfoArgumentResolver(
         val memberId = (tokenClaims["memberId"] as Int).toLong()
         val role = tokenClaims["role"] as String
 
-        // return MemberInfoDto(memberId, Role.from(role))
-        return MemberInfoDto(1, Role.USER)
+        return MemberInfoDto(memberId, Role.from(role))
+        //return MemberInfoDto(1, Role.USER)
     }
 }
 
