@@ -11,18 +11,15 @@ import javax.persistence.*
 import javax.persistence.Entity
 import javax.persistence.Table
 
-@SQLDelete(sql = "UPDATE member SET is_deleted = 'N' WHERE id = ?")
 @Entity
+@Where(clause = "is_deleted = false")
+@SQLDelete(sql = "UPDATE member SET is_deleted = true WHERE id = ?")
 @Table(uniqueConstraints = [UniqueConstraint(name = "iduk", columnNames = ["email", "memberType"])])
 class Member(
 
     @Comment(value = "이메일")
     @Column(length = 50, nullable = false)
     val email: String,
-
-    @Comment(value = "비밀번호")
-    @Column(length = 200)
-    val password: String? = null,
 
     @Enumerated(EnumType.STRING)
     @Comment(value = "맴버 타입")

@@ -6,7 +6,8 @@ import app.askresume.global.error.exception.AuthenticationException
 import app.askresume.global.jwt.constant.GrantType
 import app.askresume.global.jwt.constant.JwtTokenType
 import app.askresume.global.jwt.dto.JwtResponse
-import app.askresume.global.util.LoggerUtil.log
+import app.askresume.global.jwt.exception.JwtClaimNotExistsException
+import app.askresume.global.util.LoggerUtil.logger
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.ExpiredJwtException
 import io.jsonwebtoken.Jwts
@@ -20,10 +21,12 @@ class TokenManager(
     private val tokenSecret: String,
 ) {
 
-    private val log = log()
+    private val log = logger()
 
-    private val MEMBER_ID_KEY = "memberId"
-    private val ROLE_KEY = "role"
+    companion object {
+        private const val MEMBER_ID_KEY = "memberId"
+        private const val ROLE_KEY = "role"
+    }
 
     fun createJwtTokenSet(memberId: Long?, role: Role): JwtResponse.TokenSet {
         val accessTokenResponse = createAccessToken(memberId, role)
@@ -104,7 +107,7 @@ class TokenManager(
         }
 
         return (tokenClaims[MEMBER_ID_KEY] as Int?)?.toLong()
-            ?: throw Exception("미구현 예외") // TODO
+            ?: throw JwtClaimNotExistsException(MEMBER_ID_KEY)
     }
 
 }

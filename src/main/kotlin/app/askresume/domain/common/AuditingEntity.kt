@@ -40,10 +40,10 @@ abstract class BaseTimeEntity {
     @Column(insertable = false)
     lateinit var updatedAt: ZonedDateTime
 
-    @ColumnDefault("'Y'")
+    @ColumnDefault("false")
     @Comment(value = "삭제유무")
-    @Column(length = 1, nullable = false)
-    val isDeleted: String = "Y"
+    @Column(nullable = false)
+    val isDeleted: Boolean = false
 
     @PrePersist
     fun prePersist() {

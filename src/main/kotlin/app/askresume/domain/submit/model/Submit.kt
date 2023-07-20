@@ -1,18 +1,24 @@
 package app.askresume.domain.submit.model
 
 import app.askresume.domain.common.BaseTimeEntity
+import app.askresume.domain.member.model.Member
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.constant.SubmitStatus
 import org.hibernate.annotations.Comment
 import org.hibernate.annotations.Where
 import javax.persistence.*
 
-@Where(clause = "is_deleted = 'Y'")
+@Where(clause = "is_deleted = false")
 @Entity
 class Submit(
     title: String,
     serviceType: ServiceType,
     dataCount: Int,
+
+    @ManyToOne
+    @Comment("멤버 ID")
+    @JoinColumn(name = "member_id", nullable = false, updatable = false)
+    val member: Member
 ) : BaseTimeEntity() {
 
     @Comment("제목")
@@ -32,6 +38,11 @@ class Submit(
     var submitStatus: SubmitStatus = SubmitStatus.WAITING
         protected set
 
+    @Comment("시도 횟수")
+    @Column(nullable = false)
+    var attempts: Int = 0
+        protected set
+
     @Comment("데이터 개수")
     @Column(nullable = false)
     var dataCount: Int = dataCount
@@ -41,5 +52,9 @@ class Submit(
 
     fun updateStatus(changeStatus: SubmitStatus) {
         this.submitStatus = changeStatus
+    }
+
+    fun increaseAttempts() {
+        this.attempts++
     }
 }

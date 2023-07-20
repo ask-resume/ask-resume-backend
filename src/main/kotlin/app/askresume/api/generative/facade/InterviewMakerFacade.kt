@@ -9,6 +9,7 @@ import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.service.SubmitDataService
 import app.askresume.domain.submit.service.SubmitService
 import app.askresume.global.annotation.Facade
+import app.askresume.global.resolver.memberinfo.MemberInfoDto
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.transaction.annotation.Transactional
 
@@ -21,13 +22,10 @@ class InterviewMakerFacade(
     private val objectMapper: ObjectMapper,
 ) {
 
-    private val TITLE_SUBSTRING_MIN_SIZE: Int = 0
-    private val TITLE_SUBSTRING_MAX_SIZE: Int = 30
-
     @Transactional
-    fun saveSubmit(request: InterviewMakerRequest) {
+    fun saveSubmit(request: InterviewMakerRequest, memberInfoDto: MemberInfoDto) {
         val resumeData = toResumeData(request.contents)
-        val jobMasterName = jobService.findJobMasterNameById(request.jobId)
+        val jobMasterName = jobService.findJobMasterName(request.jobId)
 
         val interviewMakerDtoList = resumeData.map { data ->
             InterviewMakerDto(
@@ -53,11 +51,17 @@ class InterviewMakerFacade(
             }...",
             serviceType = ServiceType.INTERVIEW_MAKER,
             dataCount = resumeData.size,
+            memberId = memberInfoDto.memberId,
         )
 
         submitDataService.addToSubmitData(
             submitId = submitId,
             parameters = parameters,
         )
+    }
+
+    companion object {
+        private const val TITLE_SUBSTRING_MIN_SIZE: Int = 0
+        private const val TITLE_SUBSTRING_MAX_SIZE: Int = 30
     }
 }

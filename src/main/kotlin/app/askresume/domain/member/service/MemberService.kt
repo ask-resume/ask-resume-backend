@@ -66,8 +66,4 @@ class MemberService(
         memberRepository.delete(member)
     }
 
-    fun findMemberByEmailAndPasswordAndMemberType(email: String, password: String, memberType: MemberType): Member {
-        return memberRepository.findMemberByEmailAndPasswordAndMemberType(email, password, memberType)
-            ?: throw EntityNotFoundException(ErrorCode.EMAIL_OR_PASSWORD_INCONSISTENCY)
-    }
 }

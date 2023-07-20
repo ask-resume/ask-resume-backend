@@ -27,8 +27,9 @@ class SubmitQueryRepository(
             .leftJoin(submit)
             .on(submitData.submit.id.eq(submit.id))
             .where(
-                submit.submitStatus.eq(SubmitStatus.WAITING),
-                submitData.submitDataStatus.eq(SubmitDataStatus.WAITING)
+                submit.submitStatus.ne(SubmitStatus.COMPLETED),
+                submit.submitStatus.ne(SubmitStatus.FAIL),
+                submitData.submitDataStatus.ne(SubmitDataStatus.SUCCESS)
             )
             .orderBy(
                 submit.id.asc(),

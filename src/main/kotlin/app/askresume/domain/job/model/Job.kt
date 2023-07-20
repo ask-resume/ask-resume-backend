@@ -1,28 +1,32 @@
 package app.askresume.domain.job.model
 
 import app.askresume.domain.common.BaseEntity
-import app.askresume.domain.common.BaseTimeEntity
 import app.askresume.domain.locale.constant.LocaleType
 import org.hibernate.annotations.*
 import javax.persistence.*
 import javax.persistence.Entity
 
-@SQLDelete(sql = "UPDATE job SET is_deleted = 'N' WHERE id = ?")
+@Where(clause = "is_deleted = false")
+@SQLDelete(sql = "UPDATE job SET is_deleted = true WHERE id = ?")
 @Entity
 class Job(
-
     @ManyToOne
     @Comment(value = "직업마스터 ID")
-    @JoinColumn(name = "jobMasterId", nullable = false)
     val jobMaster: JobMaster,
+
+    name: String,
+    locale: LocaleType,
+) : BaseEntity() {
 
     @Comment(value = "직업명")
     @Column(length = 150, nullable = false)
-    val name: String,
+    var name: String = name
+        protected set
 
     @Comment(value = "언어")
     @Column(length = 5, nullable = false)
     @Enumerated(EnumType.STRING)
-    val locale: LocaleType,
+    var locale: LocaleType = locale
+        protected set
 
-    ) : BaseEntity()
+}

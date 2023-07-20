@@ -9,7 +9,7 @@ import org.hibernate.annotations.TypeDef
 import org.hibernate.annotations.Where
 import javax.persistence.*
 
-@Where(clause = "is_deleted = 'Y'")
+@Where(clause = "is_deleted = false")
 @TypeDef(name = "json", typeClass = JsonType::class)
 @Entity
 class SubmitData(
@@ -23,11 +23,6 @@ class SubmitData(
     @Type(type = "json")
     @Column(columnDefinition = "json")
     var parameter: Map<String, Any> = parameter
-        protected set
-
-    @Comment("시도 횟수")
-    @Column(nullable = false)
-    var attempts: Int = 0
         protected set
 
     @Enumerated(EnumType.STRING)

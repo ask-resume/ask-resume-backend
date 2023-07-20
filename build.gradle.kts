@@ -29,7 +29,6 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
     // Kotlin
@@ -69,18 +68,8 @@ dependencies {
     // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
-    // open ai
-    implementation("com.theokanning.openai-gpt3-java:api:0.11.1")
-    implementation("com.theokanning.openai-gpt3-java:service:0.11.1")
-
     // pdf box
     implementation("org.apache.pdfbox:pdfbox:2.0.27")
-
-    // emoji java
-    implementation("com.vdurmont:emoji-java:5.1.1")
-
-    // JSOUP
-    implementation("org.jsoup:jsoup:1.15.4")
 
     // WebClient : Spring5 이후 RestTemplate을 대체하기 위해 나온 비동기 & 논블로킹 네트워크 요청 라이브러리
     implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -92,6 +81,12 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     // Prometheus
     implementation("io.micrometer:micrometer-registry-prometheus")
+
+    // Feign
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    implementation("io.github.openfeign:feign-core:12.4")
+    implementation("io.github.openfeign:feign-slf4j:12.4")
+    implementation("io.github.openfeign:feign-jackson:12.4")
 }
 
 dependencyManagement {
