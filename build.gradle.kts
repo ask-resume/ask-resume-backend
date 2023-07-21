@@ -42,7 +42,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
     // swagger
-    implementation("io.springfox:springfox-boot-starter:3.0.0")
+    implementation("org.springdoc:springdoc-openapi-ui:1.7.0")
+    runtimeOnly("org.springdoc:springdoc-openapi-kotlin:1.7.0")
 
     // lucy filter & util 추가
     implementation("org.apache.commons:commons-text:1.10.0")
@@ -75,7 +76,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
 
     // json -> jpa
-    implementation("com.vladmihalcea:hibernate-types-52:2.16.2")
+    implementation("com.vladmihalcea:hibernate-types-52:2.21.1")
 
     // Actuator
     implementation("org.springframework.boot:spring-boot-starter-actuator")

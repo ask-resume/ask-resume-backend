@@ -51,7 +51,22 @@ feign:
 
 # Swagger 설정
 swagger:
-  version: "1.2"
+  version: "1.2.0"
+springdoc:
+  packages-to-scan: app.askresume.api
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    disable-swagger-default-url: true # swagger-default-url인 petstore html 문서 비활성화 여부
+    path: demo-ui.html       # Swagger UI 경로 => localhost:8000/demo-ui.html
+    tags-sorter: alpha       # alpha: 알파벳 순 태그 정렬, method: HTTP Method 순 정렬
+    operations-sorter: alpha # alpha: 알파벳 순 태그 정렬, method: HTTP Method 순 정렬
+  api-docs:
+    path: /v3/api-docs
+    groups:
+      enabled: true
+  cache:
+    disabled: true
 
 # JWT Token 설정
 token:

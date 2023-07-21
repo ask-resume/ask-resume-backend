@@ -28,10 +28,7 @@ swagger:
   title: "ask-resume API DOCS (운영)"
   description: "운영서버 API 문서입니다."
 
-springfox:
-  documentation:
-    swagger-ui:
-      enabled: off
+
 
 oauth:
   domain: ask-resume.com

@@ -64,6 +64,7 @@ data class ResumeInformationVo(
 )
 
 data class Content(
+    @field:Schema(description = "내용")
     @field:Length(min = 100, max = 1000, message = "컨텐츠는 길이는 100자에서 1,000자 사이어야합니다.")
     val content: String
 )
