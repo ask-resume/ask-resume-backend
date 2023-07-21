@@ -42,8 +42,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
     // swagger
+    //implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4")
     implementation("org.springdoc:springdoc-openapi-ui:1.7.0")
-    runtimeOnly("org.springdoc:springdoc-openapi-kotlin:1.7.0")
 
     // lucy filter & util 추가
     implementation("org.apache.commons:commons-text:1.10.0")

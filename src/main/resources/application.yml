@@ -49,9 +49,9 @@ feign:
         connectTimeout: 300000 # 5분 1000(ms) x 60(s) x 5(m)
         readTimeout: 300000    # 5분 1000(ms) x 60(s) x 5(m)
 
-# Swagger 설정
-swagger:
-  version: "1.2.0"
+
+
+
 springdoc:
   packages-to-scan: app.askresume.api
   default-consumes-media-type: application/json;charset=UTF-8
