@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
     <!--  NOTE : 파일이 생성되는 위치 의논 필요  -->
     <property name="ACTIVE_PROFILE" value="${spring.profiles.active}" />
 
@@ -10,7 +13,7 @@
     <property name="LOG_FILE_NAME" value="askResume" />
     <!-- pattern -->
     <property name="LOG_DISPLAY_PATTERN"
-              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [ %level ] %logger{36} - %msg%n" />
+              value="[%d{yyyy-MM-dd HH:mm:ss}:%-3relative]  %clr(%-5level) %clr(${PID:-}){magenta} %clr(---){faint} %clr([%15.15thread]){faint} %clr(%-40.40logger{36}){cyan} %clr(:){faint} %msg%n"/>
 
     <property name="MODULE_PATH" value="app.askresume"/>
     <property name="HIKARI_PATH" value="com.zaxxer.hikari"/>
