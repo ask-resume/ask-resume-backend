@@ -1,8 +1,7 @@
 package app.askresume.global.interceptor
 
 import app.askresume.domain.member.constant.Role
-import app.askresume.global.error.ErrorCode
-import app.askresume.global.error.exception.AuthenticationException
+import app.askresume.global.error.exception.ForbiddenAdminException
 import app.askresume.global.jwt.service.TokenManager
 import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
@@ -24,7 +23,7 @@ class AdminAuthorizationInterceptor(
         val tokenClaims = tokenManager.getTokenClaims(accessToken)
         val role = tokenClaims["role"] as String
         if (Role.ADMIN != Role.valueOf(role)) {
-            throw AuthenticationException(ErrorCode.FORBIDDEN_ADMIN)
+            throw ForbiddenAdminException()
         }
 
         return true

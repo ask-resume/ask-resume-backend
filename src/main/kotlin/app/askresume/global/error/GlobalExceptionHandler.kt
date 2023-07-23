@@ -1,7 +1,6 @@
 package app.askresume.global.error
 
 import app.askresume.global.error.exception.BusinessException
-import app.askresume.global.error.exception.NewBusinessException
 import app.askresume.global.util.LoggerUtil.logger
 import org.springframework.context.MessageSource
 import org.springframework.context.i18n.LocaleContextHolder
@@ -61,22 +60,9 @@ class GlobalExceptionHandler(
             .body(errorResponse)
     }
 
-    // 비즈니스 로직 실행 중 오류 발생
-    @ExceptionHandler(value = [BusinessException::class])
-    protected fun handBusinessException(e: BusinessException): ResponseEntity<ErrorResponse> {
-        val logMessage = messageSource.getMessage(e.message!!, null, Locale.KOREA)
-        val userMessage = messageSource.getMessage(e.message!!, null, LocaleContextHolder.getLocale())
-
-        log.error(ERROR_LOG_MESSAGE, e.javaClass.simpleName, logMessage, e)
-
-        val errorResponse = ErrorResponse.of(e.errorCode.errorCode, userMessage)
-        return ResponseEntity.status(e.errorCode.httpStatus)
-            .body(errorResponse)
-    }
-
     // (신규) 비즈니스 로직 실행 중 오류 발생
-    @ExceptionHandler(value = [NewBusinessException::class])
-    protected fun handNewBusinessException(e: NewBusinessException): ResponseEntity<ErrorResponse> {
+    @ExceptionHandler(value = [BusinessException::class])
+    protected fun handNewBusinessException(e: BusinessException): ResponseEntity<ErrorResponse> {
         val message = messageSource.getMessage(e.properties, e.arguments, LocaleContextHolder.getLocale())
         log.error(ERROR_LOG_MESSAGE, e.javaClass.simpleName, message, e)
 
@@ -88,25 +74,26 @@ class GlobalExceptionHandler(
     // 필수값이 비어 있는경우, 발생
     @ExceptionHandler(MissingServletRequestParameterException::class)
     protected fun handleMissingServletRequestParameterException(e: MissingServletRequestParameterException): ResponseEntity<ErrorResponse> {
-        val errorCode = ErrorCode.OMITTING_REQUIRED_VALUES
-        return getErrorResponseResponseEntity(e, errorCode)
+        val errorBook = ErrorCodes.OMITTING_REQUIRED_VALUES
+
+        val message = messageSource.getMessage("omitting.required.values", arrayOf(e.parameterName, e.parameterType), LocaleContextHolder.getLocale())
+        log.error(ERROR_LOG_MESSAGE, e.javaClass.simpleName, message, e)
+
+        val errorResponse = ErrorResponse.of(errorBook.errorCode, message)
+        return ResponseEntity.status(errorBook.toHttpStatus())
+            .body(errorResponse)
     }
 
     // 나머지 예외 발생
     @ExceptionHandler(Exception::class)
     protected fun handleException(e: Exception): ResponseEntity<ErrorResponse> {
-        val errorCode = ErrorCode.INTERNAL_SERVER_ERROR
-        return getErrorResponseResponseEntity(e, errorCode)
-    }
+        val errorBook = ErrorCodes.INTERNAL_SERVER_ERROR
 
-    private fun getErrorResponseResponseEntity(e: Exception, errorCode: ErrorCode): ResponseEntity<ErrorResponse> {
-        val logMessage = messageSource.getMessage(errorCode.properties, null, Locale.KOREAN)
-        val userMessage = messageSource.getMessage(errorCode.properties, null, LocaleContextHolder.getLocale())
+        val message = messageSource.getMessage("internal.server.error", null, LocaleContextHolder.getLocale())
+        log.error(ERROR_LOG_MESSAGE, e.javaClass.simpleName, message, e)
 
-        log.error(ERROR_LOG_MESSAGE, e.javaClass.simpleName, logMessage, e)
-
-        val errorResponse = ErrorResponse.of(errorCode.errorCode, userMessage)
-        return ResponseEntity.status(errorCode.httpStatus)
+        val errorResponse = ErrorResponse.of(errorBook.errorCode, message)
+        return ResponseEntity.status(errorBook.toHttpStatus())
             .body(errorResponse)
     }
 

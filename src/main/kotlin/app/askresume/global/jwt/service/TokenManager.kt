@@ -1,8 +1,9 @@
 package app.askresume.global.jwt.service
 
 import app.askresume.domain.member.constant.Role
-import app.askresume.global.error.ErrorCode
-import app.askresume.global.error.exception.AuthenticationException
+import app.askresume.global.error.exception.NotAccessTokenTypeException
+import app.askresume.global.error.exception.NotValidTokenException
+import app.askresume.global.error.exception.TokenExpiredException
 import app.askresume.global.jwt.constant.GrantType
 import app.askresume.global.jwt.constant.JwtTokenType
 import app.askresume.global.jwt.dto.JwtResponse
@@ -23,11 +24,6 @@ class TokenManager(
 
     private val log = logger()
 
-    companion object {
-        private const val MEMBER_ID_KEY = "memberId"
-        private const val ROLE_KEY = "role"
-    }
-
     fun createJwtTokenSet(memberId: Long?, role: Role): JwtResponse.TokenSet {
         val accessTokenResponse = createAccessToken(memberId, role)
         val refreshTokenResponse = createRefreshToken(memberId, role)
@@ -42,7 +38,12 @@ class TokenManager(
         return Date(System.currentTimeMillis() + expirationTime)
     }
 
-    private fun createToken(memberId: Long?, role: Role, tokenType: JwtTokenType, expirationTime: Long): JwtResponse.Token {
+    private fun createToken(
+        memberId: Long?,
+        role: Role,
+        tokenType: JwtTokenType,
+        expirationTime: Long
+    ): JwtResponse.Token {
         val expiration = createTokenExpiration(expirationTime)
 
         val token = Jwts.builder()
@@ -78,10 +79,10 @@ class TokenManager(
                 .parseClaimsJws(token)
         } catch (e: ExpiredJwtException) {
             log.info("token 만료", e)
-            throw AuthenticationException(ErrorCode.TOKEN_EXPIRED)
+            throw TokenExpiredException()
         } catch (e: Exception) {
             log.info("유효하지 않은 token", e)
-            throw AuthenticationException(ErrorCode.NOT_VALID_TOKEN)
+            throw NotValidTokenException()
         }
     }
 
@@ -92,7 +93,7 @@ class TokenManager(
                     .parseClaimsJws(token).body
             } catch (e: Exception) {
                 log.info("유효하지 않은 token", e)
-                throw AuthenticationException(ErrorCode.NOT_VALID_TOKEN)
+                throw NotValidTokenException()
             }
 
         return claims
@@ -103,11 +104,16 @@ class TokenManager(
         val tokenType = tokenClaims.subject
 
         if (!JwtTokenType.isAccessToken(tokenType)) {
-            throw AuthenticationException(ErrorCode.NOT_ACCESS_TOKEN_TYPE)
+            throw NotAccessTokenTypeException()
         }
 
         return (tokenClaims[MEMBER_ID_KEY] as Int?)?.toLong()
             ?: throw JwtClaimNotExistsException(MEMBER_ID_KEY)
+    }
+
+    companion object {
+        private const val MEMBER_ID_KEY = "memberId"
+        private const val ROLE_KEY = "role"
     }
 
 }

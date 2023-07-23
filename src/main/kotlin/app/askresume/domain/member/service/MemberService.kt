@@ -3,11 +3,11 @@ package app.askresume.domain.member.service
 import app.askresume.api.member.dto.request.ModifyInfoRequest
 import app.askresume.domain.member.constant.MemberType
 import app.askresume.domain.member.exception.DuplicateMemberException
+import app.askresume.domain.member.exception.MemberNotFoundException
+import app.askresume.domain.member.exception.RefreshTokenExpiredException
+import app.askresume.domain.member.exception.RefreshTokenNotFoundException
 import app.askresume.domain.member.model.Member
 import app.askresume.domain.member.repository.MemberRepository
-import app.askresume.global.error.ErrorCode
-import app.askresume.global.error.exception.AuthenticationException
-import app.askresume.global.error.exception.EntityNotFoundException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -31,7 +31,7 @@ class MemberService(
     // 이메일 체크
     private fun validateDuplicateMember(email: String, memberType: MemberType) {
         if(memberRepository.existsByEmailAndMemberType(email, memberType))
-            throw DuplicateMemberException()
+            throw DuplicateMemberException(email, memberType.name)
 
     }
 
@@ -41,19 +41,19 @@ class MemberService(
 
     fun findMemberByRefreshToken(refreshToken: String): Member {
         val member: Member = memberRepository.findByRefreshToken(refreshToken)
-            ?: throw AuthenticationException(ErrorCode.REFRESH_TOKEN_NOT_FOUND)
+            ?: throw RefreshTokenNotFoundException()
 
         val tokenExpirationTime = member.tokenExpirationTime
 
         if (tokenExpirationTime?.isBefore(LocalDateTime.now()) == true) { // DB 타입이 nullable해서 null safety 구문 추가
-            throw AuthenticationException(ErrorCode.REFRESH_TOKEN_EXPIRED)
+            throw RefreshTokenExpiredException()
         }
         return member
     }
 
-    fun findMemberById(memberId: Long?): Member {
+    fun findMemberById(memberId: Long): Member {
         return memberRepository.findByIdOrNull(memberId)
-            ?: throw EntityNotFoundException(ErrorCode.MEMBER_NOT_EXISTS)
+            ?: throw MemberNotFoundException(memberId)
     }
 
     @Transactional

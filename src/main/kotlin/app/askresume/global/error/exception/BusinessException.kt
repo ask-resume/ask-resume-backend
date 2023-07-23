@@ -1,7 +1,10 @@
-package app.askresume.global.error.exception;
+package app.askresume.global.error.exception
 
-import app.askresume.global.error.ErrorCode
+import app.askresume.global.error.ErrorCodes
 
 open class BusinessException(
-    val errorCode: ErrorCode,
-) : RuntimeException(errorCode.properties)
+    open val codeBook: ErrorCodes,
+    val properties: String,
+    val arguments: Array<Any>,
+    override val cause: Throwable? = null,
+) : RuntimeException(codeBook.description, cause)
