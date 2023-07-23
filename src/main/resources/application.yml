@@ -31,7 +31,7 @@ spring:
         default-page-size: 10
         max-page-size: 100
         size-parameter: pageSize
-
+        one-indexed-parameters: true
 file:
   licensed:
     content: application/pdf
