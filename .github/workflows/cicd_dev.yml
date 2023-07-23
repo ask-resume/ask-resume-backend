@@ -10,8 +10,8 @@ name: docker cicd dev
 on:
   push:
     branches: [ "develop" ]
-  pull_request:
-    branches: [ "develop" ]
+#  pull_request:
+#    branches: [ "develop" ]
 
 permissions:
   contents: read
