@@ -1,6 +1,6 @@
 package app.askresume.global.error
 
-import app.askresume.global.error.exception.NewBusinessException
+import app.askresume.global.error.exception.BusinessException
 import app.askresume.global.util.LoggerUtil.logger
 import org.springframework.context.MessageSource
 import org.springframework.context.i18n.LocaleContextHolder
@@ -61,8 +61,8 @@ class GlobalExceptionHandler(
     }
 
     // (신규) 비즈니스 로직 실행 중 오류 발생
-    @ExceptionHandler(value = [NewBusinessException::class])
-    protected fun handNewBusinessException(e: NewBusinessException): ResponseEntity<ErrorResponse> {
+    @ExceptionHandler(value = [BusinessException::class])
+    protected fun handNewBusinessException(e: BusinessException): ResponseEntity<ErrorResponse> {
         val message = messageSource.getMessage(e.properties, e.arguments, LocaleContextHolder.getLocale())
         log.error(ERROR_LOG_MESSAGE, e.javaClass.simpleName, message, e)
 
