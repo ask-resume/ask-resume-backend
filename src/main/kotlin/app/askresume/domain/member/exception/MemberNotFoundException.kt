@@ -3,14 +3,13 @@ package app.askresume.domain.member.exception
 import app.askresume.global.error.ErrorCodes
 import app.askresume.global.error.exception.NewBusinessException
 
-open class DuplicateMemberException(
-    email: String,
-    memberType: String,
+open class MemberNotFoundException(
+    memberId: Long,
     override val cause: Throwable? = null,
 ) : NewBusinessException(
-    codeBook = ErrorCodes.ALREADY_REGISTERED_MEMBER,
-    properties = "already.registered.member",
-    arguments = arrayOf(email, memberType),
+    codeBook = ErrorCodes.ENTITY_NOT_FOUND,
+    properties = "member.not.exists",
+    arguments = arrayOf(memberId),
     cause = cause,
 )
 

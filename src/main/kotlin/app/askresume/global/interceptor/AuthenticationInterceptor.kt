@@ -1,8 +1,7 @@
 package app.askresume.global.interceptor
 
 import app.askresume.global.cookie.CookieProvider
-import app.askresume.global.error.ErrorCode
-import app.askresume.global.error.exception.AuthenticationException
+import app.askresume.global.error.exception.NotAccessTokenTypeException
 import app.askresume.global.jwt.constant.JwtTokenType
 import app.askresume.global.jwt.service.TokenManager
 import org.springframework.stereotype.Component
@@ -31,7 +30,7 @@ class AuthenticationInterceptor(
         val tokenClaims = tokenManager.getTokenClaims(accessToken)
         val tokenType = tokenClaims.subject
         if (!JwtTokenType.isAccessToken(tokenType)) {
-            throw AuthenticationException(ErrorCode.NOT_ACCESS_TOKEN_TYPE)
+            throw NotAccessTokenTypeException()
         }
 
         return true

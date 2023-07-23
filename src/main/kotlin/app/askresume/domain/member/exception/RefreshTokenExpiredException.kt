@@ -3,14 +3,12 @@ package app.askresume.domain.member.exception
 import app.askresume.global.error.ErrorCodes
 import app.askresume.global.error.exception.NewBusinessException
 
-open class DuplicateMemberException(
-    email: String,
-    memberType: String,
+open class RefreshTokenExpiredException(
     override val cause: Throwable? = null,
 ) : NewBusinessException(
-    codeBook = ErrorCodes.ALREADY_REGISTERED_MEMBER,
-    properties = "already.registered.member",
-    arguments = arrayOf(email, memberType),
+    codeBook = ErrorCodes.REFRESH_TOKEN_EXPIRED,
+    properties = "refresh.token.expired",
+    arguments = arrayOf(),
     cause = cause,
 )
 
