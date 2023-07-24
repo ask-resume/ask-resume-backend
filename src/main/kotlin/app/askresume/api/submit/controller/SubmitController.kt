@@ -1,6 +1,6 @@
 package app.askresume.api.submit.controller
 
-import app.askresume.api.submit.dto.SubmitResponse
+import app.askresume.api.submit.vo.SubmitResponse
 import app.askresume.api.submit.facade.SubmitFacade
 import app.askresume.global.model.ApiResult
 import app.askresume.global.model.PageResult

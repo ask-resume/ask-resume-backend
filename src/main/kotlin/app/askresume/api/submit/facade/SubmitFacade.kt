@@ -1,6 +1,6 @@
 package app.askresume.api.submit.facade
 
-import app.askresume.api.submit.dto.SubmitResponse
+import app.askresume.api.submit.vo.SubmitResponse
 import app.askresume.api.submit.mapper.toSubmitResponse
 import app.askresume.domain.submit.service.SubmitService
 import app.askresume.global.model.PageResult

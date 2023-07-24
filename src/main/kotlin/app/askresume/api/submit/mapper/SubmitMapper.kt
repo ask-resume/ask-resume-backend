@@ -1,6 +1,6 @@
 package app.askresume.api.submit.mapper
 
-import app.askresume.api.submit.dto.SubmitResponse
+import app.askresume.api.submit.vo.SubmitResponse
 import app.askresume.domain.submit.model.Submit
 
 fun toSubmitResponse(submit: Submit): SubmitResponse {

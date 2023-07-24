@@ -1,4 +1,4 @@
-package app.askresume.api.submit.dto
+package app.askresume.api.submit.vo
 
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.constant.SubmitStatus
