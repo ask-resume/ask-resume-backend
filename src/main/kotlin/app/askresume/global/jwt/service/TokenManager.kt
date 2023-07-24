@@ -69,7 +69,7 @@ class TokenManager(
         return createToken(memberId, role, JwtTokenType.ACCESS, accessTokenExpirationTime.toLong())
     }
 
-    fun createRefreshToken(memberId: Long?, role: Role): JwtResponse.Token {
+    private fun createRefreshToken(memberId: Long?, role: Role): JwtResponse.Token {
         return createToken(memberId, role, JwtTokenType.REFRESH, refreshTokenExpirationTime.toLong())
     }
 
