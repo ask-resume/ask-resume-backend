@@ -19,9 +19,9 @@ class MemberInfoArgumentResolver(
 ) : HandlerMethodArgumentResolver {
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
-        val hasMemberInfoAnnotation = parameter.hasParameterAnnotation(MemberInfo::class.java)
-        val hasMemberInfoDto = MemberInfoDto::class.java.isAssignableFrom(parameter.parameterType)
-        return hasMemberInfoAnnotation && hasMemberInfoDto
+        val hasMemberInfoAnnotation = parameter.hasParameterAnnotation(MemberInfoResolver::class.java)
+        val hasMemberInfo = MemberInfoResolver::class.java.isAssignableFrom(parameter.parameterType)
+        return hasMemberInfoAnnotation && hasMemberInfo
     }
 
     @Throws(Exception::class)
@@ -30,8 +30,7 @@ class MemberInfoArgumentResolver(
         mavContainer: ModelAndViewContainer?,
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?,
-    ): MemberInfoDto {
-        // TODO POSTMAN에서 호출하기 힘들어서 일단 주석
+    ): MemberInfo {
         val request = webRequest.nativeRequest as HttpServletRequest
         val accessTokenCookie = cookieProvider.getCookie(request.cookies, JwtTokenType.ACCESS.cookieName)
         val accessToken = accessTokenCookie.value
@@ -40,8 +39,7 @@ class MemberInfoArgumentResolver(
         val memberId = (tokenClaims["memberId"] as Int).toLong()
         val role = tokenClaims["role"] as String
 
-        return MemberInfoDto(memberId, Role.from(role))
-        //return MemberInfoDto(1, Role.USER)
+        return MemberInfo(memberId, Role.from(role))
     }
 }
 

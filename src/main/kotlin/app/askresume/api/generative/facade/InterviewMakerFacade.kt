@@ -9,7 +9,7 @@ import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.service.SubmitDataService
 import app.askresume.domain.submit.service.SubmitService
 import app.askresume.global.annotation.Facade
-import app.askresume.global.resolver.memberinfo.MemberInfoDto
+import app.askresume.global.resolver.memberinfo.MemberInfo
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.transaction.annotation.Transactional
 
@@ -23,7 +23,7 @@ class InterviewMakerFacade(
 ) {
 
     @Transactional
-    fun saveSubmit(request: InterviewMakerRequest, memberInfoDto: MemberInfoDto) {
+    fun saveSubmit(request: InterviewMakerRequest, memberInfo: MemberInfo) {
         val resumeData = toResumeData(request.contents)
         val jobMasterName = jobService.findJobMasterName(request.jobId)
 
@@ -51,7 +51,7 @@ class InterviewMakerFacade(
             }...",
             serviceType = ServiceType.INTERVIEW_MAKER,
             dataCount = resumeData.size,
-            memberId = memberInfoDto.memberId,
+            memberId = memberInfo.memberId,
         )
 
         submitDataService.addToSubmitData(
