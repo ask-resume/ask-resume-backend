@@ -1,10 +1,6 @@
 package app.askresume.external.openai.service
 
-import app.askresume.domain.prompt.service.PromptReadOnlyService
-import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.external.openai.client.OpenAiClient
-import app.askresume.external.openai.constant.OpenAiRole
-import app.askresume.external.openai.dto.ChatCompletionsMessageDto
 import app.askresume.external.openai.dto.ChatCompletionsMessageResponse
 import app.askresume.external.openai.dto.ChatCompletionsRequest
 import app.askresume.global.jwt.constant.GrantType

@@ -46,9 +46,11 @@ feign:
   client:
     config:
       default:
-        connectTimeout: 300000 # 5분 1000(ms) x 60(s) x 5(m)
+        connectTimeout: 5000 # 5초 1000(ms) x 5(s)
+        readTimeout: 5000    # 5초 1000(ms) x 5(s)
+      open-ai:
         readTimeout: 300000    # 5분 1000(ms) x 60(s) x 5(m)
-
+        connectTimeout: 300000 # 5분 1000(ms) x 60(s) x 5(m)
 
 
 
