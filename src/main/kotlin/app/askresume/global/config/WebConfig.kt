@@ -30,8 +30,10 @@ class WebConfig(
     private val memberInfoArgumentResolver: MemberInfoArgumentResolver,
     private val accessTokenResolver: AccessTokenResolver,
     private val refreshTokenResolver: RefreshTokenResolver,
+
     private val authenticationInterceptor: AuthenticationInterceptor,
     private val adminAuthorizationInterceptor: AdminAuthorizationInterceptor,
+
     private val objectMapper: ObjectMapper,
 ) : WebMvcConfigurer {
 
@@ -65,11 +67,7 @@ class WebConfig(
                 "/api/oauth/**/callback",
                 "/api/access-token/issue",
                 "/api/logout",
-                "/api/v1/resume/generate",
-                "/api/v1/jobs",
-                "/api/v1/extract/pdf",
-                "/api/generative/interview-maker",
-                "/api/my-member/submit" // TODO : 개발 완료 시 반드시 제거하기
+                "/api/refresh",
 
             )
 
