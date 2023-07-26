@@ -2,7 +2,7 @@ package app.askresume.global.model
 
 import org.springframework.data.domain.Page
 
-data class PageResult<T>(
+data class PageResponse<T>(
     val page: Int,
     val pageSize: Int,
     val totalElements: Long,

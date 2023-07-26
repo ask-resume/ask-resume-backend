@@ -6,8 +6,8 @@ import app.askresume.api.generative.vo.InterviewMakerRequest
 import app.askresume.domain.generative.interview.dto.InterviewMakerDto
 import app.askresume.domain.job.service.JobService
 import app.askresume.domain.submit.constant.ServiceType
-import app.askresume.domain.submit.service.SubmitDataService
-import app.askresume.domain.submit.service.SubmitService
+import app.askresume.domain.submit.service.SubmitDataCommandService
+import app.askresume.domain.submit.service.SubmitCommandService
 import app.askresume.global.annotation.Facade
 import app.askresume.global.resolver.memberinfo.MemberInfo
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -17,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(readOnly = true)
 class InterviewMakerFacade(
     private val jobService: JobService,
-    private val submitService: SubmitService,
-    private val submitDataService: SubmitDataService,
+    private val submitCommandService: SubmitCommandService,
+    private val submitDataCommandService: SubmitDataCommandService,
     private val objectMapper: ObjectMapper,
 ) {
 
@@ -42,7 +42,7 @@ class InterviewMakerFacade(
             objectMapper.convertValue(dto, Map::class.java) as Map<String, Any>
         }
 
-        val submitId = submitService.saveSubmit(
+        val submitId = submitCommandService.saveSubmit(
             title = "${
                 interviewMakerDtoList[0].content.substring(
                     TITLE_SUBSTRING_MIN_SIZE,
@@ -54,7 +54,7 @@ class InterviewMakerFacade(
             memberId = memberInfo.memberId,
         )
 
-        submitDataService.addToSubmitData(
+        submitDataCommandService.addToSubmitData(
             submitId = submitId,
             parameters = parameters,
         )

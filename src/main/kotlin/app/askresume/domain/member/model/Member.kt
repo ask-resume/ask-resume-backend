@@ -52,12 +52,12 @@ class Member(
     var profile: String? = profile
         protected set
 
-    @Comment(value = "토큰")
+    @Comment(value = "Refresh Token")
     @Column(length = 250)
     var refreshToken: String? = refreshToken
         protected set
 
-    @Comment(value = "토큰 만료일")
+    @Comment(value = "Refresh Token 만료일")
     var tokenExpirationTime: LocalDateTime? = tokenExpirationTime
         protected set
 

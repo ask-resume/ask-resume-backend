@@ -3,7 +3,7 @@ package app.askresume.api.submit.controller
 import app.askresume.api.submit.vo.SubmitResponse
 import app.askresume.api.submit.facade.SubmitFacade
 import app.askresume.global.model.ApiResult
-import app.askresume.global.model.PageResult
+import app.askresume.global.model.PageResponse
 import app.askresume.global.resolver.memberinfo.MemberInfo
 import app.askresume.global.resolver.memberinfo.MemberInfoResolver
 import io.swagger.v3.oas.annotations.Operation
@@ -17,20 +17,20 @@ import org.springframework.web.bind.annotation.RestController
 
 @Tag(name = "submit", description = "제출 정보 API")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/submits")
 class SubmitController(
     private val submitFacade: SubmitFacade,
 ) {
 
     @Tag(name = "submit")
-    @Operation(summary = "내 제출 정보 목록 조회 API", description = "유저가 자신이 제출한 생성형 AI 서비스 요청 목록을 페이징 처리된 상태로 조회합니다. 본인이 아니면 조회할 수 없습니다.")
-    @GetMapping("/my-member/submit")
+    @Operation(summary = "내 제출 정보 목록 조회 API", description = "유저가 자신이 제출한 생성형 AI 서비스 요청 목록을 페이징 처리된 상태로 조회합니다.")
+    @GetMapping
     fun findMySubmits(
         @ParameterObject pageable: Pageable,
         @MemberInfoResolver memberInfo: MemberInfo,
-    ): ResponseEntity<ApiResult<PageResult<SubmitResponse>>> {
+    ): ResponseEntity<ApiResult<PageResponse<SubmitResponse>>> {
 
-        val mySubmits = submitFacade.findMySubmits(pageable, memberInfo)
+        val mySubmits = submitFacade.findMySubmits(pageable, memberInfo.memberId)
 
         return ResponseEntity.ok(ApiResult(mySubmits))
     }

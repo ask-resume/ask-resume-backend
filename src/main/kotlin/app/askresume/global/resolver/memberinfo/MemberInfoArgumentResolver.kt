@@ -20,7 +20,7 @@ class MemberInfoArgumentResolver(
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
         val hasMemberInfoAnnotation = parameter.hasParameterAnnotation(MemberInfoResolver::class.java)
-        val hasMemberInfo = MemberInfoResolver::class.java.isAssignableFrom(parameter.parameterType)
+        val hasMemberInfo = MemberInfo::class.java.isAssignableFrom(parameter.parameterType)
         return hasMemberInfoAnnotation && hasMemberInfo
     }
 

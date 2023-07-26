@@ -1,7 +1,6 @@
 package app.askresume.domain.submit.service
 
 import app.askresume.domain.submit.constant.SubmitDataStatus
-import app.askresume.domain.submit.constant.SubmitStatus
 import app.askresume.domain.submit.model.SubmitData
 import app.askresume.domain.submit.repository.SubmitDataRepository
 import app.askresume.domain.submit.repository.SubmitRepository
@@ -11,13 +10,12 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-@Transactional(readOnly = true)
-class SubmitDataService(
+@Transactional
+class SubmitDataCommandService(
     private val submitRepository: SubmitRepository,
     private val submitDataRepository: SubmitDataRepository
 ) {
 
-    @Transactional
     fun addToSubmitData(
         submitId: Long,
         parameters: List<Map<String, Any>>
@@ -29,7 +27,6 @@ class SubmitDataService(
         }
     }
 
-    @Transactional
     fun updateStatus(
         submitDataId: Long,
         changeStatus: SubmitDataStatus

@@ -12,6 +12,4 @@ data class ApiResult<T>(
     @field:JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     val timestamp: LocalDateTime = LocalDateTime.now()
 
-    @Schema(description = "status", example = "200")
-    val status = HttpStatus.OK.value()
 }

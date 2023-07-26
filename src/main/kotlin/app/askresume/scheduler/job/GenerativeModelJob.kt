@@ -5,9 +5,9 @@ import app.askresume.domain.prompt.service.PromptReadOnlyService
 import app.askresume.domain.result.service.ResultService
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.constant.SubmitDataStatus
-import app.askresume.domain.submit.service.SubmitDataService
-import app.askresume.domain.submit.service.SubmitQueryService
-import app.askresume.domain.submit.service.SubmitService
+import app.askresume.domain.submit.service.SubmitDataCommandService
+import app.askresume.domain.submit.service.SubmitReadOnlyService
+import app.askresume.domain.submit.service.SubmitCommandService
 import app.askresume.external.openai.dto.ChatCompletionsMessageResponse
 import app.askresume.external.openai.mapper.OpenAiMapper
 import app.askresume.external.openai.service.OpenAiService
@@ -17,9 +17,9 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 class GenerativeModelJob(
-    private val submitService: SubmitService,
-    private val submitQueryService: SubmitQueryService,
-    private val submitDataService: SubmitDataService,
+    private val submitCommandService: SubmitCommandService,
+    private val submitReadOnlyService: SubmitReadOnlyService,
+    private val submitDataCommandService: SubmitDataCommandService,
     private val resultService: ResultService,
     private val promptReadOnlyService: PromptReadOnlyService,
     private val generativeFactory: GenerativeFactory,
@@ -31,7 +31,7 @@ class GenerativeModelJob(
 
     @Transactional
     fun execute() {
-        submitQueryService.findRequestedFirstSubmit()?.run {
+        submitReadOnlyService.findRequestedFirstSubmit()?.run {
 
             // 객체 분리
             val (submitId, submitDataId, serviceType, parameter) = this
@@ -96,13 +96,13 @@ class GenerativeModelJob(
         )
 
         // 성공으로 업데이트
-        submitDataService.updateStatus(
+        submitDataCommandService.updateStatus(
             submitDataId = submitDataId,
             changeStatus = SubmitDataStatus.SUCCESS,
         )
 
         // 아이템 개수 체크 후 Completed로 변경 해야함
-        submitService.verifyAllSubmittedDataSuccess(submitId = submitId)
+        submitCommandService.verifyAllSubmittedDataSuccess(submitId = submitId)
     }
 
     @Transactional
@@ -110,13 +110,13 @@ class GenerativeModelJob(
         submitId: Long,
         submitDataId: Long,
     ) {
-        submitDataService.updateStatus(
+        submitDataCommandService.updateStatus(
             submitDataId = submitDataId,
             changeStatus = SubmitDataStatus.RESEND,
         )
 
         // 횟수 1 플러스하고, 체크
-        submitService.increaseAttemptsAndCheckFailure(submitId = submitId)
+        submitCommandService.increaseAttemptsAndCheckFailure(submitId = submitId)
     }
 
     companion object {

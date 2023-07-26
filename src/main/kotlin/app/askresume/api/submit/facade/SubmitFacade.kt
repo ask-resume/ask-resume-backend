@@ -1,10 +1,10 @@
 package app.askresume.api.submit.facade
 
+import app.askresume.api.submit.mapper.SubmitMapper
 import app.askresume.api.submit.vo.SubmitResponse
-import app.askresume.api.submit.mapper.toSubmitResponse
-import app.askresume.domain.submit.service.SubmitService
-import app.askresume.global.model.PageResult
-import app.askresume.global.resolver.memberinfo.MemberInfo
+import app.askresume.domain.submit.service.SubmitReadOnlyService
+import app.askresume.domain.submit.service.SubmitCommandService
+import app.askresume.global.model.PageResponse
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -12,14 +12,19 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional(readOnly = true)
 class SubmitFacade(
-    private val submitService: SubmitService,
+    private val submitCommandService: SubmitCommandService,
+    private val submitReadOnlyService: SubmitReadOnlyService,
+
+    private val submitMapper: SubmitMapper,
 ) {
 
-    fun findMySubmits(pageable: Pageable, memberInfo: MemberInfo): PageResult<SubmitResponse> {
-        val memberId = memberInfo.memberId
-        val pagedSubmits = submitService.findSubmitsByMemberId(memberId, pageable)
+    fun findMySubmits(pageable: Pageable, memberId: Long): PageResponse<SubmitResponse> {
+        val pagedSubmits = submitReadOnlyService.findSubmitList(
+            memberId = memberId,
+            pageable = pageable
+        )
 
-        return PageResult(pagedSubmits.map { toSubmitResponse(it) })
+        return submitMapper.pageSubmitDtoToSubmitResponse(pagedSubmits)
     }
 
 }

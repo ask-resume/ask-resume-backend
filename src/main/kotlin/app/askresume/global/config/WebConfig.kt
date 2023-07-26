@@ -69,7 +69,7 @@ class WebConfig(
                 "/api/logout",
                 "/api/refresh",
 
-            )
+                )
 
         // 권한 체크
         registry.addInterceptor(adminAuthorizationInterceptor)
