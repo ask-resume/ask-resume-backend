@@ -8,6 +8,7 @@ import app.askresume.domain.member.exception.RefreshTokenExpiredException
 import app.askresume.domain.member.exception.RefreshTokenNotFoundException
 import app.askresume.domain.member.model.Member
 import app.askresume.domain.member.repository.MemberRepository
+import app.askresume.domain.member.repository.findMemberById
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -52,8 +53,7 @@ class MemberService(
     }
 
     fun findMemberById(memberId: Long): Member {
-        return memberRepository.findByIdOrNull(memberId)
-            ?: throw MemberNotFoundException(memberId)
+        return memberRepository.findMemberById(memberId)
     }
 
     @Transactional

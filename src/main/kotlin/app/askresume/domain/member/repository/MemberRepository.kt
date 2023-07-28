@@ -1,8 +1,13 @@
 package app.askresume.domain.member.repository
 
 import app.askresume.domain.member.constant.MemberType
+import app.askresume.domain.member.exception.MemberNotFoundException
 import app.askresume.domain.member.model.Member
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.repository.findByIdOrNull
+
+fun MemberRepository.findMemberById(id: Long) : Member =
+    findByIdOrNull(id) ?: throw MemberNotFoundException(id)
 
 interface MemberRepository : JpaRepository<Member, Long> {
 
