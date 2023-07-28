@@ -15,11 +15,15 @@ data class SubmitResponse(
 
     @field:Schema(description = "타겟 서비스", example = "INTERVIEW_MAKER")
     val serviceType: ServiceType,
-    
+
     @field:Schema(description = "제출 상태", example = "WAITING")
     val submitStatus: SubmitStatus,
 
     @field:Schema(description = "생성일", example = "2023-06-17T15:45:20Z")
     val createdAt: ZonedDateTime,
+)
 
+data class SubmitServiceTypeResponse(
+    @field:Schema(description = "타겟 서비스", example = "INTERVIEW_MAKER")
+    val serviceType: ServiceType
 )

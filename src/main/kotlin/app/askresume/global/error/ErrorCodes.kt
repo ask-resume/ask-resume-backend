@@ -16,12 +16,13 @@ enum class ErrorCodes(
 
     ENTITY_NOT_FOUND("ENY-001", "Entity 데이터가 존재하지 않습니다."),
 
+    STATUS_IS_NOT_COMPLETED("SNC-001", "COMPLETED 되지 않은 내용에 접근 시도"),
+
     TOKEN_EXPIRED("AUTH-001", "토큰이 만료 되었습니다."),
     NOT_VALID_TOKEN( "AUTH-002", "토큰이 유효하지 않습니다."),
     REFRESH_TOKEN_NOT_FOUND("AUTH-005", "Refresh Token이 존재하지 않습니다."),
     REFRESH_TOKEN_EXPIRED("AUTH-006", "Refresh Token이 만료 되었습니다."),
     NOT_ACCESS_TOKEN_TYPE("AUTH-007", "Access Token이 아닙니다."),
-
     FORBIDDEN_ADMIN("AUTH-008", "관리자권한이 필요합니다."),
 
     NOT_PERMITTED_CONTENT_TYPE("FILE-001", "허가되지 않는 CONTENT TYPE 입니다."),
@@ -42,6 +43,7 @@ enum class ErrorCodes(
         ALREADY_REGISTERED_MEMBER,
         ENUM_VALIDATE_NOT_EXIST,
         ENTITY_NOT_FOUND,
+        STATUS_IS_NOT_COMPLETED,
         NOT_PERMITTED_CONTENT_TYPE -> HttpStatus.BAD_REQUEST
     }
 

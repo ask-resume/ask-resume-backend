@@ -2,6 +2,7 @@ package app.askresume.api.submit.facade
 
 import app.askresume.api.submit.mapper.SubmitMapper
 import app.askresume.api.submit.vo.SubmitResponse
+import app.askresume.api.submit.vo.SubmitServiceTypeResponse
 import app.askresume.domain.submit.service.SubmitReadOnlyService
 import app.askresume.domain.submit.service.SubmitCommandService
 import app.askresume.global.model.PageResponse
@@ -25,6 +26,15 @@ class SubmitFacade(
         )
 
         return submitMapper.pageSubmitDtoToSubmitResponse(pagedSubmits)
+    }
+
+    fun findMySubmitsDetail(submitId: Long, memberId: Long): SubmitServiceTypeResponse {
+        submitReadOnlyService.isMySubmit(submitId, memberId)
+        submitReadOnlyService.isCompleted(submitId)
+
+        return SubmitServiceTypeResponse(
+            serviceType = submitReadOnlyService.findSubmitServiceType(submitId)
+        )
     }
 
 }
