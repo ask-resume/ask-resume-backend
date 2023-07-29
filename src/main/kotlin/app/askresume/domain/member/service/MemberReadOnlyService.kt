@@ -2,39 +2,25 @@ package app.askresume.domain.member.service
 
 import app.askresume.api.member.dto.request.ModifyInfoRequest
 import app.askresume.domain.member.constant.MemberType
+import app.askresume.domain.member.dto.MemberInfoDto
 import app.askresume.domain.member.exception.DuplicateMemberException
-import app.askresume.domain.member.exception.MemberNotFoundException
 import app.askresume.domain.member.exception.RefreshTokenExpiredException
 import app.askresume.domain.member.exception.RefreshTokenNotFoundException
 import app.askresume.domain.member.model.Member
+import app.askresume.domain.member.repository.MemberQueryRepository
 import app.askresume.domain.member.repository.MemberRepository
 import app.askresume.domain.member.repository.findMemberById
-import org.springframework.data.repository.findByIdOrNull
+import app.askresume.global.util.LoggerUtil.logger
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 
 @Service
 @Transactional(readOnly = true)
-class MemberService(
+class MemberReadOnlyService(
     private val memberRepository: MemberRepository,
+    private val memberQueryRepository: MemberQueryRepository,
 ) {
-
-    @Transactional
-    fun registerMember(member: Member): Member {
-        val email = member.email
-        val memberType = member.memberType
-
-        validateDuplicateMember(email, memberType)
-        return memberRepository.save(member)
-    }
-
-    // 이메일 체크
-    private fun validateDuplicateMember(email: String, memberType: MemberType) {
-        if(memberRepository.existsByEmailAndMemberType(email, memberType))
-            throw DuplicateMemberException(email, memberType.name)
-
-    }
 
     fun findMemberByEmail(email: String, memberType: MemberType): Member? {
         return memberRepository.findByEmailAndMemberType(email, memberType)
@@ -56,14 +42,16 @@ class MemberService(
         return memberRepository.findMemberById(memberId)
     }
 
-    @Transactional
-    fun modifyMemberInfo(member: Member, request: ModifyInfoRequest) {
-        member.changeMemberInfo(request.username, request.profile)
-    }
-
-    @Transactional
-    fun secessionMember(member: Member) {
-        memberRepository.delete(member)
+    fun findMember(
+        memberId: Long? = null,
+        email: String? = null,
+        memberType: MemberType? = null,
+    ): MemberInfoDto {
+        return memberQueryRepository.findQueryMemberInfo(
+            memberId = memberId,
+            email = email,
+            memberType = memberType,
+        )
     }
 
 }

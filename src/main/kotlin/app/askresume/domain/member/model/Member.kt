@@ -14,7 +14,7 @@ import javax.persistence.Table
 @Entity
 @Where(clause = "is_deleted = false")
 @SQLDelete(sql = "UPDATE member SET is_deleted = true WHERE id = ?")
-@Table(uniqueConstraints = [UniqueConstraint(name = "iduk", columnNames = ["email", "memberType"])])
+@Table(uniqueConstraints = [UniqueConstraint(name = "unique_email_member_type", columnNames = ["email", "memberType"])])
 class Member(
 
     @Comment(value = "이메일")
@@ -26,21 +26,25 @@ class Member(
     @Column(length = 10, nullable = false)
     val memberType: MemberType,
 
-    @Comment(value = "사용자언어")
-    @Column(length = 5, nullable = false)
-    val locale: String,
-
-    @Enumerated(EnumType.STRING)
-    @Comment(value = "권한")
-    @Column(length = 10, nullable = false)
-    val role: Role,
-
+    locale: String,
+    role: Role,
     username: String,
     profile: String? = null,
     refreshToken: String? = null,
     tokenExpirationTime: LocalDateTime? = null,
 
     ) : BaseTimeEntity() {
+
+    @Comment(value = "사용자 국가")
+    @Column(length = 5, nullable = false)
+    var locale = locale
+        protected set
+
+    @Enumerated(EnumType.STRING)
+    @Comment(value = "권한")
+    @Column(length = 10, nullable = false)
+    var role = role
+        protected set
 
     @Comment(value = "사용자명")
     @Column(length = 30, nullable = false)

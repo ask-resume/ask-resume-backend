@@ -2,31 +2,34 @@ package app.askresume.api.member.facade
 
 import app.askresume.api.member.dto.request.ModifyInfoRequest
 import app.askresume.api.member.dto.response.MemberInfoResponse
-import app.askresume.domain.member.service.MemberService
+import app.askresume.domain.member.service.MemberCommandService
+import app.askresume.domain.member.service.MemberReadOnlyService
+import app.askresume.global.annotation.Facade
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-@Service
+@Facade
 @Transactional(readOnly = true)
 class MyMemberFacade(
-    private val memberService: MemberService,
+    private val memberReadOnlyService: MemberReadOnlyService,
+    private val memberCommandService: MemberCommandService,
 ) {
 
     fun findMemberInfo(memberId: Long): MemberInfoResponse {
-        val member = memberService.findMemberById(memberId)
+        val member = memberReadOnlyService.findMemberById(memberId)
         return MemberInfoResponse.of(member)
     }
 
     @Transactional
     fun modifyMemberInfo(memberId: Long, request: ModifyInfoRequest) {
-        val member = memberService.findMemberById(memberId)
-        memberService.modifyMemberInfo(member, request)
+        val member = memberReadOnlyService.findMemberById(memberId)
+        memberCommandService.modifyMemberInfo(member, request)
     }
 
     @Transactional
     fun secessionMember(memberId: Long) {
-        val member = memberService.findMemberById(memberId)
-        memberService.secessionMember(member)
+        val member = memberReadOnlyService.findMemberById(memberId)
+        memberCommandService.secessionMember(member)
     }
 }
 

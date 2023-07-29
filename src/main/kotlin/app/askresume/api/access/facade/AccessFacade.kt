@@ -1,6 +1,6 @@
 package app.askresume.api.access.facade
 
-import app.askresume.domain.member.service.MemberService
+import app.askresume.domain.member.service.MemberReadOnlyService
 import app.askresume.global.jwt.dto.JwtResponse
 import app.askresume.global.jwt.service.TokenManager
 import app.askresume.global.util.LoggerUtil.logger
@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 @Service
 @Transactional(readOnly = true)
 class AccessFacade(
-    private val memberService: MemberService,
+    private val memberReadOnlyService: MemberReadOnlyService,
     private val tokenManager: TokenManager,
 ) {
 
@@ -23,12 +23,12 @@ class AccessFacade(
 
         // refresh token 만료 처리
         val memberId = tokenManager.getMemberIdFromAccessToken(accessToken)
-        val member = memberService.findMemberById(memberId)
+        val member = memberReadOnlyService.findMemberById(memberId)
         member.expireRefreshToken(LocalDateTime.now())
     }
 
     fun createAccessTokenByRefreshToken(refreshToken: String): JwtResponse.Token {
-        val member = memberService.findMemberByRefreshToken(refreshToken)
+        val member = memberReadOnlyService.findMemberByRefreshToken(refreshToken)
         return tokenManager.createAccessToken(member.id, member.role)
     }
 

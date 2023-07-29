@@ -2,7 +2,8 @@ package app.askresume.api.access.facade
 
 import app.askresume.domain.member.constant.MemberType
 import app.askresume.domain.member.constant.Role
-import app.askresume.domain.member.service.MemberService
+import app.askresume.domain.member.service.MemberCommandService
+import app.askresume.domain.member.service.MemberReadOnlyService
 import app.askresume.global.jwt.dto.JwtResponse
 import app.askresume.global.jwt.service.TokenManager
 import app.askresume.oauth.constant.OAuthProvider
@@ -15,7 +16,8 @@ import java.net.URI
 @Transactional(readOnly = true)
 class OAuthFacade(
     private val tokenManager: TokenManager,
-    private val memberService: MemberService,
+    private val memberReadOnlyService: MemberReadOnlyService,
+    private val memberCommandService: MemberCommandService,
     private val oAuthService: OAuthService,
 ) {
 
@@ -24,7 +26,7 @@ class OAuthFacade(
     }
 
     @Transactional
-    fun joinOrLogin(code: String, provider: OAuthProvider):JwtResponse.TokenSet {
+    fun joinOrLogin(code: String, provider: OAuthProvider): JwtResponse.TokenSet {
         // OAuth Access 토큰을 얻어옵니다.
         val oAuthTokenDto = oAuthService.getToken(code, provider)
         // OAuth Access 토큰으로 OAuth UserInfo를 얻어옵니다.
@@ -32,14 +34,14 @@ class OAuthFacade(
 
         // 해당 email과 provider 정보로 가입된 회원이 있는지 체크합니다.
         val memberType = MemberType.from(provider.name)
-        val member = memberService.findMemberByEmail(userInfo.email, memberType)
+        val member = memberReadOnlyService.findMemberByEmail(userInfo.email, memberType)
 
         // 가입된 회원 정보가 있으면 로그인을, 없으면 회원가입을 진행합니다.
         val oAuthMember = member?.let { // 로그인
             member
         } ?: run { // 회원가입
             val newMember = userInfo.toMemberEntity(memberType, Role.USER)
-            memberService.registerMember(newMember)
+            memberCommandService.registerMember(newMember)
         }
 
         // 토큰 생성
