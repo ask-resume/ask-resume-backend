@@ -1,11 +1,11 @@
 package app.askresume.api.member.facade
 
-import app.askresume.api.member.dto.request.ModifyInfoRequest
-import app.askresume.api.member.dto.response.MemberInfoResponse
+import app.askresume.api.member.mapper.MyMemberMapper
+import app.askresume.api.member.vo.MemberInfoResponse
+import app.askresume.api.member.vo.ModifyInfoRequest
 import app.askresume.domain.member.service.MemberCommandService
 import app.askresume.domain.member.service.MemberReadOnlyService
 import app.askresume.global.annotation.Facade
-import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Facade
@@ -13,23 +13,28 @@ import org.springframework.transaction.annotation.Transactional
 class MyMemberFacade(
     private val memberReadOnlyService: MemberReadOnlyService,
     private val memberCommandService: MemberCommandService,
+
+    private val myMemberMapper: MyMemberMapper,
 ) {
 
-    fun findMemberInfo(memberId: Long): MemberInfoResponse {
-        val member = memberReadOnlyService.findMemberById(memberId)
-        return MemberInfoResponse.of(member)
+    fun findMyMemberInfo(memberId: Long): MemberInfoResponse {
+        val memberInfoDto = memberReadOnlyService.findMemberInfo(memberId) !!
+        return myMemberMapper.memberInfoDtoToMemberInfoResponse(memberInfoDto)
     }
 
     @Transactional
-    fun modifyMemberInfo(memberId: Long, request: ModifyInfoRequest) {
-        val member = memberReadOnlyService.findMemberById(memberId)
-        memberCommandService.modifyMemberInfo(member, request)
+    fun modifyMyMemberInfo(memberId: Long, request: ModifyInfoRequest) {
+        val memberInfoDto = memberReadOnlyService.findMemberInfo(memberId) !!
+        memberCommandService.modifyMemberInfo(
+            memberId = memberInfoDto.memberId,
+            username = request.username,
+            profile = request.profile,
+        )
     }
 
     @Transactional
     fun secessionMember(memberId: Long) {
-        val member = memberReadOnlyService.findMemberById(memberId)
-        memberCommandService.secessionMember(member)
+        memberCommandService.secessionMember(memberId)
     }
 }
 

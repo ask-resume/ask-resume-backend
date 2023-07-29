@@ -1,16 +1,13 @@
 package app.askresume.domain.member.service
 
-import app.askresume.api.member.dto.request.ModifyInfoRequest
 import app.askresume.domain.member.constant.MemberType
 import app.askresume.domain.member.dto.MemberInfoDto
-import app.askresume.domain.member.exception.DuplicateMemberException
 import app.askresume.domain.member.exception.RefreshTokenExpiredException
 import app.askresume.domain.member.exception.RefreshTokenNotFoundException
 import app.askresume.domain.member.model.Member
 import app.askresume.domain.member.repository.MemberQueryRepository
 import app.askresume.domain.member.repository.MemberRepository
 import app.askresume.domain.member.repository.findMemberById
-import app.askresume.global.util.LoggerUtil.logger
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -38,15 +35,11 @@ class MemberReadOnlyService(
         return member
     }
 
-    fun findMemberById(memberId: Long): Member {
-        return memberRepository.findMemberById(memberId)
-    }
-
-    fun findMember(
+    fun findMemberInfo(
         memberId: Long? = null,
         email: String? = null,
         memberType: MemberType? = null,
-    ): MemberInfoDto {
+    ): MemberInfoDto? {
         return memberQueryRepository.findQueryMemberInfo(
             memberId = memberId,
             email = email,

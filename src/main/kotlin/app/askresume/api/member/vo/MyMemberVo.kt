@@ -27,22 +27,43 @@ data class ModifyInfoRequest(
 
 data class MemberInfoResponse(
     @field:Schema(
-        description = "회원 아이디", example = "1", required = true
-    ) val memberId: Long? = null,
+        description = "회원 아이디",
+        example = "1",
+        required = true
+    )
+    val memberId: Long? = null,
 
     @field:Schema(
-        description = "이메일", example = "test@gmail.com", required = true
-    ) val email: String,
+        description = "이메일",
+        example = "test@gmail.com",
+        required = true
+    )
+    val email: String,
 
     @field:Schema(
-        description = "회원 이름", example = "홍길동", required = true
-    ) val username: String,
+        description = "회원 이름",
+        example = "홍길동",
+        required = true
+    )
+    val username: String,
 
     @field:Schema(
-        description = "프로필 이미지 경로", example = "https://domain.com/img_110x110.jpg"
-    ) val profile: String? = null,
+        description = "프로필 이미지 경로",
+        example = "https://domain.com/img_110x110.jpg"
+    )
+    val profile: String? = null,
 
-    @field:Schema(description = "회원의 역할", example = "USER", required = true) val role: Role,
+    @field:Schema(
+        description = "회원의 역할",
+        example = "USER",
+        required = true
+    )
+    val role: Role,
 
-    @field:Schema(description = "사용자 언어", example = "EN", required = true) val locale: String,
+    @field:Schema(
+        description = "사용자 언어",
+        example = "EN",
+        required = true
+    )
+    val locale: String,
 )

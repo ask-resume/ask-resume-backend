@@ -1,8 +1,8 @@
 package app.askresume.api.member.controller
 
-import app.askresume.api.member.dto.request.ModifyInfoRequest
-import app.askresume.api.member.dto.response.MemberInfoResponse
 import app.askresume.api.member.facade.MyMemberFacade
+import app.askresume.api.member.vo.MemberInfoResponse
+import app.askresume.api.member.vo.ModifyInfoRequest
 import app.askresume.global.model.ApiResult
 import app.askresume.global.resolver.memberinfo.MemberInfo
 import app.askresume.global.resolver.memberinfo.MemberInfoResolver
@@ -34,7 +34,7 @@ class MyMemberController(
         @MemberInfoResolver memberInfo: MemberInfo
     ): ResponseEntity<ApiResult<MemberInfoResponse>> {
         val memberId: Long = memberInfo.memberId
-        return ResponseEntity.ok(ApiResult(myMemberFacade.findMemberInfo(memberId)))
+        return ResponseEntity.ok(ApiResult(myMemberFacade.findMyMemberInfo(memberId)))
     }
 
     @Tag(name = "my-member")
@@ -46,7 +46,7 @@ class MyMemberController(
     ): ResponseEntity<Void> {
 
         val memberId: Long = memberInfo.memberId
-        myMemberFacade.modifyMemberInfo(memberId, request)
+        myMemberFacade.modifyMyMemberInfo(memberId, request)
 
         return ResponseEntity.created(UriUtil.createUri()).build()
     }
