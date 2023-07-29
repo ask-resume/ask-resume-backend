@@ -7,7 +7,7 @@ open class JwtClaimNotExistsException(
     claimName: String,
     override val cause: Throwable? = null,
 ) : BusinessException(
-    codeBook = ErrorCodes.ENTITY_NOT_FOUND,
+    codeBook = ErrorCodes.NOT_VALID_TOKEN,
     properties = "jwt.claim.not.exists",
     arguments = arrayOf(claimName),
     cause = cause,

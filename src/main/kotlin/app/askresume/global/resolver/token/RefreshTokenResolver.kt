@@ -1,6 +1,8 @@
 package app.askresume.global.resolver.token
 
+import app.askresume.domain.member.exception.RefreshTokenNotFoundException
 import app.askresume.global.cookie.CookieProvider
+import app.askresume.global.cookie.exception.CookieNotFoundException
 import app.askresume.global.jwt.constant.JwtTokenType
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Component
@@ -29,6 +31,7 @@ class RefreshTokenResolver(
         val request = webRequest.nativeRequest as HttpServletRequest
 
         val refreshTokenCookie = cookieProvider.getCookie(request.cookies, JwtTokenType.REFRESH.cookieName)
+            ?: throw RefreshTokenNotFoundException()
 
         return TokenDto(refreshTokenCookie.value)
     }

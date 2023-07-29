@@ -25,6 +25,6 @@ interface CookieProvider {
      * @param cookies 쿠키 목록 정보
      * @param cookieName 가져올 쿠키의 이름
      */
-    fun getCookie(cookies: Array<out Cookie>, cookieName: String): Cookie
+    fun getCookie(cookies: Array<out Cookie>?, cookieName: String): Cookie?
 
 }
