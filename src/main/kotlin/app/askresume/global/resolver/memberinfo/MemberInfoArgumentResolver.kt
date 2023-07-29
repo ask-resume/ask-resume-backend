@@ -2,6 +2,7 @@ package app.askresume.global.resolver.memberinfo
 
 import app.askresume.domain.member.constant.Role
 import app.askresume.global.cookie.CookieProvider
+import app.askresume.global.error.exception.NotAccessTokenTypeException
 import app.askresume.global.jwt.constant.JwtTokenType
 import app.askresume.global.jwt.service.TokenManager
 import org.springframework.core.MethodParameter
@@ -33,6 +34,7 @@ class MemberInfoArgumentResolver(
     ): MemberInfo {
         val request = webRequest.nativeRequest as HttpServletRequest
         val accessTokenCookie = cookieProvider.getCookie(request.cookies, JwtTokenType.ACCESS.cookieName)
+            ?: throw NotAccessTokenTypeException()
         val accessToken = accessTokenCookie.value
 
         val tokenClaims = tokenManager.getTokenClaims(accessToken)

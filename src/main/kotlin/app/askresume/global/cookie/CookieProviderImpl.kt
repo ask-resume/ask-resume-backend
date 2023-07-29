@@ -30,6 +30,7 @@ class CookieProviderImpl(
 
     override fun createTokenCookie(tokenDto: JwtResponse.Token, domain: String): ResponseCookie {
         val isDev = environment.activeProfiles.any { profile -> profile == "dev" }
+        val isLocal = environment.activeProfiles.any { profile -> profile == "local" }
 
         val cookieOption = CookieOption(
             name = tokenDto.tokenType.cookieName,
@@ -37,17 +38,17 @@ class CookieProviderImpl(
             domain = domain,
             maxAge = Duration.ofMillis(tokenDto.expirationTime),
             httpOnly = true,
-            secure = true,
-            sameSite = if (isDev) "None" else "Strict" // "dev" 환경에서만 서드 파티 쿠키를 허용합니다.
+            secure = !isLocal && !isDev,
+            sameSite = if (isLocal || isDev) null else "Strict" // "local", "dev" 환경에서만 서드 파티 쿠키를 허용합니다.
         )
 
         return createCookie(cookieOption)
     }
 
-    override fun getCookie(cookies: Array<out Cookie>, cookieName: String): Cookie {
+    override fun getCookie(cookies: Array<out Cookie>?, cookieName: String): Cookie? {
         return cookies.let {
-            cookies.find { it.name == cookieName }
-        } ?: throw CookieNotFoundException(cookieName)
+            cookies?.find { it.name == cookieName }
+        }
     }
 
 }

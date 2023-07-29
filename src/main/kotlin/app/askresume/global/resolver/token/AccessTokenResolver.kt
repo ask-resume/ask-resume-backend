@@ -1,6 +1,7 @@
 package app.askresume.global.resolver.token
 
 import app.askresume.global.cookie.CookieProvider
+import app.askresume.global.error.exception.NotAccessTokenTypeException
 import app.askresume.global.jwt.constant.JwtTokenType
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Component
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest
 class AccessTokenResolver(
     private val cookieProvider: CookieProvider,
 ) : HandlerMethodArgumentResolver {
+
     override fun supportsParameter(parameter: MethodParameter): Boolean {
         val hasAccessTokenAnnotation = parameter.hasParameterAnnotation(AccessToken::class.java)
         val hasTokenDto = TokenDto::class.java.isAssignableFrom(parameter.parameterType)
@@ -29,7 +31,9 @@ class AccessTokenResolver(
         val request = webRequest.nativeRequest as HttpServletRequest
 
         val accessTokenCookie = cookieProvider.getCookie(request.cookies, JwtTokenType.ACCESS.cookieName)
+            ?: throw NotAccessTokenTypeException()
 
         return TokenDto(accessTokenCookie.value)
     }
+
 }
