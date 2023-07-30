@@ -25,7 +25,14 @@ class SubmitController(
 ) {
 
     @Tag(name = "submit")
-    @Operation(summary = "내 제출 정보 목록 조회 API", description = "유저가 자신이 제출한 생성형 AI 서비스 요청 목록을 페이징 처리된 상태로 조회합니다.")
+    @Operation(
+        summary = "내 제출 정보 목록 조회 API",
+        description = """
+            이 API는 사용자가 제출한 생성형 AI 서비스 요청 목록을 페이징 처리하여 조회하는 데 사용됩니다.
+            
+            유저는 페이지 번호와 페이지당 결과 수를 지정하여 원하는 범위의 데이터를 가져올 수 있습니다.
+        """
+    )
     @GetMapping
     fun findMySubmits(
         @ParameterObject pageable: Pageable,
@@ -37,7 +44,14 @@ class SubmitController(
     }
 
     @Tag(name = "submit")
-    @Operation(summary = "내 제출 정보 타겟 서비스 조회 API", description = " 내가 제출한 생성형 AI 서비스가 어떤 서비스인지 조회합니다.")
+    @Operation(
+        summary = "생성형 AI 서비스 생성 결과 상세조회",
+        description = """
+            이 API는 생성형 AI 서비스의 결과를 상세 조회하는 데 사용됩니다. 
+            사용자는 서비스 식별자(submitId)를 입력하여 해당 서비스가 생성한 데이터를 가져올 수 있습니다. 
+            serviceType에 따라, 다른 response을 전달합니다.
+        """
+    )
     @GetMapping("/{submitId}")
     fun findMySubmitDetail(
         @PathVariable submitId: Long,

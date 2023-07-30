@@ -27,12 +27,17 @@ data class SubmitResponse(
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class SubmitDetailResponse(
+    @field:Schema(description = "타겟 서비스", example = "INTERVIEW_MAKER")
     val serviceType: ServiceType,
+    @field:Schema(description = "serviceType = INTERVIEW_MAKER")
     val interviewMakerList: List<InterviewMakerVo> = listOf(),
 )
 
 data class InterviewMakerVo(
+    @field:Schema(description = "예상 질문", example = "어쩌고...저쩌고...")
     val question: String,
+    @field:Schema(description = "모범 답안", example = "어쩌고...저쩌고...")
     val bestAnswer: String,
+    @field:Schema(description = "만족도", example = "NO_RESPONSE")
     val satisfaction : Satisfaction,
 )
