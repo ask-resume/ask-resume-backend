@@ -54,6 +54,7 @@ class WebConfig(
                 HttpMethod.OPTIONS.name
             )
             .maxAge(3600)
+            .allowCredentials(true)
     }
 
     // 인터셉트 체크
