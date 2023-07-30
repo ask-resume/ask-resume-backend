@@ -2,7 +2,7 @@ package app.askresume.api.submit.controller
 
 import app.askresume.api.submit.vo.SubmitResponse
 import app.askresume.api.submit.facade.SubmitFacade
-import app.askresume.api.submit.vo.SubmitServiceTypeResponse
+import app.askresume.api.submit.vo.SubmitDetailResponse
 import app.askresume.global.model.ApiResult
 import app.askresume.global.model.PageResponse
 import app.askresume.global.resolver.memberinfo.MemberInfo
@@ -42,7 +42,7 @@ class SubmitController(
     fun findMySubmitDetail(
         @PathVariable submitId: Long,
         @MemberInfoResolver memberInfo: MemberInfo,
-    ): ResponseEntity<ApiResult<SubmitServiceTypeResponse>> {
+    ): ResponseEntity<ApiResult<SubmitDetailResponse>> {
         return ResponseEntity.ok(
             ApiResult(
                 submitFacade.findMySubmitsDetail(

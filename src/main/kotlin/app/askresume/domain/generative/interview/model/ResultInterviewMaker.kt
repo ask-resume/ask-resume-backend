@@ -2,6 +2,7 @@ package app.askresume.domain.generative.interview.model
 
 import app.askresume.domain.common.BaseTimeEntity
 import app.askresume.domain.submit.constant.Satisfaction
+import app.askresume.domain.submit.model.Submit
 import app.askresume.domain.submit.model.SubmitData
 import org.hibernate.annotations.Comment
 import org.hibernate.annotations.Where
@@ -12,6 +13,9 @@ import javax.persistence.*
 class ResultInterviewMaker(
     question : String,
     bestAnswer : String,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    val submit: Submit,
 
     @ManyToOne(fetch = FetchType.LAZY)
     val submitData: SubmitData,

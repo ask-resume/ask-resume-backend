@@ -18,7 +18,7 @@ data class SubmitDto @QueryProjection constructor(
     val submitStatus: SubmitStatus,
     val serviceType: ServiceType,
     val createdAt : ZonedDateTime,
-    val updatedAt : ZonedDateTime,
+    val updatedAt : ZonedDateTime?,
 )
 
 

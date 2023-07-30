@@ -1,6 +1,6 @@
 package app.askresume.scheduler.job
 
-import app.askresume.domain.generative.factory.GenerativeFactory
+import app.askresume.domain.generative.factory.GenerativeCommandFactory
 import app.askresume.domain.prompt.service.PromptReadOnlyService
 import app.askresume.domain.result.service.ResultService
 import app.askresume.domain.submit.constant.ServiceType
@@ -22,7 +22,7 @@ class GenerativeModelJob(
     private val submitDataCommandService: SubmitDataCommandService,
     private val resultService: ResultService,
     private val promptReadOnlyService: PromptReadOnlyService,
-    private val generativeFactory: GenerativeFactory,
+    private val generativeCommandFactory: GenerativeCommandFactory,
 
     private val openAiMapper: OpenAiMapper,
     private val openAiService: OpenAiService,
@@ -80,8 +80,9 @@ class GenerativeModelJob(
     ) {
 
         // 결과 저장
-        val generativeService = generativeFactory.createGenerativeProvider(serviceType)
+        val generativeService = generativeCommandFactory.createGenerativeProvider(serviceType)
         generativeService.saveGenerativeResult(
+            submitId = submitId,
             submitDataId = submitDataId,
             choices = response.choices
         )

@@ -3,7 +3,7 @@ package app.askresume.api.generative.facade
 import app.askresume.api.generative.mapper.toCareer
 import app.askresume.api.generative.mapper.toResumeData
 import app.askresume.api.generative.vo.InterviewMakerRequest
-import app.askresume.domain.generative.interview.dto.InterviewMakerDto
+import app.askresume.domain.generative.interview.dto.InterviewMakerSaveDto
 import app.askresume.domain.job.service.JobService
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.service.SubmitDataCommandService
@@ -27,8 +27,8 @@ class InterviewMakerFacade(
         val resumeData = toResumeData(request.contents)
         val jobMasterName = jobService.findJobMasterName(request.jobId)
 
-        val interviewMakerDtoList = resumeData.map { data ->
-            InterviewMakerDto(
+        val interviewMakerSaveDtoList = resumeData.map { data ->
+            InterviewMakerSaveDto(
                 jobName = jobMasterName,
                 difficulty = request.difficulty,
                 careerYear = toCareer(request.careerYear),
@@ -38,13 +38,13 @@ class InterviewMakerFacade(
             )
         }.toMutableList()
 
-        val parameters = interviewMakerDtoList.map { dto ->
+        val parameters = interviewMakerSaveDtoList.map { dto ->
             objectMapper.convertValue(dto, Map::class.java) as Map<String, Any>
         }
 
         val submitId = submitCommandService.saveSubmit(
             title = "${
-                interviewMakerDtoList[0].content.substring(
+                interviewMakerSaveDtoList[0].content.substring(
                     TITLE_SUBSTRING_MIN_SIZE,
                     TITLE_SUBSTRING_MAX_SIZE
                 )

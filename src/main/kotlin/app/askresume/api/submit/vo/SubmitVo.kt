@@ -1,7 +1,9 @@
 package app.askresume.api.submit.vo
 
+import app.askresume.domain.submit.constant.Satisfaction
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.constant.SubmitStatus
+import com.fasterxml.jackson.annotation.JsonInclude
 import io.swagger.v3.oas.annotations.media.Schema
 import java.time.OffsetDateTime
 import java.time.ZonedDateTime
@@ -23,7 +25,14 @@ data class SubmitResponse(
     val createdAt: ZonedDateTime,
 )
 
-data class SubmitServiceTypeResponse(
-    @field:Schema(description = "타겟 서비스", example = "INTERVIEW_MAKER")
-    val serviceType: ServiceType
+@JsonInclude(JsonInclude.Include.NON_NULL)
+data class SubmitDetailResponse(
+    val serviceType: ServiceType,
+    val interviewMakerList: List<InterviewMakerVo> = listOf(),
+)
+
+data class InterviewMakerVo(
+    val question: String,
+    val bestAnswer: String,
+    val satisfaction : Satisfaction,
 )

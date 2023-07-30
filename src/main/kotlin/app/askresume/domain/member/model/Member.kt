@@ -14,7 +14,14 @@ import javax.persistence.Table
 @Entity
 @Where(clause = "is_deleted = false")
 @SQLDelete(sql = "UPDATE member SET is_deleted = true WHERE id = ?")
-@Table(uniqueConstraints = [UniqueConstraint(name = "unique_email_member_type", columnNames = ["email", "memberType"])])
+@Table(
+    uniqueConstraints = [
+        UniqueConstraint(
+            name = "unique_email_member_type",
+            columnNames = ["email", "memberType"]
+        )
+    ]
+)
 class Member(
 
     @Comment(value = "이메일")

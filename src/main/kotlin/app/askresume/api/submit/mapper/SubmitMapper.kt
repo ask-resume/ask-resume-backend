@@ -1,6 +1,11 @@
 package app.askresume.api.submit.mapper
 
+import app.askresume.api.submit.vo.InterviewMakerVo
+import app.askresume.api.submit.vo.SubmitDetailResponse
 import app.askresume.api.submit.vo.SubmitResponse
+import app.askresume.domain.generative.interview.dto.InterviewMakerDto
+import app.askresume.domain.submit.constant.Satisfaction
+import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.dto.SubmitDto
 import app.askresume.domain.submit.model.Submit
 import app.askresume.global.annotation.Mapper
@@ -26,6 +31,23 @@ class SubmitMapper {
                 pagedSubmits.totalElements,
             )
         )
+    }
+
+    fun interviewMakerDtoToSubmitDetailResponse(
+        serviceType: ServiceType,
+        findInterviewMaker: List<InterviewMakerDto>
+    ): SubmitDetailResponse {
+        return SubmitDetailResponse(
+            serviceType = serviceType,
+            interviewMakerList = findInterviewMaker.map {
+                InterviewMakerVo(
+                    question = it.question,
+                    bestAnswer = it.bestAnswer,
+                    satisfaction = it.satisfaction,
+                )
+            }
+        )
+
     }
 
 }
