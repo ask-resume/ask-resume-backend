@@ -8,6 +8,8 @@ spring:
     hibernate:
       ddl-auto: validate
     properties:
+      hibernate:
+        format_sql: false
       dialect: org.hibernate.dialect.MySQL8Dialect
 
 
