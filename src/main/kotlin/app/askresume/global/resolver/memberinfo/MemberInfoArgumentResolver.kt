@@ -5,6 +5,7 @@ import app.askresume.global.cookie.CookieProvider
 import app.askresume.global.error.exception.NotAccessTokenTypeException
 import app.askresume.global.jwt.constant.JwtTokenType
 import app.askresume.global.jwt.service.TokenManager
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Component
 import org.springframework.web.bind.support.WebDataBinderFactory
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest
 class MemberInfoArgumentResolver(
     private val tokenManager: TokenManager,
     private val cookieProvider: CookieProvider,
+    @Value("\${spring.profiles.active}") var profile: String
 ) : HandlerMethodArgumentResolver {
 
     override fun supportsParameter(parameter: MethodParameter): Boolean {
@@ -32,16 +34,27 @@ class MemberInfoArgumentResolver(
         webRequest: NativeWebRequest,
         binderFactory: WebDataBinderFactory?,
     ): MemberInfo {
-        val request = webRequest.nativeRequest as HttpServletRequest
-        val accessTokenCookie = cookieProvider.getCookie(request.cookies, JwtTokenType.ACCESS.cookieName)
-            ?: throw NotAccessTokenTypeException()
-        val accessToken = accessTokenCookie.value
 
-        val tokenClaims = tokenManager.getTokenClaims(accessToken)
-        val memberId = (tokenClaims["memberId"] as Int).toLong()
-        val role = tokenClaims["role"] as String
+        return if (profile.uppercase() == PROFILE_LOCAL) {
+            MemberInfo(1, Role.USER)
+        } else {
+            val request = webRequest.nativeRequest as HttpServletRequest
+            val accessTokenCookie = cookieProvider.getCookie(request.cookies, JwtTokenType.ACCESS.cookieName)
+                ?: throw NotAccessTokenTypeException()
+            val accessToken = accessTokenCookie.value
 
-        return MemberInfo(memberId, Role.from(role))
+            val tokenClaims = tokenManager.getTokenClaims(accessToken)
+            val memberId = (tokenClaims["memberId"] as Int).toLong()
+            val role = tokenClaims["role"] as String
+
+            MemberInfo(memberId, Role.from(role))
+        }
+
     }
+
+    companion object {
+        private const val PROFILE_LOCAL = "LOCAL"
+    }
+
 }
 
