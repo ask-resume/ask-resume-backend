@@ -28,7 +28,7 @@ enum class OAuthProvider {
         /**
          * 입력된 값이 Provider 목록에 있는지 체크합니다.
          */
-        fun has(value: String) = OAuthProvider.values().any { it.name == value }
+        private fun has(value: String) = OAuthProvider.values().any { it.name == value }
 
     }
 }

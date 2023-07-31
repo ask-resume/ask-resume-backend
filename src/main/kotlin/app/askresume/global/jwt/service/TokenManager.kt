@@ -103,7 +103,7 @@ class TokenManager(
         val tokenClaims = getTokenClaims(token)
         val tokenType = tokenClaims.subject
 
-        if (!JwtTokenType.isAccessToken(tokenType)) {
+        if (! JwtTokenType.isAccessToken(tokenType)) {
             throw NotAccessTokenTypeException()
         }
 

@@ -7,7 +7,6 @@ import app.askresume.global.jwt.service.TokenManager
 import app.askresume.global.util.LoggerUtil.logger
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.time.LocalDateTime
 
 @Service
 @Transactional(readOnly = true)
@@ -29,8 +28,8 @@ class AccessFacade(
     }
 
     fun createAccessTokenByRefreshToken(refreshToken: String): JwtResponse.Token {
-        val member = memberReadOnlyService.findMemberByRefreshToken(refreshToken)
-        return tokenManager.createAccessToken(member.id, member.role)
+        val memberInfoDto = memberReadOnlyService.findMemberByRefreshToken(refreshToken)
+        return tokenManager.createAccessToken(memberInfoDto.memberId, memberInfoDto.role)
     }
 
 }

@@ -14,9 +14,10 @@ class MemberQueryRepository(
 ) {
 
     fun findQueryMemberInfo(
-        memberId: Long?,
-        email: String?,
-        memberType: MemberType?
+        memberId: Long? = null,
+        email: String? = null,
+        memberType: MemberType? = null,
+        refreshToken: String? = null,
     ): MemberInfoDto? {
         return queryFactory
             .select(
@@ -36,7 +37,8 @@ class MemberQueryRepository(
             .where(
                 MemberExpression.memberIdEq(memberId),
                 MemberExpression.emailEq(email),
-                MemberExpression.memberTypeEq(memberType)
+                MemberExpression.memberTypeEq(memberType),
+                MemberExpression.refreshTokenEq(refreshToken)
             )
             .fetchOne()
     }

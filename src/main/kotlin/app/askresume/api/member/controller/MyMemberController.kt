@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*
 
 @Tag(name = "my-member", description = "내정보 API")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/my-member")
 class MyMemberController(
     private val myMemberFacade: MyMemberFacade,
 ) {
@@ -29,7 +29,7 @@ class MyMemberController(
         ApiResponse(responseCode = "500", description = "서버 오류 발생(관리자 문의)"),
         ApiResponse(responseCode = "MEM-003", description = "해당 회원이 존재하지 않음.")
     )
-    @GetMapping("/my-member")
+    @GetMapping
     fun findMyInfo(
         @MemberInfoResolver memberInfo: MemberInfo
     ): ResponseEntity<ApiResult<MemberInfoResponse>> {
@@ -39,7 +39,7 @@ class MyMemberController(
 
     @Tag(name = "my-member")
     @Operation(summary = "내 정보 변경 API", description = "내 정보 변경 API")
-    @PutMapping("/my-member")
+    @PutMapping
     fun modify(
         @Validated @RequestBody request: ModifyInfoRequest,
         @MemberInfoResolver memberInfo: MemberInfo
@@ -53,7 +53,7 @@ class MyMemberController(
 
     @Tag(name = "my-member")
     @Operation(summary = "회원 탈퇴 API", description = "회원 탈퇴 API")
-    @DeleteMapping("/my-member")
+    @DeleteMapping
     fun secession(
         @MemberInfoResolver memberInfo: MemberInfo
     ): ResponseEntity<Void> {

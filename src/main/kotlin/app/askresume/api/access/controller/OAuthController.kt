@@ -64,7 +64,9 @@ class OAuthController(
         )
 
         val headers = HttpHeaders()
-        jwtCookies.forEach { jwtCookie -> headers.add(HttpHeaders.SET_COOKIE, jwtCookie.toString()) }
+        jwtCookies.forEach { jwtCookie ->
+            headers.add(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+        }
 
         return ResponseEntity
             .status(HttpStatus.FOUND)
@@ -72,5 +74,4 @@ class OAuthController(
             .headers(headers)
             .build()
     }
-
 }

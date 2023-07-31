@@ -24,7 +24,6 @@ data class ModifyInfoRequest(
     val profile: String,
 )
 
-
 data class MemberInfoResponse(
     @field:Schema(
         description = "회원 아이디",

@@ -7,7 +7,6 @@ import app.askresume.global.annotation.Mapper
 @Mapper
 class MyMemberMapper {
 
-
     fun memberInfoDtoToMemberInfoResponse(memberInfoDto: MemberInfoDto): MemberInfoResponse {
         return MemberInfoResponse(
             memberId = memberInfoDto.memberId,

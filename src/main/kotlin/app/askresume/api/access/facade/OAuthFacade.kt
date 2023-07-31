@@ -34,19 +34,29 @@ class OAuthFacade(
 
         // 해당 email과 provider 정보로 가입된 회원이 있는지 체크합니다.
         val memberType = MemberType.from(provider.name)
-        val member = memberReadOnlyService.findMemberByEmail(userInfo.email, memberType)
+        val memberInfoDto = memberReadOnlyService.findMemberByEmail(userInfo.email, memberType)
 
         // 가입된 회원 정보가 있으면 로그인을, 없으면 회원가입을 진행합니다.
-        val oAuthMember = member?.let { // 로그인
-            member
+        val oAuthMember = memberInfoDto?.let { // 로그인
+            memberInfoDto
         } ?: run { // 회원가입
-            val newMember = userInfo.toMemberEntity(memberType, Role.USER)
-            memberCommandService.registerMember(newMember)
+
+            val memberId = memberCommandService.registerMember(
+                email = userInfo.email,
+                name = userInfo.name,
+                profile = userInfo.profile,
+                locale = userInfo.locale,
+                memberType = memberType,
+            )
+
+            memberReadOnlyService.findMemberInfo(memberId) !!
         }
 
         // 토큰 생성
-        val jwtTokenSet = tokenManager.createJwtTokenSet(oAuthMember.id, oAuthMember.role)
-        oAuthMember.updateRefreshToken(
+        val jwtTokenSet = tokenManager.createJwtTokenSet(oAuthMember.memberId, oAuthMember.role)
+
+        memberCommandService.updateRefreshToken(
+            memberId = oAuthMember.memberId,
             refreshToken = jwtTokenSet.refreshToken.token,
             expireDate = jwtTokenSet.refreshToken.expireDate
         )

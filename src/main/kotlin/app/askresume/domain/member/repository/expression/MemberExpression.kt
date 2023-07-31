@@ -12,4 +12,6 @@ object MemberExpression {
 
     fun memberTypeEq(memberType: MemberType?) = memberType?.let { member.memberType.eq(memberType) }
 
+    fun refreshTokenEq(refreshToken: String?) = refreshToken?.let { member.refreshToken.eq(refreshToken) }
+
 }

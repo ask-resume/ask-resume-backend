@@ -14,14 +14,4 @@ abstract class OAuthUserInfo(
     abstract val locale: String
     abstract val memberType: MemberType
 
-    fun toMemberEntity(memberType: MemberType, role: Role): Member {
-        return Member(
-            username = name,
-            email = email,
-            memberType = memberType,
-            profile = profile,
-            locale = locale,
-            role = role,
-        )
-    }
 }
