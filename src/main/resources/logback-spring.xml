@@ -13,7 +13,7 @@
     <property name="LOG_FILE_NAME" value="askResume" />
     <!-- pattern -->
     <property name="LOG_DISPLAY_PATTERN"
-              value="[%d{yyyy-MM-dd HH:mm:ss}:%-3relative]  %clr(%-5level) %clr(${PID:-}){magenta} %clr(---){faint} %clr([%15.15thread]){faint} %clr(%-40.40logger{36}){cyan} %clr(:){faint} %msg%n"/>
+              value="[%d{yyyy-MM-dd HH:mm:ss}:%-3relative] : [%X{traceId}]  %clr(%-5level) %clr(${PID:-}){magenta} %clr(---){faint} %clr([%15.15thread]){faint} %clr(%-40.40logger{36}){cyan} %clr(:){faint} %msg%n"/>
 
     <property name="MODULE_PATH" value="app.askresume"/>
     <property name="HIKARI_PATH" value="com.zaxxer.hikari"/>
@@ -24,6 +24,7 @@
 
     <appender name="CONSOLE_DISPLAY_APPENDER" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <charset>utf8</charset>
             <pattern>${LOG_DISPLAY_PATTERN}</pattern>
         </encoder>
     </appender>
@@ -35,6 +36,7 @@
 
             <!-- 출력패턴 설정 -->
             <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <charset>utf8</charset>
                 <pattern>${LOG_DISPLAY_PATTERN}</pattern>
             </encoder>
 
