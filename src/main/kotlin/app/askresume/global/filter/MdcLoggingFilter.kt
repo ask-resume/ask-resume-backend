@@ -24,8 +24,7 @@ class MdcLoggingFilter : Filter {
 
         val httpServletRequest = request as HttpServletRequest
 
-        log.info("Incoming Request - TraceId: $uuid, IP Address: ${request.remoteAddr}, API Endpoint: ${httpServletRequest.requestURI}, HTTP Method: ${httpServletRequest.method}")
-        log.info("parameter : ${test(request)}")
+        log.info("Incoming Request - TraceId: $uuid, IP Address: ${request.remoteAddr}, API Endpoint: [${httpServletRequest.method}]${httpServletRequest.requestURI}")
         chain.doFilter(request, response)
         MDC.clear()
     }
@@ -34,21 +33,4 @@ class MdcLoggingFilter : Filter {
         const val TRACE_ID = "traceId"
     }
 
-
-    fun test(request: HttpServletRequest): String {
-        // 모든 파라미터 이름과 값을 가져와서 List에 추가
-
-        val parameterList = mutableListOf<FilterParameter>()
-        val parameterMap = request.parameterMap
-        for ((paramName, paramValues) in parameterMap) {
-            for (paramValue in paramValues) {
-                parameterList.add(FilterParameter(paramName, paramValue))
-            }
-        }
-
-        // List를 JSON 형태의 문자열로 직렬화하여 출력
-        return parameterList.toString()
-    }
 }
-
-data class FilterParameter(val name: String, val value: String)
