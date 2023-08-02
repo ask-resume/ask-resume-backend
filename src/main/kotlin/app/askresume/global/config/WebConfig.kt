@@ -1,6 +1,7 @@
 package app.askresume.global.config
 
 import app.askresume.global.config.xss.HtmlCharacterEscapes
+import app.askresume.global.filter.MdcLoggingFilter
 import app.askresume.global.interceptor.AdminAuthorizationInterceptor
 import app.askresume.global.interceptor.AuthenticationInterceptor
 import app.askresume.global.resolver.memberinfo.MemberInfoArgumentResolver
@@ -92,7 +93,7 @@ class WebConfig(
     }
 
     @Bean
-    fun filterRegistrationBean(): FilterRegistrationBean<XssEscapeServletFilter>? {
+    fun filterRegistrationBean(): FilterRegistrationBean<XssEscapeServletFilter> {
         val filterRegistration = FilterRegistrationBean<XssEscapeServletFilter>()
         filterRegistration.filter = XssEscapeServletFilter()
         filterRegistration.order = 1
@@ -100,12 +101,12 @@ class WebConfig(
         return filterRegistration
     }
 
-    override fun configureMessageConverters(converters: MutableList<HttpMessageConverter<*>?>) {
+    override fun configureMessageConverters(converters: MutableList<HttpMessageConverter<*>>) {
         converters.add(jsonEscapeConverter())
     }
 
     @Bean
-    fun jsonEscapeConverter(): MappingJackson2HttpMessageConverter? {
+    fun jsonEscapeConverter(): MappingJackson2HttpMessageConverter {
         val copy = objectMapper.copy()
         copy.factory.characterEscapes = HtmlCharacterEscapes()
         return MappingJackson2HttpMessageConverter(copy)

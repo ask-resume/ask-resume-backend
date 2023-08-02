@@ -7,6 +7,7 @@ import app.askresume.global.model.ApiResult
 import app.askresume.global.model.PageResponse
 import app.askresume.global.resolver.memberinfo.MemberInfo
 import app.askresume.global.resolver.memberinfo.MemberInfoResolver
+import app.askresume.global.util.LoggerUtil.logger
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springdoc.api.annotations.ParameterObject
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController
 class SubmitController(
     private val submitFacade: SubmitFacade,
 ) {
+
+    private val log = logger()
 
     @Tag(name = "submit")
     @Operation(
@@ -57,6 +60,8 @@ class SubmitController(
         @PathVariable submitId: Long,
         @MemberInfoResolver memberInfo: MemberInfo,
     ): ResponseEntity<ApiResult<SubmitDetailResponse>> {
+
+        log.info("이거도 찍히나?")
         return ResponseEntity.ok(
             ApiResult(
                 submitFacade.findMySubmitsDetail(
