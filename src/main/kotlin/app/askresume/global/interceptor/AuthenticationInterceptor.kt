@@ -21,7 +21,7 @@ class AuthenticationInterceptor(
 
     @Throws(Exception::class)
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
-        if (request.method.uppercase() != HttpMethod.OPTIONS.name.uppercase()) return true
+        if (request.method.uppercase() == HttpMethod.OPTIONS.name.uppercase()) return true
 
         return if (profile.uppercase() == PROFILE_LOCAL) {
             true
@@ -30,9 +30,9 @@ class AuthenticationInterceptor(
             val accessTokenCookie = cookieProvider.getCookie(request.cookies, JwtTokenType.ACCESS.cookieName)
                 ?: throw NotAccessTokenTypeException()
 
-        // 2. 토큰 검증
-        val accessToken = accessTokenCookie.value
-        tokenManager.validateToken(accessToken)
+            // 2. 토큰 검증
+            val accessToken = accessTokenCookie.value
+            tokenManager.validateToken(accessToken)
 
             // 3. 토큰 타입
             val tokenClaims = tokenManager.getTokenClaims(accessToken)
