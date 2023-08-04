@@ -28,9 +28,9 @@ oauth:
   client-home: https://ask-resume.com
   providers:
     google:
-      redirect-url: https://ask-resume.com/api/oauth/google/callback
+      redirect-url: https://api.ask-resume.com/api/oauth/google/callback
     linked-in:
-      redirect-url: https://ask-resume.com/api/oauth/linked-in/callback
+      redirect-url: https://api.ask-resume.com/api/oauth/linked-in/callback
 
 
 # Actuator Config
