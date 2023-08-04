@@ -44,7 +44,6 @@ class WebConfig(
                 "http://localhost:4000",
                 "http://localhost:3000",
                 "https://ask-resume.com",
-                "http://ask-resume.com"
             )
             .allowedMethods(
                 HttpMethod.GET.name,
@@ -52,7 +51,7 @@ class WebConfig(
                 HttpMethod.PUT.name,
                 HttpMethod.PATCH.name,
                 HttpMethod.DELETE.name,
-                HttpMethod.OPTIONS.name
+                HttpMethod.OPTIONS.name,
             )
             .maxAge(3600)
             .allowCredentials(true)
@@ -70,8 +69,7 @@ class WebConfig(
                 "/api/access-token/issue",
                 "/api/logout",
                 "/api/refresh",
-
-                )
+            )
 
         // 권한 체크
         registry.addInterceptor(adminAuthorizationInterceptor)
