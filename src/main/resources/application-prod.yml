@@ -1,4 +1,10 @@
-
+server:
+  ssl:
+    enabled: true
+    key-store: ENC(8qtnALkqgj0QPcreREGS1PJVQPZoBUu0oayo5fJ5vAI=)
+    key-store-password: ENC(k8aex9BuH7s5I0hoX9IXN4gT2lBgS1iQ8eI1jhuklElAbuf2W+oOtrPXcRqCliDB)
+    key-store-type: PKCS12
+    key-alias: tomcat
 
 spring:
   datasource:
