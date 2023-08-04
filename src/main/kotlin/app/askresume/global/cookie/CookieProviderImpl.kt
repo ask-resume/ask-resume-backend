@@ -39,7 +39,7 @@ class CookieProviderImpl(
             maxAge = Duration.ofMillis(tokenDto.expirationTime),
             httpOnly = true,
             secure = !isLocal && !isDev,
-            sameSite = if (isLocal || isDev) null else "Strict" // "local", "dev" 환경에서만 서드 파티 쿠키를 허용합니다.
+            sameSite = if (isLocal || isDev) null else "None" // "local", "dev" 환경에서만 서드 파티 쿠키를 허용합니다.
         )
 
         return createCookie(cookieOption)
