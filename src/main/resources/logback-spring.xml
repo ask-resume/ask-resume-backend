@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <property name="LOG_PATH" value="${user.home}/logs" />
+
+    <property name="LOG_FILE_NAME" value="askResume" />
+    <property name="LOG_DISPLAY_PATTERN"
+              value="[%d{yyyy-MM-dd HH:mm:ss}:%-3relative] : [%X{traceId}]  %clr(%-5level) %clr(${PID:-}){magenta} %clr(-&#45;&#45;){faint} %clr([%15.15thread]){faint} %clr(%-40.40logger{36}){cyan} %clr(:){faint} %msg%n"/>
+
+    <property name="MODULE_PATH" value="app.askresume"/>
+    <property name="HIKARI_PATH" value="com.zaxxer.hikari"/>
+
+    <property name="LOG_LEVEL_ROOT" value="INFO"/>
+    <property name="LOG_LEVEL_API_PATH" value="DEBUG"/>
+    <property name="LOG_LEVEL_HIKARI_PACKAGE" value="INFO"/>
+
+    <appender name="CONSOLE_DISPLAY_APPENDER" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <charset>utf8</charset>
+            <pattern>${LOG_DISPLAY_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <springProfile name="local">
+        <appender name="FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${LOG_PATH}/${LOG_FILE_NAME}-local.log</file>
+
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <charset>utf8</charset>
+                <pattern>${LOG_DISPLAY_PATTERN}</pattern>
+            </encoder>
+
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${LOG_PATH}/${LOG_FILE_NAME}-local.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                    <maxFileSize>10MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+        </appender>
+    </springProfile>
+
+    <springProfile name="dev">
+        <appender name="FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${LOG_PATH}/${LOG_FILE_NAME}-dev.log</file>
+
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <charset>utf8</charset>
+                <pattern>${LOG_DISPLAY_PATTERN}</pattern>
+            </encoder>
+
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${LOG_PATH}/${LOG_FILE_NAME}-dev.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                    <maxFileSize>10MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+        </appender>
+    </springProfile>
+
+    <springProfile name="prod">
+        <appender name="FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${LOG_PATH}/${LOG_FILE_NAME}-prod.log</file>
+
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <charset>utf8</charset>
+                <pattern>${LOG_DISPLAY_PATTERN}</pattern>
+            </encoder>
+
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${LOG_PATH}/${LOG_FILE_NAME}-prod.%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                    <maxFileSize>10MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+        </appender>
+    </springProfile>
+
+    <logger name="${MODULE_PATH}"
+            level="${LOG_LEVEL_API_PATH}"
+            additivity="false">
+        <appender-ref ref="FILE_APPENDER"/>
+        <appender-ref ref="CONSOLE_DISPLAY_APPENDER" />
+    </logger>
+
+    <logger name="${HIKARI_PATH}"
+            level="${LOG_LEVEL_HIKARI_PACKAGE}"
+            additivity="false">
+        <appender-ref ref="FILE_APPENDER"/>
+        <appender-ref ref="CONSOLE_DISPLAY_APPENDER" />
+    </logger>
+
+    <root level="${LOG_LEVEL_ROOT}">
+        <appender-ref ref="FILE_APPENDER" />
+        <appender-ref ref="CONSOLE_DISPLAY_APPENDER" />
+    </root>
+</configuration>
