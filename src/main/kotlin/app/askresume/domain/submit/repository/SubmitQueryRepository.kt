@@ -75,6 +75,7 @@ class SubmitQueryRepository(
             .where(
                 submit.id.`in`(indexes)
             )
+            .orderBy(submit.id.desc())
             .fetch().toList()
 
         return PageImpl(fetch, pageable, totalCount)
