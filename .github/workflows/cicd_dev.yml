@@ -75,4 +75,4 @@ jobs:
               docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/${{secrets.DOCKER_REPO_DEV}}:latest
             fi
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{secrets.DOCKER_REPO_DEV}}:latest
-            docker run -d -p 8080:8080 --name ${{secrets.DOCKER_REPO_DEV}} -e -Dspring.profiles.active==dev -e -Djasypt.encryptor.password=${{secrets.JASYPT}} ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKER_REPO_DEV}}:latest
+            docker run -d -p 8080:8080 --name ${{secrets.DOCKER_REPO_DEV}} -e -Dspring.profiles.active=dev -e -Djasypt.encryptor.password=${{secrets.JASYPT}} ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKER_REPO_DEV}}:latest
