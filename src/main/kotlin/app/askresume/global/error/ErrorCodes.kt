@@ -9,6 +9,7 @@ enum class ErrorCodes(
 
     INTERNAL_SERVER_ERROR("SYS-001", "예상하지 못한 에러가 발생하였습니다."),
     OMITTING_REQUIRED_VALUES("SYS-002","필수값이 생략되었습니다."),
+    METHOD_NOT_ALLOWED("SYS-003", "지원하지 않는 method를 호출 하였습니다."),
 
     ENUM_VALIDATE_NOT_EXIST("VAL-001", "enum validate check fail"),
 
@@ -31,20 +32,26 @@ enum class ErrorCodes(
     fun toHttpStatus(): HttpStatus = when (this) {
         INTERNAL_SERVER_ERROR ->HttpStatus.INTERNAL_SERVER_ERROR
 
-        REFRESH_TOKEN_NOT_FOUND,
-        REFRESH_TOKEN_EXPIRED,
-        TOKEN_EXPIRED,
-        NOT_ACCESS_TOKEN_TYPE,
-        NOT_VALID_TOKEN -> HttpStatus.UNAUTHORIZED
-
-        FORBIDDEN_ADMIN -> HttpStatus.FORBIDDEN
-
+        // 400
         OMITTING_REQUIRED_VALUES,
         ALREADY_REGISTERED_MEMBER,
         ENUM_VALIDATE_NOT_EXIST,
         ENTITY_NOT_FOUND,
         STATUS_IS_NOT_COMPLETED,
         NOT_PERMITTED_CONTENT_TYPE -> HttpStatus.BAD_REQUEST
+
+        // 401
+        REFRESH_TOKEN_NOT_FOUND,
+        REFRESH_TOKEN_EXPIRED,
+        TOKEN_EXPIRED,
+        NOT_ACCESS_TOKEN_TYPE,
+        NOT_VALID_TOKEN -> HttpStatus.UNAUTHORIZED
+
+        // 403
+        FORBIDDEN_ADMIN -> HttpStatus.FORBIDDEN
+
+        // 405
+        METHOD_NOT_ALLOWED -> HttpStatus.METHOD_NOT_ALLOWED
     }
 
 }
