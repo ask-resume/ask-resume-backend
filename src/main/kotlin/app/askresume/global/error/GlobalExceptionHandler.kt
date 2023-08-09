@@ -6,12 +6,12 @@ import org.springframework.context.MessageSource
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.validation.BindException
 import org.springframework.web.HttpRequestMethodNotSupportedException
 import org.springframework.web.bind.MissingServletRequestParameterException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
 import java.util.*
 
 @RestControllerAdvice
@@ -32,16 +32,19 @@ class GlobalExceptionHandler(
             .body(errorResponse)
     }
 
-    // 주로 @RequestParam enum으로 binding 못했을 경우 발생
-    @ExceptionHandler(MethodArgumentTypeMismatchException::class)
-    protected fun handleMethodArgumentTypeMismatchException(e: MethodArgumentTypeMismatchException): ResponseEntity<ErrorResponse> {
-        log.error(ERROR_LOG_MESSAGE, e.javaClass.simpleName, e.message, e)
+    // RequestBody에 enum에 데이터 바인딩이 안되는 경우 발생
+    @ExceptionHandler(HttpMessageNotReadableException::class)
+    protected fun handleHttpMessageNotReadableException(e: HttpMessageNotReadableException): ResponseEntity<ErrorResponse> {
+        val errorBook = ErrorCodes.INVALID_REQUEST_BODY
+        val message = messageSource.getMessage("invalid.request.body", null, LocaleContextHolder.getLocale())
+
+        log.error(ERROR_LOG_MESSAGE, e.javaClass.simpleName, message, e)
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
             .body(
                 ErrorResponse.of(
-                    HttpStatus.BAD_REQUEST.toString(),
-                    e.message,
+                    errorBook.errorCode,
+                    message,
                 )
             )
     }
@@ -117,7 +120,6 @@ class GlobalExceptionHandler(
                 )
             )
     }
-
 
     companion object {
         private const val ERROR_LOG_MESSAGE = "[ERROR] {} : {}"
