@@ -25,6 +25,7 @@ enum class ErrorCodes(
     REFRESH_TOKEN_EXPIRED("AUTH-006", "Refresh Token이 만료 되었습니다."),
     NOT_ACCESS_TOKEN_TYPE("AUTH-007", "Access Token이 아닙니다."),
     FORBIDDEN_ADMIN("AUTH-008", "관리자권한이 필요합니다."),
+    UNAUTHORIZED_ACCESS("AUTH-009", "접근 권한이 없습니다."),
 
     NOT_PERMITTED_CONTENT_TYPE("FILE-001", "허가되지 않는 CONTENT TYPE 입니다."),
     ;
@@ -48,6 +49,7 @@ enum class ErrorCodes(
         NOT_VALID_TOKEN -> HttpStatus.UNAUTHORIZED
 
         // 403
+        UNAUTHORIZED_ACCESS,
         FORBIDDEN_ADMIN -> HttpStatus.FORBIDDEN
 
         // 405
