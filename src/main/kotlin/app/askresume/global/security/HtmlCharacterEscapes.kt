@@ -1,4 +1,4 @@
-package app.askresume.global.config.xss
+package app.askresume.global.security
 
 import com.fasterxml.jackson.core.SerializableString
 import com.fasterxml.jackson.core.io.CharacterEscapes
