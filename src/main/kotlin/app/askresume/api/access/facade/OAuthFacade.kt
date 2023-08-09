@@ -1,7 +1,6 @@
 package app.askresume.api.access.facade
 
 import app.askresume.domain.member.constant.MemberType
-import app.askresume.domain.member.constant.Role
 import app.askresume.domain.member.service.MemberCommandService
 import app.askresume.domain.member.service.MemberReadOnlyService
 import app.askresume.global.jwt.dto.JwtResponse
