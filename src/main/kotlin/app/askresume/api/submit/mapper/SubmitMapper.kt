@@ -4,10 +4,8 @@ import app.askresume.api.submit.vo.InterviewMakerVo
 import app.askresume.api.submit.vo.SubmitDetailResponse
 import app.askresume.api.submit.vo.SubmitResponse
 import app.askresume.domain.generative.interview.dto.InterviewMakerDto
-import app.askresume.domain.submit.constant.Satisfaction
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.dto.SubmitDto
-import app.askresume.domain.submit.model.Submit
 import app.askresume.global.annotation.Mapper
 import app.askresume.global.model.PageResponse
 import org.springframework.data.domain.Page
@@ -15,7 +13,7 @@ import org.springframework.data.domain.PageImpl
 
 @Mapper
 class SubmitMapper {
-    fun pageSubmitDtoToSubmitResponse(pagedSubmits: Page<SubmitDto>): PageResponse<SubmitResponse> {
+    fun submitResponseOf(pagedSubmits: Page<SubmitDto>): PageResponse<SubmitResponse> {
         return PageResponse(
             PageImpl(
                 pagedSubmits.content.map {
@@ -33,7 +31,7 @@ class SubmitMapper {
         )
     }
 
-    fun interviewMakerDtoToSubmitDetailResponse(
+    fun submitDetailResponseOf(
         serviceType: ServiceType,
         findInterviewMaker: List<InterviewMakerDto>
     ): SubmitDetailResponse {

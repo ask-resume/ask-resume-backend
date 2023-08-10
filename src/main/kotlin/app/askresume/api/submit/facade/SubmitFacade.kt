@@ -27,7 +27,7 @@ class SubmitFacade(
             pageable = pageable
         )
 
-        return submitMapper.pageSubmitDtoToSubmitResponse(pagedSubmits)
+        return submitMapper.submitResponseOf(pagedSubmits)
     }
 
     fun findMySubmitsDetail(submitId: Long, memberId: Long): SubmitDetailResponse {
@@ -36,7 +36,7 @@ class SubmitFacade(
 
         return when (val serviceType = submitReadOnlyService.findSubmitServiceType(submitId)) {
             ServiceType.INTERVIEW_MAKER ->
-                submitMapper.interviewMakerDtoToSubmitDetailResponse(
+                submitMapper.submitDetailResponseOf(
                     serviceType = serviceType,
                     interviewMakerReadOnlyService.findInterviewMaker(
                         submitId

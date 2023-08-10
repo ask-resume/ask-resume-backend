@@ -7,7 +7,7 @@ import app.askresume.global.annotation.Mapper
 @Mapper
 class JobMapper {
 
-    fun jobDtoToJobResponse(
+    fun jobResponseListOf(
         jobDtos: List<JobDto>
     ): List<JobResponse> {
         return jobDtos.map { dto ->

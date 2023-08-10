@@ -1,7 +1,7 @@
 package app.askresume.api.generative.facade
 
 import app.askresume.api.generative.mapper.toCareer
-import app.askresume.api.generative.mapper.toResumeData
+import app.askresume.api.generative.mapper.resumeDataVoListOf
 import app.askresume.api.generative.vo.InterviewMakerRequest
 import app.askresume.domain.generative.interview.dto.InterviewMakerSaveDto
 import app.askresume.domain.job.service.JobService
@@ -24,7 +24,7 @@ class InterviewMakerFacade(
 
     @Transactional
     fun saveSubmit(request: InterviewMakerRequest, memberInfo: MemberInfo) {
-        val resumeData = toResumeData(request.contents)
+        val resumeData = resumeDataVoListOf(request.contents)
         val jobMasterName = jobService.findJobMasterName(request.jobId)
 
         val interviewMakerSaveDtoList = resumeData.map { data ->

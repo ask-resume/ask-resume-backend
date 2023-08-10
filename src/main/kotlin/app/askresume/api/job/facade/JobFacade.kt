@@ -13,6 +13,6 @@ class JobFacade(
 ) {
 
     fun findJobs(locale: LocaleType): List<JobResponse> {
-        return jobMapper.jobDtoToJobResponse(jobQueryService.findJobs(locale))
+        return jobMapper.jobResponseListOf(jobQueryService.findJobs(locale))
     }
 }
