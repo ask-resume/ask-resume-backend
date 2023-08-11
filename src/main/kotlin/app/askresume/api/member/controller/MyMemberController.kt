@@ -25,10 +25,6 @@ class MyMemberController(
 
     @Tag(name = "my-member")
     @Operation(summary = "내 정보 조회 API", description = "내 정보 조회 API")
-    @ApiResponses(
-        ApiResponse(responseCode = "500", description = "서버 오류 발생(관리자 문의)"),
-        ApiResponse(responseCode = "MEM-003", description = "해당 회원이 존재하지 않음.")
-    )
     @GetMapping
     fun findMyInfo(
         @MemberInfoResolver memberInfo: MemberInfo
