@@ -78,10 +78,8 @@ class TokenManager(
             Jwts.parser().setSigningKey(tokenSecret.toByteArray(StandardCharsets.UTF_8))
                 .parseClaimsJws(token)
         } catch (e: ExpiredJwtException) {
-            log.info("token 만료", e)
             throw TokenExpiredException()
         } catch (e: Exception) {
-            log.info("유효하지 않은 token", e)
             throw NotValidTokenException()
         }
     }
@@ -92,7 +90,6 @@ class TokenManager(
                 Jwts.parser().setSigningKey(tokenSecret.toByteArray(StandardCharsets.UTF_8))
                     .parseClaimsJws(token).body
             } catch (e: Exception) {
-                log.info("유효하지 않은 token", e)
                 throw NotValidTokenException()
             }
 

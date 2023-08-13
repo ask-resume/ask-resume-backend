@@ -14,12 +14,12 @@ abstract class BaseEntity : BaseTimeEntity() {
     @Comment("등록자")
     @CreatedBy
     @Column(updatable = false)
-    val createdBy: Long? = null
+    var createdBy: Long? = null
 
     @Comment("수정자")
     @LastModifiedBy
     @Column(insertable = false)
-    val updatedBy: Long? = null
+    var updatedBy: Long? = null
 }
 
 @DynamicInsert
