@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@Tag(name = "job", description = "직업데이터 API")
+@Tag(name = "job", description = "직업데이터 API (사용자)")
 @RestController
 @RequestMapping("/api")
 class JobController(

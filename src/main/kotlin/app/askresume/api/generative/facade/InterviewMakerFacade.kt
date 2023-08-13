@@ -1,13 +1,13 @@
 package app.askresume.api.generative.facade
 
-import app.askresume.api.generative.mapper.toCareer
 import app.askresume.api.generative.mapper.resumeDataVoListOf
+import app.askresume.api.generative.mapper.toCareer
 import app.askresume.api.generative.vo.InterviewMakerRequest
 import app.askresume.domain.generative.interview.dto.InterviewMakerSaveDto
-import app.askresume.domain.job.service.JobService
+import app.askresume.domain.job.service.JobReadOnlyService
 import app.askresume.domain.submit.constant.ServiceType
-import app.askresume.domain.submit.service.SubmitDataCommandService
 import app.askresume.domain.submit.service.SubmitCommandService
+import app.askresume.domain.submit.service.SubmitDataCommandService
 import app.askresume.global.annotation.Facade
 import app.askresume.global.resolver.memberinfo.MemberInfo
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional
 @Facade
 @Transactional(readOnly = true)
 class InterviewMakerFacade(
-    private val jobService: JobService,
+    private val jobReadOnlyService: JobReadOnlyService,
     private val submitCommandService: SubmitCommandService,
     private val submitDataCommandService: SubmitDataCommandService,
     private val objectMapper: ObjectMapper,
@@ -25,7 +25,7 @@ class InterviewMakerFacade(
     @Transactional
     fun saveSubmit(request: InterviewMakerRequest, memberInfo: MemberInfo) {
         val resumeData = resumeDataVoListOf(request.contents)
-        val jobMasterName = jobService.findJobMasterName(request.jobId)
+        val jobMasterName = jobReadOnlyService.findJobMasterName(request.jobId)
 
         val interviewMakerSaveDtoList = resumeData.map { data ->
             InterviewMakerSaveDto(
