@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema
 import java.time.OffsetDateTime
 import java.time.ZonedDateTime
 
+@Schema(name = "제출 리스트 Response")
 data class SubmitResponse(
     @field:Schema(description = "제출 ID", example = "1")
     val submitId: Long,
@@ -25,6 +26,7 @@ data class SubmitResponse(
     val createdAt: ZonedDateTime,
 )
 
+@Schema(name = "제출 결과 상세 Response")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class SubmitDetailResponse(
     @field:Schema(description = "타겟 서비스", example = "INTERVIEW_MAKER")
@@ -33,6 +35,7 @@ data class SubmitDetailResponse(
     val interviewMakerList: List<InterviewMakerVo> = listOf(),
 )
 
+@Schema(name = "모의인터뷰 결과 Response")
 data class InterviewMakerVo(
     @field:Schema(description = "예상 질문", example = "어쩌고...저쩌고...")
     val question: String,

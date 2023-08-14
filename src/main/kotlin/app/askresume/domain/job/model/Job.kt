@@ -5,12 +5,14 @@ import app.askresume.domain.locale.constant.LocaleType
 import org.hibernate.annotations.*
 import javax.persistence.*
 import javax.persistence.Entity
+import javax.persistence.ForeignKey
 
 @Where(clause = "is_deleted = false")
 @SQLDelete(sql = "UPDATE job SET is_deleted = true WHERE id = ?")
 @Entity
 class Job(
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "job_master_id", foreignKey = ForeignKey(ConstraintMode.NO_CONSTRAINT))
     @Comment(value = "직업마스터 ID")
     val jobMaster: JobMaster,
 

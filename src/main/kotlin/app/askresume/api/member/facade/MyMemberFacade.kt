@@ -19,7 +19,7 @@ class MyMemberFacade(
 
     fun findMyMemberInfo(memberId: Long): MemberInfoResponse {
         val memberInfoDto = memberReadOnlyService.findMemberInfo(memberId) !!
-        return myMemberMapper.memberInfoDtoToMemberInfoResponse(memberInfoDto)
+        return myMemberMapper.memberInfoResponseOf(memberInfoDto)
     }
 
     @Transactional

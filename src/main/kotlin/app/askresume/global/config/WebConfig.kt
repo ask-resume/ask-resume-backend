@@ -1,7 +1,6 @@
 package app.askresume.global.config
 
-import app.askresume.global.config.xss.HtmlCharacterEscapes
-import app.askresume.global.filter.MdcLoggingFilter
+import app.askresume.global.security.HtmlCharacterEscapes
 import app.askresume.global.interceptor.AdminAuthorizationInterceptor
 import app.askresume.global.interceptor.AuthenticationInterceptor
 import app.askresume.global.resolver.memberinfo.MemberInfoArgumentResolver

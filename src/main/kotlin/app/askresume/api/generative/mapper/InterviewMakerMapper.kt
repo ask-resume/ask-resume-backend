@@ -12,7 +12,7 @@ fun toCareer(careerYear: Int): String {
     }
 }
 
-fun toResumeData(contents: ResumeInformationVo): List<ResumeDataVo> {
+fun resumeDataVoListOf(contents: ResumeInformationVo): List<ResumeDataVo> {
     val mappings = mapOf(
         ResumeType.INTRODUCTION.value() to contents.introduction,
         ResumeType.CAREER.value() to contents.career,
