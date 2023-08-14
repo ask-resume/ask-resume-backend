@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema
 import org.hibernate.validator.constraints.Length
 import javax.validation.constraints.NotBlank
 
-@Schema(description = "어드민 직업정보 등록 Request")
+@Schema(name = "어드민 직업정보 등록 Request")
 data class SaveJobRequest(
     @field:NotBlank
     @field:Length(max = 150)

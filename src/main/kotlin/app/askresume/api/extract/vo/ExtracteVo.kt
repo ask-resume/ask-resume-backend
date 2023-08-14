@@ -2,6 +2,7 @@ package app.askresume.api.extract.vo
 
 import io.swagger.v3.oas.annotations.media.Schema
 
+@Schema(name = "PDF TO TEXT 추출 Response")
 data class ExtractedTextResponse(
 
     @field:Schema(

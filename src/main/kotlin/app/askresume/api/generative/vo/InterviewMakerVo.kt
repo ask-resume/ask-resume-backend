@@ -8,6 +8,7 @@ import javax.validation.constraints.Min
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
+@Schema(name = "모의인터뷰 생성 제출 Request")
 data class InterviewMakerRequest(
     @field:Schema(description = "직업 ID", example = "120", required = true)
     @field:NotNull
@@ -32,6 +33,7 @@ data class InterviewMakerRequest(
 )
 
 
+@Schema(name = "이력서 상세정보")
 data class ResumeInformationVo(
 
     @field:Schema(description = "자기소개서")
@@ -63,12 +65,14 @@ data class ResumeInformationVo(
     val aac: MutableList<Content> = mutableListOf(),
 )
 
+@Schema(name = "내용")
 data class Content(
     @field:Schema(description = "내용")
     @field:Length(min = 100, max = 1000, message = "컨텐츠는 길이는 100자에서 1,000자 사이어야합니다.")
     val content: String
 )
 
+@Schema(name = "이력서 내용")
 data class ResumeDataVo(
     @field:Schema(description = "이력서 타입", example = "introduction", required = true)
     @field:NotBlank
