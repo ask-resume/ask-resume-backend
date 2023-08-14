@@ -15,9 +15,11 @@ class ResultInterviewMaker(
     bestAnswer : String,
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "submit_id", foreignKey = ForeignKey(ConstraintMode.NO_CONSTRAINT))
     val submit: Submit,
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "submit_data_id", foreignKey = ForeignKey(ConstraintMode.NO_CONSTRAINT))
     val submitData: SubmitData,
 ) : BaseTimeEntity() {
 

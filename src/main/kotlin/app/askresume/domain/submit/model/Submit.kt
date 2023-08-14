@@ -15,9 +15,8 @@ class Submit(
     serviceType: ServiceType,
     dataCount: Int,
 
-    @ManyToOne
-    @Comment("멤버 ID")
-    @JoinColumn(name = "member_id", nullable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false, foreignKey = ForeignKey(ConstraintMode.NO_CONSTRAINT))
     val member: Member
 ) : BaseTimeEntity() {
 

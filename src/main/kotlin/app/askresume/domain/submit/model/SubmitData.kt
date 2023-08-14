@@ -16,6 +16,7 @@ class SubmitData(
     parameter: Map<String, Any>,
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "submit_id", foreignKey = ForeignKey(ConstraintMode.NO_CONSTRAINT))
     val submit: Submit,
 ) : BaseTimeEntity() {
 
