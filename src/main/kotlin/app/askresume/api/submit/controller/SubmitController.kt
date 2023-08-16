@@ -61,7 +61,6 @@ class SubmitController(
         @MemberInfoResolver memberInfo: MemberInfo,
     ): ResponseEntity<ApiResult<SubmitDetailResponse>> {
 
-        log.info("이거도 찍히나?")
         return ResponseEntity.ok(
             ApiResult(
                 submitFacade.findMySubmitsDetail(

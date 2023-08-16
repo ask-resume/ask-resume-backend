@@ -2,8 +2,11 @@ package app.askresume.domain.common
 
 import org.hibernate.annotations.*
 import org.springframework.data.annotation.CreatedBy
+import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
+import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
+import java.time.LocalDateTime
 import java.time.ZonedDateTime
 import javax.persistence.*
 
@@ -34,24 +37,17 @@ abstract class BaseTimeEntity {
 
     @Comment("등록일")
     @Column(updatable = false)
-    lateinit var createdAt: ZonedDateTime
+    @CreatedDate
+    lateinit var createdAt: LocalDateTime
 
     @Comment("수정일")
     @Column(insertable = false)
-    lateinit var updatedAt: ZonedDateTime
+    @LastModifiedDate
+    lateinit var updatedAt: LocalDateTime
 
     @ColumnDefault("false")
     @Comment(value = "삭제유무")
     @Column(nullable = false)
     val isDeleted: Boolean = false
 
-    @PrePersist
-    fun prePersist() {
-        this.createdAt = ZonedDateTime.now()
-    }
-
-    @PreUpdate
-    fun preUpdate() {
-        this.updatedAt = ZonedDateTime.now()
-    }
 }

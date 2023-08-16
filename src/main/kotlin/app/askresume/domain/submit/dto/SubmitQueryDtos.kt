@@ -4,6 +4,7 @@ import app.askresume.domain.member.constant.MemberType
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.constant.SubmitStatus
 import com.querydsl.core.annotations.QueryProjection
+import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
 
@@ -17,8 +18,8 @@ data class SubmitDto @QueryProjection constructor(
     val attempts: Int,
     val submitStatus: SubmitStatus,
     val serviceType: ServiceType,
-    val createdAt : ZonedDateTime,
-    val updatedAt : ZonedDateTime?,
+    val createdAt : LocalDateTime,
+    val updatedAt : LocalDateTime?,
 )
 
 

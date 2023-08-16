@@ -11,8 +11,8 @@ fun SubmitRepository.findSubmitById(id: Long): Submit = findByIdOrNull(id)
     ?: throw SubmitNotFoundException(id)
 
 fun SubmitRepository.existsSubmitByIdAndMember(id: Long, member: Member) =
-    if(existsByIdAndMember(id, member)) throw UnauthorizedSubmitAccessException(id)
-    else null
+    if(existsByIdAndMember(id, member)) null
+    else throw UnauthorizedSubmitAccessException(id)
 
 interface SubmitRepository : JpaRepository<Submit, Long> {
 

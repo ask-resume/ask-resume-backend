@@ -5,6 +5,7 @@ import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.constant.SubmitStatus
 import com.fasterxml.jackson.annotation.JsonInclude
 import io.swagger.v3.oas.annotations.media.Schema
+import java.time.LocalDateTime
 import java.time.OffsetDateTime
 import java.time.ZonedDateTime
 
@@ -23,7 +24,7 @@ data class SubmitResponse(
     val submitStatus: SubmitStatus,
 
     @field:Schema(description = "생성일", example = "2023-06-17T15:45:20Z")
-    val createdAt: ZonedDateTime,
+    val createdAt: LocalDateTime,
 )
 
 @Schema(name = "제출 결과 상세 Response")
