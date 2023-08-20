@@ -2,7 +2,6 @@ package app.askresume.global.resolver.token
 
 import app.askresume.domain.member.exception.RefreshTokenNotFoundException
 import app.askresume.global.cookie.CookieProvider
-import app.askresume.global.cookie.exception.CookieNotFoundException
 import app.askresume.global.jwt.constant.JwtTokenType
 import org.springframework.core.MethodParameter
 import org.springframework.stereotype.Component

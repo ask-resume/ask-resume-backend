@@ -1,10 +1,12 @@
 package app.askresume.global.config.jpa
 
+import app.askresume.global.cookie.CookieProvider
+import app.askresume.global.error.exception.NotAccessTokenTypeException
+import app.askresume.global.jwt.constant.JwtTokenType
 import app.askresume.global.jwt.service.TokenManager
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.domain.AuditorAware
-import org.springframework.http.HttpHeaders
 import java.util.*
 import javax.servlet.http.HttpServletRequest
 
@@ -15,6 +17,9 @@ class AuditorAwareImpl : AuditorAware<Long> {
 
     @Autowired
     private lateinit var httpServletRequest: HttpServletRequest
+
+    @Autowired
+    private lateinit var cookieProvider: CookieProvider
 
     @Value("\${spring.profiles.active}")
     private lateinit var profile: String
@@ -33,8 +38,10 @@ class AuditorAwareImpl : AuditorAware<Long> {
     }
 
     private fun extractJwtTokenFromRequest(request: HttpServletRequest): String? {
-        val authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION)
-        return authorizationHeader.split(" ")[1]
+
+        val accessTokenCookie = cookieProvider.getCookie(request.cookies, JwtTokenType.ACCESS.cookieName)
+            ?: throw NotAccessTokenTypeException()
+        return accessTokenCookie.value
     }
 
     companion object {
