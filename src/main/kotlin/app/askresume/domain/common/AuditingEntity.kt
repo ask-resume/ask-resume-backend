@@ -28,7 +28,6 @@ abstract class BaseEntity : BaseTimeEntity() {
 @DynamicInsert
 @DynamicUpdate
 @MappedSuperclass
-@EntityListeners(value = [AuditingEntityListener::class])
 abstract class BaseTimeEntity {
 
     @Comment(value = "id")
@@ -37,18 +36,24 @@ abstract class BaseTimeEntity {
     var id: Long? = null
 
     @Comment("등록일")
-    @Column(updatable = false)
-    @CreatedDate
     lateinit var createdAt: LocalDateTime
 
     @Comment("수정일")
-    @Column(insertable = false)
-    @LastModifiedDate
     lateinit var updatedAt: LocalDateTime
 
     @ColumnDefault("false")
     @Comment(value = "삭제유무")
     @Column(nullable = false)
     val isDeleted: Boolean = false
+
+    @PrePersist
+    fun prePersist() {
+        this.createdAt = LocalDateTime.now()
+    }
+
+    @PreUpdate
+    fun preUpdate() {
+        this.updatedAt = LocalDateTime.now()
+    }
 
 }
