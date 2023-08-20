@@ -14,6 +14,8 @@ class ExtractFacade(
     val log = logger()
 
     fun pdfToText(file: MultipartFile): ExtractedTextResponse {
-        return extractService.pdfToText(file)
+        return ExtractedTextResponse(
+            extractService.pdfToText(file)
+        )
     }
 }
