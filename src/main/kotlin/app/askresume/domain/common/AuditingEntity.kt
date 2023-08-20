@@ -28,6 +28,7 @@ abstract class BaseEntity : BaseTimeEntity() {
 @DynamicInsert
 @DynamicUpdate
 @MappedSuperclass
+@EntityListeners(value = [AuditingEntityListener::class])
 abstract class BaseTimeEntity {
 
     @Comment(value = "id")
