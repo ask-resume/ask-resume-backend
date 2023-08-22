@@ -28,10 +28,10 @@ class InterviewMakerController(
 
     @Tag(name = "generative")
     @Operation(
-        summary = "[interview-maker] 예상 질문, 모범 답안 대기열에 등록 API",
+        summary = "[interview-maker] 수기 입력 제출, 예상 질문, 모범 답안 대기열에 등록 API",
     )
     @PostMapping
-    fun submit(
+    fun saveManualSubmit(
         @Validated @RequestBody request: InterviewMakerRequest,
         @MemberInfoResolver memberInfo: MemberInfo,
     ): ResponseEntity<Void> {
@@ -42,8 +42,13 @@ class InterviewMakerController(
             language = LocaleType.from(locale).value()
         )
 
-        interviewMakerFacade.saveSubmit(copyRequest, memberInfo)
+        interviewMakerFacade.saveManualSubmit(copyRequest, memberInfo)
 
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
+
+
+
+
+
 }

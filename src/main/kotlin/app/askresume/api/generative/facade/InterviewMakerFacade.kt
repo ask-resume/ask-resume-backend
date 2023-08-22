@@ -23,7 +23,7 @@ class InterviewMakerFacade(
 ) {
 
     @Transactional
-    fun saveSubmit(request: InterviewMakerRequest, memberInfo: MemberInfo) {
+    fun saveManualSubmit(request: InterviewMakerRequest, memberInfo: MemberInfo) {
         val resumeData = resumeDataVoListOf(request.contents)
         val jobMasterName = jobReadOnlyService.findJobMasterName(request.jobId)
 
@@ -43,12 +43,7 @@ class InterviewMakerFacade(
         }
 
         val submitId = submitCommandService.saveSubmit(
-            title = "${
-                interviewMakerSaveDtoList[0].content.substring(
-                    TITLE_SUBSTRING_MIN_SIZE,
-                    TITLE_SUBSTRING_MAX_SIZE
-                )
-            }...",
+            title = generateShortTitle(interviewMakerSaveDtoList[0].content),
             serviceType = ServiceType.INTERVIEW_MAKER,
             dataCount = resumeData.size,
             memberId = memberInfo.memberId,
@@ -60,8 +55,25 @@ class InterviewMakerFacade(
         )
     }
 
+    /**
+     * content에서 title로 사용할 내용을 생략하여 생성합니다.
+     */
+    private fun generateShortTitle(content: String): String {
+        return "${
+            content[0].toString().substring(
+                TITLE_SUBSTRING_MIN_SIZE,
+                TITLE_SUBSTRING_MAX_SIZE
+            )
+        }${ELLIPSIS}"
+    }
+
+
+
+
+
     companion object {
         private const val TITLE_SUBSTRING_MIN_SIZE: Int = 0
         private const val TITLE_SUBSTRING_MAX_SIZE: Int = 30
+        private const val ELLIPSIS: String = "..."
     }
 }
