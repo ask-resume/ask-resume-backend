@@ -1,5 +1,7 @@
 package app.askresume.domain.generative.interview.dto
 
+import app.askresume.domain.generative.interview.constant.DifficultyType
+import app.askresume.domain.locale.constant.LocaleType
 import app.askresume.domain.submit.constant.Satisfaction
 import com.querydsl.core.annotations.QueryProjection
 

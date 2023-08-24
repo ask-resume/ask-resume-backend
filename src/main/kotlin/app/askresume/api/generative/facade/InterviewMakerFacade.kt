@@ -30,9 +30,9 @@ class InterviewMakerFacade(
         val interviewMakerSaveDtoList = resumeData.map { data ->
             InterviewMakerSaveDto(
                 jobName = jobMasterName,
-                difficulty = request.difficulty,
+                difficulty = request.difficulty.value(),
                 careerYear = toCareer(request.careerYear),
-                language = request.language,
+                language = request.language.value(),
                 resumeType = data.resumeType,
                 content = data.content
             )
@@ -60,9 +60,9 @@ class InterviewMakerFacade(
      */
     private fun generateShortTitle(content: String): String {
         return "${
-            content[0].toString().substring(
+            content.substring(
                 TITLE_SUBSTRING_MIN_SIZE,
-                TITLE_SUBSTRING_MAX_SIZE
+                TITLE_SUBSTRING_MAX_SIZE,
             )
         }${ELLIPSIS}"
     }

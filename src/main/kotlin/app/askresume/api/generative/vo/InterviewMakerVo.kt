@@ -1,5 +1,7 @@
 package app.askresume.api.generative.vo
 
+import app.askresume.domain.generative.interview.constant.DifficultyType
+import app.askresume.domain.locale.constant.LocaleType
 import io.swagger.v3.oas.annotations.media.Schema
 import org.hibernate.validator.constraints.Length
 import javax.validation.Valid
@@ -14,18 +16,18 @@ data class InterviewMakerRequest(
     @field:NotNull
     val jobId: Long,
 
-    @field:Schema(description = "난이도", example = "medium", required = true)
-    @field:NotBlank
-    val difficulty: String,
+    @field:Schema(description = "난이도", example = "MEDIUM", required = true)
+    @field:NotNull
+    val difficulty: DifficultyType,
 
     @field:Schema(description = "경력", example = "2", required = true)
     @field:Min(value = 0)
     @field:Max(value = 30)
     val careerYear: Int,
 
-    @field:Schema(description = "언어", example = "ko", required = true)
-    @field:NotBlank
-    val language: String,
+    @field:Schema(description = "생성 언어", example = "KO", required = true)
+    @field:NotNull
+    val language: LocaleType,
 
     @field:Schema(description = "이력서 상세 내용", required = true)
     @field:Valid
