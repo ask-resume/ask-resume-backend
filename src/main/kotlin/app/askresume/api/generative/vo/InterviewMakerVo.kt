@@ -12,6 +12,19 @@ import javax.validation.constraints.NotNull
 
 @Schema(name = "모의인터뷰 생성 제출 Request")
 data class InterviewMakerRequest(
+
+    @field:Schema(description = "내 정보 내용", required = true)
+    @field:Valid
+    val information: InformationRequest,
+
+    @field:Schema(description = "이력서 상세 내용", required = true)
+    @field:Valid
+    val contents: ResumeInformationVo
+)
+
+
+@Schema(name = "내 정보 제출 Request")
+data class InformationRequest(
     @field:Schema(description = "직업 ID", example = "120", required = true)
     @field:NotNull
     val jobId: Long,
@@ -28,10 +41,6 @@ data class InterviewMakerRequest(
     @field:Schema(description = "생성 언어", example = "KO", required = true)
     @field:NotNull
     val language: LocaleType,
-
-    @field:Schema(description = "이력서 상세 내용", required = true)
-    @field:Valid
-    val contents: ResumeInformationVo
 )
 
 

@@ -1,7 +1,5 @@
 package app.askresume.domain.generative.interview.dto
 
-import app.askresume.domain.generative.interview.constant.DifficultyType
-import app.askresume.domain.locale.constant.LocaleType
 import app.askresume.domain.submit.constant.Satisfaction
 import com.querydsl.core.annotations.QueryProjection
 
@@ -11,6 +9,14 @@ data class InterviewMakerSaveDto(
     val careerYear: String,
     val language: String,
     val resumeType: String,
+    val content: String,
+)
+
+data class InterviewMakerPdfSaveDto(
+    val jobName: String,
+    val difficulty: String,
+    val careerYear: String,
+    val language: String,
     val content: String,
 )
 
