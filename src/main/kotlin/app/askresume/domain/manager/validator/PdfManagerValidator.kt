@@ -1,11 +1,11 @@
-package app.askresume.domain.extract.validator
+package app.askresume.domain.manager.validator
 
-import app.askresume.domain.extract.exception.NotPermittedContentTypeException
+import app.askresume.domain.manager.exception.NotPermittedContentTypeException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class ExtractValidator {
+class PdfManagerValidator {
 
     @Value("\${file.licensed.content}")
     private lateinit var licensedContentTypes: List<String>

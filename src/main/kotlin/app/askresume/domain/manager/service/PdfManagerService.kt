@@ -1,16 +1,14 @@
-package app.askresume.domain.extract.service
+package app.askresume.domain.manager.service
 
-import app.askresume.api.extract.vo.ExtractedTextResponse
 import app.askresume.global.util.LoggerUtil.logger
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
-import java.io.File
 
 
 @Service
-class ExtractService {
+class PdfManagerService {
 
     val log = logger()
 
@@ -32,7 +30,7 @@ class ExtractService {
         return modifiedText.toString()
     }
 
-    fun replaceUnicodeWithSpace(input: String): String {
+    private fun replaceUnicodeWithSpace(input: String): String {
         val output = StringBuilder()
         for (c in input) {
             if ((c in '\u0000'..'\u0020')) {

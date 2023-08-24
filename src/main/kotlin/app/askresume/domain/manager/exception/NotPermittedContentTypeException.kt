@@ -1,4 +1,4 @@
-package app.askresume.domain.extract.exception
+package app.askresume.domain.manager.exception
 
 import app.askresume.global.error.ErrorCodes
 import app.askresume.global.error.exception.BusinessException
