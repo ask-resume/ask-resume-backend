@@ -4,12 +4,12 @@ import app.askresume.global.error.ErrorCodes
 import app.askresume.global.error.exception.BusinessException
 
 
-open class ContentLengthOverException(
+open class ContentLengthLackException(
     contentSize : Int,
     override val cause: Throwable? = null,
 ) : BusinessException(
     codeBook = ErrorCodes.INVALID_CONTENT,
-    properties = "content.length.over",
+    properties = "content.length.lack",
     arguments = arrayOf(contentSize),
     cause = cause,
 )

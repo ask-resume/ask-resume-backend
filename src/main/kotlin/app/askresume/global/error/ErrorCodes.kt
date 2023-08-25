@@ -18,6 +18,8 @@ enum class ErrorCodes(
 
     ENTITY_NOT_FOUND("ENY-001", "Entity 데이터가 존재하지 않습니다."),
 
+    INVALID_CONTENT("CON-001","유효하지 않는 컨텐츠(사이즈 등)"),
+
     STATUS_IS_NOT_COMPLETED("SNC-001", "COMPLETED 되지 않은 내용에 접근 시도"),
 
     TOKEN_EXPIRED("AUTH-001", "토큰이 만료 되었습니다."),
@@ -35,6 +37,7 @@ enum class ErrorCodes(
         INTERNAL_SERVER_ERROR -> HttpStatus.INTERNAL_SERVER_ERROR
 
         // 400
+        INVALID_CONTENT,
         OMITTING_REQUIRED_VALUES,
         ALREADY_REGISTERED_MEMBER,
         ENUM_VALIDATE_NOT_EXIST,

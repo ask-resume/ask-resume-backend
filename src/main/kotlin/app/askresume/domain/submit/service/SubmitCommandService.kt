@@ -4,6 +4,7 @@ import app.askresume.domain.member.repository.MemberRepository
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.constant.SubmitDataStatus
 import app.askresume.domain.submit.constant.SubmitStatus
+import app.askresume.domain.submit.exception.ContentLengthLackException
 import app.askresume.domain.submit.exception.ContentLengthOverException
 import app.askresume.domain.submit.model.Submit
 import app.askresume.domain.submit.repository.SubmitDataRepository
@@ -73,13 +74,17 @@ class SubmitCommandService(
 
     fun checkLength(content: String) {
         val contentLength = content.length
-        if (contentLength > PDF_CONTENT_LENGTH) {
+
+        if (contentLength < PDF_CONTENT_MIN_LENGTH)
+            throw ContentLengthLackException(contentLength)
+
+        if (contentLength > PDF_CONTENT_MAX_LENGTH)
             throw ContentLengthOverException(contentLength)
-        }
     }
 
     companion object {
-        private const val PDF_CONTENT_LENGTH: Int = 8_000
+        private const val PDF_CONTENT_MIN_LENGTH : Int = 300
+        private const val PDF_CONTENT_MAX_LENGTH: Int = 8_000
     }
 
 }
