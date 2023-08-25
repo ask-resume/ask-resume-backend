@@ -4,12 +4,12 @@ import app.askresume.domain.common.BaseTimeEntity
 import app.askresume.domain.member.constant.MemberType
 import app.askresume.domain.member.constant.Role
 import app.askresume.global.util.DateTimeUtils
-import org.hibernate.annotations.*
+import org.hibernate.annotations.Comment
+import org.hibernate.annotations.SQLDelete
+import org.hibernate.annotations.Where
 import java.time.LocalDateTime
-import java.util.Date
+import java.util.*
 import javax.persistence.*
-import javax.persistence.Entity
-import javax.persistence.Table
 
 @Entity
 @Where(clause = "is_deleted = false")

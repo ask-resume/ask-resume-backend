@@ -2,10 +2,10 @@ package app.askresume.domain.job.model
 
 import app.askresume.domain.common.BaseEntity
 import app.askresume.domain.locale.constant.LocaleType
-import org.hibernate.annotations.*
+import org.hibernate.annotations.Comment
+import org.hibernate.annotations.SQLDelete
+import org.hibernate.annotations.Where
 import javax.persistence.*
-import javax.persistence.Entity
-import javax.persistence.ForeignKey
 
 @Where(clause = "is_deleted = false")
 @SQLDelete(sql = "UPDATE job SET is_deleted = true WHERE id = ?")

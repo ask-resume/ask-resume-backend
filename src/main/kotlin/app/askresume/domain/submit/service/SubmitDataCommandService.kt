@@ -16,7 +16,16 @@ class SubmitDataCommandService(
     private val submitDataRepository: SubmitDataRepository
 ) {
 
-    fun addToSubmitData(
+    fun saveSubmitData(
+        submitId: Long,
+        parameter: Map<String, Any>
+    ) {
+        val submit = submitRepository.findSubmitById(submitId)
+
+        submitDataRepository.save(SubmitData(parameter, submit))
+    }
+
+    fun saveSubmitDataList(
         submitId: Long,
         parameters: List<Map<String, Any>>
     ) {

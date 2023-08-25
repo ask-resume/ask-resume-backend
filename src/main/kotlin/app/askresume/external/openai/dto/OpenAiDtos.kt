@@ -5,9 +5,9 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class ChatCompletionsRequest(
-    val model: String = "gpt-3.5-turbo",
-    val maxTokens: Int = 2000,
-    val messages: MutableList<ChatCompletionsMessageDto> = mutableListOf(),
+    val model: String,
+    val maxTokens: Int,
+    val messages: List<ChatCompletionsMessageDto> = mutableListOf(),
 )
 
 data class ChatCompletionsMessageDto(

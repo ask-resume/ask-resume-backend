@@ -4,8 +4,8 @@ import app.askresume.global.cookie.CookieProvider
 import app.askresume.global.error.exception.NotAccessTokenTypeException
 import app.askresume.global.jwt.constant.JwtTokenType
 import app.askresume.global.jwt.service.TokenManager
-import org.springframework.http.HttpMethod
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Component
 import org.springframework.web.servlet.HandlerInterceptor
 import javax.servlet.http.HttpServletRequest

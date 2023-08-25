@@ -6,8 +6,6 @@ import app.askresume.domain.submit.constant.SubmitStatus
 import com.fasterxml.jackson.annotation.JsonInclude
 import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDateTime
-import java.time.OffsetDateTime
-import java.time.ZonedDateTime
 
 @Schema(name = "제출 리스트 Response")
 data class SubmitResponse(

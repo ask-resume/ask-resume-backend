@@ -3,11 +3,16 @@ package app.askresume.domain.generative.interview.constant
 import java.util.*
 
 
-enum class DifficultyType(private val type: String) {
+enum class DifficultyType(
+    private val value: String
+) {
 
-    EASY("easy"), MEDIUM("medium"), HARD("hard");
+    EASY("easy"),
+    MEDIUM("medium"),
+    HARD("hard")
+    ;
 
-    fun type() = type
+    fun value() = value
 
     companion object {
         fun isDifficultyType(type: String): Boolean {

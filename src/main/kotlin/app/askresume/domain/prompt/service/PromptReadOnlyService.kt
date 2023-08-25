@@ -34,7 +34,7 @@ class PromptReadOnlyService(
         return when (serviceType) {
             ServiceType.INTERVIEW_MAKER -> {
                 val prompt = findByPromptType(PromptType.INTERVIEW_MAKER)
-                val interviewMakerDto = submitDataMapper.mapToInterviewMakerDto(parameter)
+                val interviewMakerDto = submitDataMapper.interviewMakerSaveDtoOf(parameter)
 
                 String.format(
                     prompt,
@@ -43,6 +43,18 @@ class PromptReadOnlyService(
                     interviewMakerDto.difficulty,
                     interviewMakerDto.careerYear,
                     interviewMakerDto.language
+                )
+            }
+            ServiceType.INTERVIEW_MAKER_PDF -> {
+                val prompt = findByPromptType(PromptType.INTERVIEW_MAKER_PDF)
+                val interviewMakerPdfSaveDto = submitDataMapper.interviewMakerPdfSaveDtoOf(parameter)
+
+                String.format(
+                    prompt,
+                    interviewMakerPdfSaveDto.jobName,
+                    interviewMakerPdfSaveDto.difficulty,
+                    interviewMakerPdfSaveDto.careerYear,
+                    interviewMakerPdfSaveDto.language
                 )
             }
         }

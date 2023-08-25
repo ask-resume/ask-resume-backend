@@ -35,7 +35,7 @@ class SubmitFacade(
         submitReadOnlyService.isCompleted(submitId)
 
         return when (val serviceType = submitReadOnlyService.findSubmitServiceType(submitId)) {
-            ServiceType.INTERVIEW_MAKER ->
+            ServiceType.INTERVIEW_MAKER, ServiceType.INTERVIEW_MAKER_PDF ->
                 submitMapper.submitDetailResponseOf(
                     serviceType = serviceType,
                     interviewMakerReadOnlyService.findInterviewMaker(

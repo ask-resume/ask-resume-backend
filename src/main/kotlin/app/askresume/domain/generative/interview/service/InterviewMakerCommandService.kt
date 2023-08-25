@@ -1,8 +1,8 @@
 package app.askresume.domain.generative.interview.service
 
-import app.askresume.domain.generative.interview.repository.InterviewMakerRepository
 import app.askresume.domain.generative.interview.dto.InterviewMakerResultDtoList
 import app.askresume.domain.generative.interview.model.ResultInterviewMaker
+import app.askresume.domain.generative.interview.repository.InterviewMakerRepository
 import app.askresume.domain.generative.service.GenerativeCommandService
 import app.askresume.domain.submit.repository.SubmitDataRepository
 import app.askresume.domain.submit.repository.SubmitRepository

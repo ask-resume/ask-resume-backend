@@ -1,8 +1,8 @@
 package app.askresume.api.submit.controller
 
-import app.askresume.api.submit.vo.SubmitResponse
 import app.askresume.api.submit.facade.SubmitFacade
 import app.askresume.api.submit.vo.SubmitDetailResponse
+import app.askresume.api.submit.vo.SubmitResponse
 import app.askresume.global.model.ApiResult
 import app.askresume.global.model.PageResponse
 import app.askresume.global.resolver.memberinfo.MemberInfo

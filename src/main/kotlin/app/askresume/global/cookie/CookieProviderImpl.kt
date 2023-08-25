@@ -1,6 +1,5 @@
 package app.askresume.global.cookie
 
-import app.askresume.global.cookie.exception.CookieNotFoundException
 import app.askresume.global.jwt.dto.JwtResponse
 import org.springframework.core.env.Environment
 import org.springframework.http.ResponseCookie

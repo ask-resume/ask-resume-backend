@@ -2,9 +2,10 @@ package app.askresume.domain.prompt.model
 
 import app.askresume.domain.common.BaseEntity
 import app.askresume.domain.prompt.constant.PromptType
-import org.hibernate.annotations.*
+import org.hibernate.annotations.Comment
+import org.hibernate.annotations.SQLDelete
+import org.hibernate.annotations.Where
 import javax.persistence.*
-import javax.persistence.Entity
 
 @Where(clause = "is_deleted = false")
 @SQLDelete(sql = "UPDATE prompt SET is_deleted = true WHERE id = ?")

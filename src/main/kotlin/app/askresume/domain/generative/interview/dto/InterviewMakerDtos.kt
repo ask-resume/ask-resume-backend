@@ -12,6 +12,14 @@ data class InterviewMakerSaveDto(
     val content: String,
 )
 
+data class InterviewMakerPdfSaveDto(
+    val jobName: String,
+    val difficulty: String,
+    val careerYear: String,
+    val language: String,
+    val content: String,
+)
+
 data class InterviewMakerDto @QueryProjection constructor(
     val interviewMakerId : Long,
     val question : String,

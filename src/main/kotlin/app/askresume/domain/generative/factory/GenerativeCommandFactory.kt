@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class GenerativeCommandFactory(
     private val objectMapper: ObjectMapper,
-    private val submitRepository : SubmitRepository,
+    private val submitRepository: SubmitRepository,
     private val submitDataRepository: SubmitDataRepository,
 
     private val interviewMakerRepository: InterviewMakerRepository
@@ -22,7 +22,7 @@ class GenerativeCommandFactory(
 
     fun createGenerativeProvider(serviceType: ServiceType): GenerativeCommandService {
         return when (serviceType) {
-            ServiceType.INTERVIEW_MAKER -> InterviewMakerCommandService(
+            ServiceType.INTERVIEW_MAKER, ServiceType.INTERVIEW_MAKER_PDF -> InterviewMakerCommandService(
                 objectMapper,
                 submitRepository,
                 submitDataRepository,

@@ -4,6 +4,7 @@ import app.askresume.domain.member.repository.MemberRepository
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.constant.SubmitDataStatus
 import app.askresume.domain.submit.constant.SubmitStatus
+import app.askresume.domain.submit.exception.ContentLengthOverException
 import app.askresume.domain.submit.model.Submit
 import app.askresume.domain.submit.repository.SubmitDataRepository
 import app.askresume.domain.submit.repository.SubmitRepository
@@ -33,7 +34,7 @@ class SubmitCommandService(
                 dataCount = dataCount,
                 member = member
             )
-        ).id!!
+        ).id !!
     }
 
     fun updateStatus(submitId: Long, changeStatus: SubmitStatus) {
@@ -68,6 +69,17 @@ class SubmitCommandService(
         }
 
         updateStatus(submitId = submitId, changeStatus = newSubmitStatus)
+    }
+
+    fun checkLength(content: String) {
+        val contentLength = content.length
+        if (contentLength > PDF_CONTENT_LENGTH) {
+            throw ContentLengthOverException(contentLength)
+        }
+    }
+
+    companion object {
+        private const val PDF_CONTENT_LENGTH: Int = 8_000
     }
 
 }
