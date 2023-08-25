@@ -28,7 +28,7 @@ class InterviewMakerController(
     @Operation(
         summary = "[interview-maker] 수기 입력 제출, 예상 질문, 모범 답안 대기열에 등록 API",
     )
-    @PostMapping
+    @PostMapping("/manual")
     fun saveManualSubmit(
         @Validated @RequestBody request: InterviewMakerRequest,
         @MemberInfoResolver memberInfo: MemberInfo,
