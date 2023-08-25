@@ -5,9 +5,9 @@ import app.askresume.domain.prompt.service.PromptReadOnlyService
 import app.askresume.domain.result.service.ResultService
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.constant.SubmitDataStatus
+import app.askresume.domain.submit.service.SubmitCommandService
 import app.askresume.domain.submit.service.SubmitDataCommandService
 import app.askresume.domain.submit.service.SubmitReadOnlyService
-import app.askresume.domain.submit.service.SubmitCommandService
 import app.askresume.external.openai.dto.ChatCompletionsMessageResponse
 import app.askresume.external.openai.mapper.OpenAiMapper
 import app.askresume.external.openai.service.OpenAiService

@@ -5,7 +5,6 @@ import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.constant.SubmitStatus
 import com.querydsl.core.annotations.QueryProjection
 import java.time.LocalDateTime
-import java.time.ZonedDateTime
 
 
 data class SubmitDto @QueryProjection constructor(

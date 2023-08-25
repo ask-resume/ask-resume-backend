@@ -2,7 +2,6 @@ package app.askresume.domain.locale.validator
 
 import app.askresume.domain.locale.constant.LocaleType
 import org.springframework.stereotype.Component
-import org.springframework.stereotype.Service
 
 @Component
 class LocaleValidator {

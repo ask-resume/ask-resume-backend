@@ -6,8 +6,6 @@ import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
 import javax.persistence.Column
 import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.OneToMany
 
 
 @Where(clause = "is_deleted = false")

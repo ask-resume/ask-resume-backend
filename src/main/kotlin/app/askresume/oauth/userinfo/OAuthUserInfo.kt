@@ -1,8 +1,6 @@
 package app.askresume.oauth.userinfo
 
 import app.askresume.domain.member.constant.MemberType
-import app.askresume.domain.member.constant.Role
-import app.askresume.domain.member.model.Member
 
 abstract class OAuthUserInfo(
     protected val attributes: Map<String, Any>,

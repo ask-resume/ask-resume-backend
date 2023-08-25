@@ -1,8 +1,6 @@
 package app.askresume.global.model
 
 import com.fasterxml.jackson.annotation.JsonFormat
-import io.swagger.v3.oas.annotations.media.Schema
-import org.springframework.http.HttpStatus
 import java.time.LocalDateTime
 
 data class ApiResult<T>(
