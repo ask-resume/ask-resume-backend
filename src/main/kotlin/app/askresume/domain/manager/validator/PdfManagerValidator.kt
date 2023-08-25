@@ -2,9 +2,10 @@ package app.askresume.domain.manager.validator
 
 import app.askresume.domain.manager.exception.NotPermittedContentTypeException
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 
-@Service
+@Component
 class PdfManagerValidator {
 
     @Value("\${file.licensed.content}")

@@ -44,6 +44,7 @@ class GenerativeModelJob(
 
             // 데이터 mapping 진행
             val createdChatCompletionsRequest = openAiMapper.promptAndContentToChatCompletionsRequest(
+                serviceType = serviceType,
                 prompt = prompt,
                 content = parameter["content"] as String
             )

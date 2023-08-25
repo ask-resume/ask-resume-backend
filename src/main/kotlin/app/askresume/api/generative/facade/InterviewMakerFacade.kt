@@ -68,6 +68,7 @@ class InterviewMakerFacade(
         val jobMasterName = jobReadOnlyService.findJobMasterName(request.jobId)
 
         val content = pdfManagerService.pdfToText(file)
+        submitCommandService.checkLength(content)
 
         val parameter = objectMapper.convertValue(
             InterviewMakerPdfSaveDto(
@@ -91,7 +92,6 @@ class InterviewMakerFacade(
             submitId = submitId,
             parameter = parameter,
         )
-
     }
 
 
