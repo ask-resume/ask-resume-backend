@@ -84,7 +84,7 @@ class SubmitCommandService(
 
     companion object {
         private const val PDF_CONTENT_MIN_LENGTH : Int = 300
-        private const val PDF_CONTENT_MAX_LENGTH: Int = 8_000
+        private const val PDF_CONTENT_MAX_LENGTH: Int = 6_000
     }
 
 }
