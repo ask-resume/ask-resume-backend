@@ -50,8 +50,13 @@ class GenerativeModelJob(
             )
 
             try {
+
+                log.info("open api 요청")
                 // 데이터로 요청
                 val response = openAiService.requestOpenAiChatCompletion(createdChatCompletionsRequest)
+                log.info("open api 요청 끝")
+
+
                 generativeModelJobSuccess(
                     submitId = submitId,
                     submitDataId = submitDataId,
