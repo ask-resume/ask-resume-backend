@@ -68,7 +68,9 @@ dependencies {
 
     // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("io.github.autoparams:autoparams-kotlin:3.1.0")
+    // testImplementation("io.github.autoparams:autoparams-kotlin:3.1.0")
+    implementation("org.jeasy:easy-random-core:5.0.0")
+
 
     // pdf box
     implementation("org.apache.pdfbox:pdfbox:2.0.27")
