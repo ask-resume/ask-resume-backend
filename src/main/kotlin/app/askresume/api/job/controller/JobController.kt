@@ -1,6 +1,6 @@
 package app.askresume.api.job.controller
 
-import app.askresume.api.job.facade.JobFacade
+import app.askresume.api.job.usecase.JobUseCase
 import app.askresume.api.job.vo.JobResponse
 import app.askresume.domain.locale.constant.LocaleType
 import app.askresume.domain.locale.validator.LocaleValidator
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api")
 class JobController(
-    private val jobFacade: JobFacade,
+    private val jobUseCase: JobUseCase,
     private val localeValidator: LocaleValidator,
 ) {
 
@@ -33,7 +33,7 @@ class JobController(
 
         val localeType = LocaleType.from(language)
 
-        return ResponseEntity.ok(ApiResult(jobFacade.findJobs(localeType)))
+        return ResponseEntity.ok(ApiResult(jobUseCase.findJobs(localeType)))
     }
 
 }

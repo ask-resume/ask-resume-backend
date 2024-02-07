@@ -1,4 +1,4 @@
-package app.askresume.api.member.facade
+package app.askresume.api.member.usecase
 
 import app.askresume.api.member.mapper.MyMemberMapper
 import app.askresume.api.member.vo.MemberInfoResponse
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Facade
 @Transactional(readOnly = true)
-class MyMemberFacade(
+class MyMemberUseCase(
     private val memberReadOnlyService: MemberReadOnlyService,
     private val memberCommandService: MemberCommandService,
 

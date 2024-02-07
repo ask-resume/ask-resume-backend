@@ -1,4 +1,4 @@
-package app.askresume.api.access.facade
+package app.askresume.api.access.usecase
 
 import app.askresume.domain.member.service.MemberCommandService
 import app.askresume.domain.member.service.MemberReadOnlyService
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional(readOnly = true)
-class AccessFacade(
+class AccessUseCase(
     private val memberCommandService: MemberCommandService,
     private val memberReadOnlyService: MemberReadOnlyService,
     private val tokenManager: TokenManager,

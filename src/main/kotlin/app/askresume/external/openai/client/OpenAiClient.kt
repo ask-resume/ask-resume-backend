@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestHeader
 @FeignClient(name = "open-ai", url = "\${external.openai.url}", configuration = [FeignConfiguration::class])
 interface OpenAiClient {
 
-    // gpt-3.5-turbo
     @PostMapping("/v1/chat/completions", consumes = ["application/json"])
     fun createChatCompletion(
         @RequestHeader(HttpHeaders.AUTHORIZATION) accessToken: String,

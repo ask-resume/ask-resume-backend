@@ -1,6 +1,6 @@
 package app.askresume.api.submit.controller
 
-import app.askresume.api.submit.facade.SubmitFacade
+import app.askresume.api.submit.usecase.SubmitUseCase
 import app.askresume.api.submit.vo.SubmitDetailResponse
 import app.askresume.api.submit.vo.SubmitResponse
 import app.askresume.global.model.ApiResult
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/submits")
 class SubmitController(
-    private val submitFacade: SubmitFacade,
+    private val submitUseCase: SubmitUseCase,
 ) {
 
     private val log = logger()
@@ -41,7 +41,7 @@ class SubmitController(
         @ParameterObject pageable: Pageable,
         @MemberInfoResolver memberInfo: MemberInfo,
     ): ResponseEntity<ApiResult<PageResponse<SubmitResponse>>> {
-        val mySubmits = submitFacade.findMySubmits(pageable, memberInfo.memberId)
+        val mySubmits = submitUseCase.findMySubmits(pageable, memberInfo.memberId)
 
         return ResponseEntity.ok(ApiResult(mySubmits))
     }
@@ -63,7 +63,7 @@ class SubmitController(
 
         return ResponseEntity.ok(
             ApiResult(
-                submitFacade.findMySubmitsDetail(
+                submitUseCase.findMySubmitsDetail(
                     submitId = submitId,
                     memberId = memberInfo.memberId,
                 )

@@ -1,4 +1,4 @@
-package app.askresume.api.access.facade
+package app.askresume.api.access.usecase
 
 import app.askresume.domain.member.constant.MemberType
 import app.askresume.domain.member.service.MemberCommandService
@@ -13,7 +13,7 @@ import java.net.URI
 
 @Service
 @Transactional(readOnly = true)
-class OAuthFacade(
+class OAuthUseCase(
     private val tokenManager: TokenManager,
     private val memberReadOnlyService: MemberReadOnlyService,
     private val memberCommandService: MemberCommandService,

@@ -1,4 +1,4 @@
-package app.askresume.api.generative.facade
+package app.askresume.api.generative.usecase
 
 import app.askresume.api.generative.mapper.resumeDataVoListOf
 import app.askresume.api.generative.mapper.toCareer
@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile
 
 @Facade
 @Transactional(readOnly = true)
-class InterviewMakerFacade(
+class InterviewMakerUseCase(
     private val jobReadOnlyService: JobReadOnlyService,
     private val submitCommandService: SubmitCommandService,
     private val submitDataCommandService: SubmitDataCommandService,

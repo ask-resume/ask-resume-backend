@@ -1,6 +1,6 @@
 package app.askresume.api.access.controller
 
-import app.askresume.api.access.facade.AccessFacade
+import app.askresume.api.access.usecase.AccessUseCase
 import app.askresume.global.cookie.CookieOption
 import app.askresume.global.cookie.CookieProvider
 import app.askresume.global.jwt.constant.JwtTokenType
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest
 @RestController
 @RequestMapping("/api")
 class AccessController(
-    private val accessFacade: AccessFacade,
+    private val accessUseCase: AccessUseCase,
     private val cookieProvider: CookieProvider,
     private val oAuthProperties: OAuthProperties,
 ) {
@@ -33,7 +33,7 @@ class AccessController(
     @Operation(summary = "로그아웃 API", description = "로그아웃시 refresh token 만료 처리")
     @PostMapping("/logout")
     fun logout(@AccessToken token: TokenDto, request: HttpServletRequest): ResponseEntity<Void> {
-        accessFacade.logout(token.token)
+        accessUseCase.logout(token.token)
 
         val expiredCookies = getAccessAndRefreshTokenCookies(oAuthProperties.domain, Duration.ZERO)
 
@@ -58,7 +58,7 @@ class AccessController(
     @Operation(summary = "Access Token 재발급 API", description = "쿠키에 저장된 Refresh 토큰을 읽어와 만료된 Access 토큰을 재발급해줍니다.")
     @GetMapping("/refresh")
     fun createAccessToken(@RefreshToken token: TokenDto): ResponseEntity<Void> {
-        val accessTokenDto = accessFacade.createAccessTokenByRefreshToken(token.token)
+        val accessTokenDto = accessUseCase.createAccessTokenByRefreshToken(token.token)
 
         val headers = HttpHeaders()
         headers.add(HttpHeaders.SET_COOKIE, cookieProvider.createTokenCookie(accessTokenDto, oAuthProperties.domain).toString())

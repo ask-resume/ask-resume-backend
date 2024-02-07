@@ -1,4 +1,4 @@
-package app.askresume.api.job.facade
+package app.askresume.api.job.usecase
 
 import app.askresume.api.job.mapper.JobMapper
 import app.askresume.api.job.vo.JobResponse
@@ -7,7 +7,7 @@ import app.askresume.domain.locale.constant.LocaleType
 import app.askresume.global.annotation.Facade
 
 @Facade
-class JobFacade(
+class JobUseCase(
     private val jobReadOnlyService: JobReadOnlyService,
     private val jobMapper: JobMapper,
 ) {

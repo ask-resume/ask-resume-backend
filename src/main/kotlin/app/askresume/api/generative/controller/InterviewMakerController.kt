@@ -1,6 +1,6 @@
 package app.askresume.api.generative.controller
 
-import app.askresume.api.generative.facade.InterviewMakerFacade
+import app.askresume.api.generative.usecase.InterviewMakerUseCase
 import app.askresume.api.generative.vo.InformationRequest
 import app.askresume.api.generative.vo.InterviewMakerRequest
 import app.askresume.domain.manager.validator.PdfManagerValidator
@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile
 @RestController
 @RequestMapping("/api/generative/interview-maker")
 class InterviewMakerController(
-    private val interviewMakerFacade: InterviewMakerFacade,
+    private val interviewMakerUseCase: InterviewMakerUseCase,
     private val pdfManagerValidator: PdfManagerValidator,
 ) {
 
@@ -33,7 +33,7 @@ class InterviewMakerController(
         @Validated @RequestBody request: InterviewMakerRequest,
         @MemberInfoResolver memberInfo: MemberInfo,
     ): ResponseEntity<Void> {
-        interviewMakerFacade.saveManualSubmit(request, memberInfo)
+        interviewMakerUseCase.saveManualSubmit(request, memberInfo)
 
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
@@ -51,7 +51,7 @@ class InterviewMakerController(
         @MemberInfoResolver memberInfo: MemberInfo,
     ): ResponseEntity<Void> {
         pdfManagerValidator.validateContentType(file.contentType)
-        interviewMakerFacade.savePdfSubmit(request, file, memberInfo)
+        interviewMakerUseCase.savePdfSubmit(request, file, memberInfo)
 
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }

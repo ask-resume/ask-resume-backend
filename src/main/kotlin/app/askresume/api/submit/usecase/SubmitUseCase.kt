@@ -1,4 +1,4 @@
-package app.askresume.api.submit.facade
+package app.askresume.api.submit.usecase
 
 import app.askresume.api.submit.mapper.SubmitMapper
 import app.askresume.api.submit.vo.SubmitDetailResponse
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional(readOnly = true)
-class SubmitFacade(
+class SubmitUseCase(
     private val submitReadOnlyService: SubmitReadOnlyService,
 
     private val interviewMakerReadOnlyService: InterviewMakerReadOnlyService,

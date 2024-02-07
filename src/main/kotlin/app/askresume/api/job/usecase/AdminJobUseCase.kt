@@ -1,4 +1,4 @@
-package app.askresume.api.job.facade
+package app.askresume.api.job.usecase
 
 import app.askresume.api.job.vo.SaveJobRequest
 import app.askresume.domain.job.service.JobCommandService
@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Facade
 @Transactional(readOnly = true)
-class AdminJobFacade(
+class AdminJobUseCase(
     private val jobCommandService: JobCommandService
 ) {
 

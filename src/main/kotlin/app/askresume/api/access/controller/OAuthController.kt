@@ -1,6 +1,6 @@
 package app.askresume.api.access.controller
 
-import app.askresume.api.access.facade.OAuthFacade
+import app.askresume.api.access.usecase.OAuthUseCase
 import app.askresume.global.cookie.CookieProvider
 import app.askresume.oauth.OAuthProperties
 import app.askresume.oauth.constant.OAuthProvider
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse
 @RestController
 @RequestMapping("/api/oauth")
 class OAuthController(
-    private val oAuthFacade: OAuthFacade,
+    private val oAuthUseCase: OAuthUseCase,
     private val cookieProvider: CookieProvider,
     private val oAuthProperties: OAuthProperties,
 ) {
@@ -39,7 +39,7 @@ class OAuthController(
     @GetMapping("/{provider}/login")
     fun login(@PathVariable provider: String, response: HttpServletResponse): ResponseEntity<String> {
         val providerEnum = OAuthProvider.fromKebabCase(provider)
-        val redirectUri = oAuthFacade.getAuthorizationUri(providerEnum)
+        val redirectUri = oAuthUseCase.getAuthorizationUri(providerEnum)
 
         return ResponseEntity
             .status(HttpStatus.FOUND)
@@ -59,7 +59,7 @@ class OAuthController(
         response: HttpServletResponse,
     ): ResponseEntity<Void> {
         val providerEnum = OAuthProvider.fromKebabCase(provider)
-        val jwtTokenSet = oAuthFacade.joinOrLogin(code, providerEnum)
+        val jwtTokenSet = oAuthUseCase.joinOrLogin(code, providerEnum)
 
         val jwtCookies = arrayOf(
             cookieProvider.createTokenCookie(jwtTokenSet.accessToken, oAuthProperties.domain),

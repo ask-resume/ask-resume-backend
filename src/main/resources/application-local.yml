@@ -2,7 +2,6 @@ spring:
   datasource:
     url: jdbc:h2:mem:test
     username: sa
-    password:
     driver-class-name: org.h2.Driver
   h2:
     console:
@@ -10,7 +9,7 @@ spring:
       path: /h2-console
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     defer-datasource-initialization: true
   sql:
     init:

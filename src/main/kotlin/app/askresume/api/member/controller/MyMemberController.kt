@@ -1,6 +1,6 @@
 package app.askresume.api.member.controller
 
-import app.askresume.api.member.facade.MyMemberFacade
+import app.askresume.api.member.usecase.MyMemberUseCase
 import app.askresume.api.member.vo.MemberInfoResponse
 import app.askresume.api.member.vo.ModifyInfoRequest
 import app.askresume.global.model.ApiResult
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/my-member")
 class MyMemberController(
-    private val myMemberFacade: MyMemberFacade,
+    private val myMemberUseCase: MyMemberUseCase,
 ) {
 
     @Tag(name = "my-member")
@@ -28,7 +28,7 @@ class MyMemberController(
         @MemberInfoResolver memberInfo: MemberInfo
     ): ResponseEntity<ApiResult<MemberInfoResponse>> {
         val memberId: Long = memberInfo.memberId
-        return ResponseEntity.ok(ApiResult(myMemberFacade.findMyMemberInfo(memberId)))
+        return ResponseEntity.ok(ApiResult(myMemberUseCase.findMyMemberInfo(memberId)))
     }
 
     @Tag(name = "my-member")
@@ -40,7 +40,7 @@ class MyMemberController(
     ): ResponseEntity<Void> {
 
         val memberId: Long = memberInfo.memberId
-        myMemberFacade.modifyMyMemberInfo(memberId, request)
+        myMemberUseCase.modifyMyMemberInfo(memberId, request)
 
         return ResponseEntity.created(UriUtil.createUri()).build()
     }
@@ -52,7 +52,7 @@ class MyMemberController(
         @MemberInfoResolver memberInfo: MemberInfo
     ): ResponseEntity<Void> {
         val memberId: Long = memberInfo.memberId
-        myMemberFacade.secessionMember(memberId)
+        myMemberUseCase.secessionMember(memberId)
 
         return ResponseEntity.noContent().build()
     }

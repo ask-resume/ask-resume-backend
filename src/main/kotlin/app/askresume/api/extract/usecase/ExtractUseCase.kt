@@ -1,4 +1,4 @@
-package app.askresume.api.extract.facade
+package app.askresume.api.extract.usecase
 
 import app.askresume.api.extract.vo.ExtractedTextResponse
 import app.askresume.domain.manager.service.PdfManagerService
@@ -7,7 +7,7 @@ import app.askresume.global.util.LoggerUtil.logger
 import org.springframework.web.multipart.MultipartFile
 
 @Facade
-class ExtractFacade(
+class ExtractUseCase(
     private val pdfManagerService: PdfManagerService
 ) {
 

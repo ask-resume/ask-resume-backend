@@ -1,6 +1,6 @@
 package app.askresume.api.job.controller
 
-import app.askresume.api.job.facade.AdminJobFacade
+import app.askresume.api.job.usecase.AdminJobUseCase
 import app.askresume.api.job.vo.SaveJobRequest
 import app.askresume.global.util.LoggerUtil.logger
 import io.swagger.v3.oas.annotations.Operation
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/admin/jobs")
 class AdminJobController(
-    private val adminJobFacade: AdminJobFacade,
+    private val adminJobUseCase: AdminJobUseCase,
 ) {
 
     val log = logger()
@@ -27,7 +27,7 @@ class AdminJobController(
     fun saveJobs(
         @RequestBody @Validated request : SaveJobRequest,
     ): ResponseEntity<Void> {
-        adminJobFacade.save(request)
+        adminJobUseCase.save(request)
         return ResponseEntity.ok().build()
     }
 

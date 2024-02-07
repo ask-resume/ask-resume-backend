@@ -1,6 +1,6 @@
 package app.askresume.api.extract.controller
 
-import app.askresume.api.extract.facade.ExtractFacade
+import app.askresume.api.extract.usecase.ExtractUseCase
 import app.askresume.api.extract.vo.ExtractedTextResponse
 import app.askresume.domain.manager.validator.PdfManagerValidator
 import app.askresume.global.model.ApiResult
@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile
 @RestController
 @RequestMapping("/api")
 class ExtractController(
-    private val extractFacade: ExtractFacade,
+    private val extractUseCase: ExtractUseCase,
     private val pdfManagerValidator: PdfManagerValidator,
 ) {
 
@@ -34,7 +34,7 @@ class ExtractController(
         file: MultipartFile
     ): ResponseEntity<ApiResult<ExtractedTextResponse>> {
         pdfManagerValidator.validateContentType(file.contentType)
-        return ResponseEntity.ok(ApiResult(extractFacade.pdfToText(file)))
+        return ResponseEntity.ok(ApiResult(extractUseCase.pdfToText(file)))
     }
 
 }
