@@ -68,6 +68,7 @@ dependencies {
 
     // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("io.github.autoparams:autoparams-kotlin:3.1.0")
 
     // pdf box
     implementation("org.apache.pdfbox:pdfbox:2.0.27")
@@ -85,6 +86,8 @@ dependencies {
     implementation("io.github.openfeign:feign-core:12.4")
     implementation("io.github.openfeign:feign-slf4j:12.4")
     implementation("io.github.openfeign:feign-jackson:12.4")
+
+
 }
 
 dependencyManagement {
