@@ -1,6 +1,7 @@
 package app.askresume.domain.submit.repository
 
 import app.askresume.MemberFixture
+import app.askresume.RepositoryTest
 import app.askresume.SubmitFixture
 import app.askresume.domain.member.repository.MemberRepository
 import app.askresume.domain.submit.exception.SubmitNotFoundException
@@ -10,11 +11,8 @@ import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
-import org.springframework.test.context.ActiveProfiles
 
-@ActiveProfiles("test")
-@DataJpaTest
+@RepositoryTest
 class SubmitRepositoryTest {
 
     @Autowired
