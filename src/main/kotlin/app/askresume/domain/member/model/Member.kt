@@ -40,6 +40,10 @@ class Member(
     refreshToken: String? = null,
     tokenExpirationTime: LocalDateTime? = null,
 
+    @Comment(value = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
     ) : BaseTimeEntity() {
 
     @Comment(value = "사용자 국가")

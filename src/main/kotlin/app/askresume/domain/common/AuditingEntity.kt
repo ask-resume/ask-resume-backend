@@ -30,16 +30,11 @@ abstract class BaseEntity : BaseTimeEntity() {
 @MappedSuperclass
 abstract class BaseTimeEntity {
 
-    @Comment(value = "id")
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
-
     @Comment("등록일")
-    lateinit var createdAt: LocalDateTime
+    var createdAt: LocalDateTime = LocalDateTime.now()
 
     @Comment("수정일")
-    lateinit var updatedAt: LocalDateTime
+    var updatedAt: LocalDateTime? = null
 
     @ColumnDefault("false")
     @Comment(value = "삭제유무")

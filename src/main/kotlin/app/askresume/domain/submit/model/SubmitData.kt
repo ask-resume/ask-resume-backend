@@ -18,6 +18,11 @@ class SubmitData(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "submit_id", foreignKey = ForeignKey(ConstraintMode.NO_CONSTRAINT))
     val submit: Submit,
+
+    @Comment(value = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
 ) : BaseTimeEntity() {
 
     @Comment("제출한 데이터")

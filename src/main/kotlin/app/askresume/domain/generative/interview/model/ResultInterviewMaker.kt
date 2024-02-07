@@ -21,6 +21,11 @@ class ResultInterviewMaker(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "submit_data_id", foreignKey = ForeignKey(ConstraintMode.NO_CONSTRAINT))
     val submitData: SubmitData,
+
+    @Comment(value = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
 ) : BaseTimeEntity() {
 
     @Comment("질문")

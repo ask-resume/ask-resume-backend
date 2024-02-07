@@ -4,8 +4,7 @@ import app.askresume.domain.common.BaseEntity
 import org.hibernate.annotations.Comment
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
-import javax.persistence.Column
-import javax.persistence.Entity
+import javax.persistence.*
 
 
 @Where(clause = "is_deleted = false")
@@ -13,6 +12,11 @@ import javax.persistence.Entity
 @Entity
 class JobMaster(
     masterName: String,
+
+    @Comment(value = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
     ) : BaseEntity() {
 
     @Comment(value = "작업마스터명")

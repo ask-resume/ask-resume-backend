@@ -3,8 +3,7 @@ package app.askresume.domain.result.model
 import app.askresume.domain.common.BaseTimeEntity
 import org.hibernate.annotations.Comment
 import org.hibernate.annotations.Where
-import javax.persistence.Column
-import javax.persistence.Entity
+import javax.persistence.*
 
 @Where(clause = "is_deleted = false")
 @Entity
@@ -14,6 +13,11 @@ class Result(
     promptTokens: Int,
     contentToken: Int,
     totalTokens: Int,
+
+    @Comment(value = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
 ) : BaseTimeEntity() {
 
     @Comment("모델")

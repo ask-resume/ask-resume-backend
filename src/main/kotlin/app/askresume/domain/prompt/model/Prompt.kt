@@ -14,6 +14,11 @@ class Prompt(
     promptType: PromptType,
     content: String,
     description: String? = null,
+
+    @Comment(value = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
 ) : BaseEntity() {
 
     @Enumerated(EnumType.STRING)

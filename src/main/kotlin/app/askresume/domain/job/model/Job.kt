@@ -18,6 +18,11 @@ class Job(
 
     name: String,
     locale: LocaleType,
+
+    @Comment(value = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
 ) : BaseEntity() {
 
     @Comment(value = "직업명")
