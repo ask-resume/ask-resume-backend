@@ -19,4 +19,3 @@ interface SubmitRepository : JpaRepository<Submit, Long> {
     fun existsByIdAndMember(id: Long, member: Member): Boolean
 
 }
-
