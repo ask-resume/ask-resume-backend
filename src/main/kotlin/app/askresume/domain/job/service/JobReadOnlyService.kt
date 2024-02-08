@@ -2,8 +2,8 @@ package app.askresume.domain.job.service
 
 import app.askresume.domain.job.dto.JobDto
 import app.askresume.domain.job.repository.JobMasterRepository
-import app.askresume.domain.job.repository.findJobMaster
-import app.askresume.domain.job.repository.query.JobDataRepositoryQuery
+import app.askresume.domain.job.repository.findJobMasterById
+import app.askresume.domain.job.repository.JobDataRepositoryQuery
 import app.askresume.domain.locale.constant.LocaleType
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
@@ -17,7 +17,7 @@ class JobReadOnlyService(
 ) {
 
     fun findJobMasterName(id: Long): String {
-        return jobMasterRepository.findJobMaster(id).masterName
+        return jobMasterRepository.findJobMasterById(id).masterName
     }
 
     @Cacheable(cacheNames = ["jobListCache"], key = "#locale.toString()")

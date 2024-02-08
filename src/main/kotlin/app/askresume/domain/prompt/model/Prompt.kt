@@ -1,6 +1,6 @@
 package app.askresume.domain.prompt.model
 
-import app.askresume.domain.common.BaseEntity
+import app.askresume.domain.BaseEntity
 import app.askresume.domain.prompt.constant.PromptType
 import org.hibernate.annotations.Comment
 import org.hibernate.annotations.SQLDelete

@@ -1,6 +1,6 @@
 package app.askresume.domain.member.model
 
-import app.askresume.domain.common.BaseTimeEntity
+import app.askresume.domain.BaseTimeEntity
 import app.askresume.domain.member.constant.MemberType
 import app.askresume.domain.member.constant.Role
 import app.askresume.global.util.DateTimeUtils

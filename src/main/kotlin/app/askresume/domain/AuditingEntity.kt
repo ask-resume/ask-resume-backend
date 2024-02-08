@@ -1,4 +1,4 @@
-package app.askresume.domain.common
+package app.askresume.domain
 
 import org.hibernate.annotations.ColumnDefault
 import org.hibernate.annotations.Comment

@@ -1,6 +1,6 @@
 package app.askresume.domain.submit.model
 
-import app.askresume.domain.common.BaseTimeEntity
+import app.askresume.domain.BaseTimeEntity
 import app.askresume.domain.submit.constant.SubmitDataStatus
 import com.vladmihalcea.hibernate.type.json.JsonType
 import org.hibernate.annotations.Comment

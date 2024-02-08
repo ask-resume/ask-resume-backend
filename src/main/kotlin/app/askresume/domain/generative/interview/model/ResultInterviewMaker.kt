@@ -1,6 +1,6 @@
 package app.askresume.domain.generative.interview.model
 
-import app.askresume.domain.common.BaseTimeEntity
+import app.askresume.domain.BaseTimeEntity
 import app.askresume.domain.submit.constant.Satisfaction
 import app.askresume.domain.submit.model.Submit
 import app.askresume.domain.submit.model.SubmitData

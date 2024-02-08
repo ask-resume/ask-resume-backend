@@ -1,6 +1,6 @@
 package app.askresume.domain.submit.model
 
-import app.askresume.domain.common.BaseTimeEntity
+import app.askresume.domain.BaseTimeEntity
 import app.askresume.domain.member.model.Member
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.constant.SubmitStatus

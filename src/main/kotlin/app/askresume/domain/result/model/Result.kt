@@ -1,6 +1,6 @@
 package app.askresume.domain.result.model
 
-import app.askresume.domain.common.BaseTimeEntity
+import app.askresume.domain.BaseTimeEntity
 import org.hibernate.annotations.Comment
 import org.hibernate.annotations.Where
 import javax.persistence.*

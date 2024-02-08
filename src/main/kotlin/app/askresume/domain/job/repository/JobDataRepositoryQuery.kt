@@ -1,4 +1,4 @@
-package app.askresume.domain.job.repository.query
+package app.askresume.domain.job.repository
 
 import app.askresume.domain.job.dto.JobDto
 import app.askresume.domain.job.dto.QJobDto

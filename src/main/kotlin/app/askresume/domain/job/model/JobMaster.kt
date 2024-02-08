@@ -1,6 +1,6 @@
 package app.askresume.domain.job.model
 
-import app.askresume.domain.common.BaseEntity
+import app.askresume.domain.BaseEntity
 import org.hibernate.annotations.Comment
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
