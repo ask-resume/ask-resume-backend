@@ -7,9 +7,9 @@ import app.askresume.domain.submit.model.Submit
 object SubmitFixture {
 
     fun submit(member: Member): Submit = Submit(
-        title = TestUtils.randomString(10, 30),
+        title = RANDOM.nextString(10, 30),
         serviceType = ServiceType.INTERVIEW_MAKER,
-        dataCount = TestUtils.randomInt(1, 5),
+        dataCount = RANDOM.nextInt(1, 5),
         member = member,
     )
 

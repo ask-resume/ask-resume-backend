@@ -57,7 +57,7 @@ class SubmitRepositoryTest {
         val exists = submitRepository.existsByIdAndMember(submitId, member)
 
         // then
-        assertThat(exists).isTrue();
+        assertThat(exists).isTrue()
     }
 
     @DisplayName("해당 맴버가 제출한 경우가 아닌경우, false 가 반환된다.")
@@ -72,7 +72,7 @@ class SubmitRepositoryTest {
         val exists = submitRepository.existsByIdAndMember(submitId, memberA)
 
         // then
-        assertThat(exists).isFalse();
+        assertThat(exists).isFalse()
     }
 
     @DisplayName("해당 맴버가 제출한 경우가 아닌경우, UnauthorizedSubmitAccessException이 반환된다.")
