@@ -3,6 +3,7 @@ package app.askresume
 import org.jeasy.random.EasyRandom
 import org.jeasy.random.EasyRandomParameters
 import java.util.*
+import kotlin.reflect.KClass
 
 
 object RANDOM {
@@ -25,6 +26,12 @@ object RANDOM {
 
     fun nextLong() = this.nextLong(0, Long.MAX_VALUE)
     fun nextLong(minSize: Long, maxSize: Long): Long = Random().nextLong(minSize, maxSize)
+
+    fun <T : Any> nextObject(kClass: KClass<T>): T {
+        val easyRandom = EasyRandom(EasyRandomParameters())
+        val javaClass = kClass.java
+        return easyRandom.nextObject(javaClass)
+    }
 
 
     private const val DEFAULT_STRING_MIN_LENGTH = 1
