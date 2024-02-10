@@ -5,10 +5,10 @@ import app.askresume.api.member.vo.MemberInfoResponse
 import app.askresume.api.member.vo.ModifyInfoRequest
 import app.askresume.domain.member.service.MemberCommandService
 import app.askresume.domain.member.service.MemberReadOnlyService
-import app.askresume.global.annotation.Facade
+import app.askresume.global.annotation.UseCase
 import org.springframework.transaction.annotation.Transactional
 
-@Facade
+@UseCase
 @Transactional(readOnly = true)
 class MyMemberUseCase(
     private val memberReadOnlyService: MemberReadOnlyService,

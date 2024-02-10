@@ -2,10 +2,10 @@ package app.askresume.api.job.usecase
 
 import app.askresume.api.job.vo.SaveJobRequest
 import app.askresume.domain.job.service.JobCommandService
-import app.askresume.global.annotation.Facade
+import app.askresume.global.annotation.UseCase
 import org.springframework.transaction.annotation.Transactional
 
-@Facade
+@UseCase
 @Transactional(readOnly = true)
 class AdminJobUseCase(
     private val jobCommandService: JobCommandService

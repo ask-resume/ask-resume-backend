@@ -11,13 +11,13 @@ import app.askresume.domain.manager.service.PdfManagerService
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.service.SubmitCommandService
 import app.askresume.domain.submit.service.SubmitDataCommandService
-import app.askresume.global.annotation.Facade
+import app.askresume.global.annotation.UseCase
 import app.askresume.global.resolver.memberinfo.MemberInfo
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.multipart.MultipartFile
 
-@Facade
+@UseCase
 @Transactional(readOnly = true)
 class InterviewMakerUseCase(
     private val jobReadOnlyService: JobReadOnlyService,
