@@ -13,7 +13,7 @@ import java.net.URI
 
 @Service
 @Transactional(readOnly = true)
-class OAuthUseCase(
+class OauthUseCase(
     private val tokenManager: TokenManager,
     private val memberReadOnlyService: MemberReadOnlyService,
     private val memberCommandService: MemberCommandService,

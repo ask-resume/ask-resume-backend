@@ -1,6 +1,6 @@
 package app.askresume.api.access.controller
 
-import app.askresume.api.access.usecase.OAuthUseCase
+import app.askresume.api.access.usecase.OauthUseCase
 import app.askresume.global.cookie.CookieProvider
 import app.askresume.oauth.OAuthProperties
 import app.askresume.oauth.constant.OAuthProvider
@@ -19,10 +19,10 @@ import javax.servlet.http.HttpServletResponse
 @Tag(name = "oauth2", description = "OAuth2.0 API")
 @RestController
 @RequestMapping("/api/oauth")
-class OAuthController(
-    private val oAuthUseCase: OAuthUseCase,
+class OauthController(
+    private val oauthUseCase: OauthUseCase,
     private val cookieProvider: CookieProvider,
-    private val oAuthProperties: OAuthProperties,
+    private val oauthProperties: OAuthProperties,
 ) {
 
     @Tag(name = "oauth2")
@@ -39,7 +39,7 @@ class OAuthController(
     @GetMapping("/{provider}/login")
     fun login(@PathVariable provider: String, response: HttpServletResponse): ResponseEntity<String> {
         val providerEnum = OAuthProvider.fromKebabCase(provider)
-        val redirectUri = oAuthUseCase.getAuthorizationUri(providerEnum)
+        val redirectUri = oauthUseCase.getAuthorizationUri(providerEnum)
 
         return ResponseEntity
             .status(HttpStatus.FOUND)
@@ -59,11 +59,11 @@ class OAuthController(
         response: HttpServletResponse,
     ): ResponseEntity<Void> {
         val providerEnum = OAuthProvider.fromKebabCase(provider)
-        val jwtTokenSet = oAuthUseCase.joinOrLogin(code, providerEnum)
+        val jwtTokenSet = oauthUseCase.joinOrLogin(code, providerEnum)
 
         val jwtCookies = arrayOf(
-            cookieProvider.createTokenCookie(jwtTokenSet.accessToken, oAuthProperties.domain),
-            cookieProvider.createTokenCookie(jwtTokenSet.refreshToken, oAuthProperties.domain)
+            cookieProvider.createTokenCookie(jwtTokenSet.accessToken, oauthProperties.domain),
+            cookieProvider.createTokenCookie(jwtTokenSet.refreshToken, oauthProperties.domain)
         )
 
         val headers = HttpHeaders()
@@ -73,7 +73,7 @@ class OAuthController(
 
         return ResponseEntity
             .status(HttpStatus.FOUND)
-            .location(URI(oAuthProperties.clientHome))
+            .location(URI(oauthProperties.clientHome))
             .headers(headers)
             .build()
     }

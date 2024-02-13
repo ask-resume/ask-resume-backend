@@ -7,7 +7,6 @@ import app.askresume.global.model.ApiResult
 import app.askresume.global.model.PageResponse
 import app.askresume.global.resolver.memberinfo.MemberInfo
 import app.askresume.global.resolver.memberinfo.MemberInfoResolver
-import app.askresume.global.util.LoggerUtil.logger
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springdoc.api.annotations.ParameterObject
@@ -22,10 +21,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/submits")
 class SubmitController(
-    private val submitUseCase: SubmitUseCase,
+    private val useCase: SubmitUseCase,
 ) {
-
-    private val log = logger()
 
     @Tag(name = "submit")
     @Operation(
@@ -40,11 +37,7 @@ class SubmitController(
     fun findMySubmits(
         @ParameterObject pageable: Pageable,
         @MemberInfoResolver memberInfo: MemberInfo,
-    ): ResponseEntity<ApiResult<PageResponse<SubmitResponse>>> {
-        val mySubmits = submitUseCase.findMySubmits(pageable, memberInfo.memberId)
-
-        return ResponseEntity.ok(ApiResult(mySubmits))
-    }
+    ): ApiResult<PageResponse<SubmitResponse>> = ApiResult(useCase.findMySubmits(pageable, memberInfo.memberId))
 
     @Tag(name = "submit")
     @Operation(
@@ -59,16 +52,12 @@ class SubmitController(
     fun findMySubmitDetail(
         @PathVariable submitId: Long,
         @MemberInfoResolver memberInfo: MemberInfo,
-    ): ResponseEntity<ApiResult<SubmitDetailResponse>> {
-
-        return ResponseEntity.ok(
-            ApiResult(
-                submitUseCase.findMySubmitsDetail(
-                    submitId = submitId,
-                    memberId = memberInfo.memberId,
-                )
+    ): ApiResult<SubmitDetailResponse> =
+        ApiResult(
+            useCase.findMySubmitsDetail(
+                submitId = submitId,
+                memberId = memberInfo.memberId,
             )
         )
-    }
 
 }

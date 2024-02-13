@@ -25,9 +25,7 @@ class InterviewMakerController(
 ) {
 
     @Tag(name = "generative")
-    @Operation(
-        summary = "[interview-maker] 수기 입력 제출, 예상 질문, 모범 답안 대기열에 등록 API",
-    )
+    @Operation(summary = "[interview-maker] 수기 입력 제출, 예상 질문, 모범 답안 대기열에 등록 API")
     @PostMapping("/manual")
     fun saveManualSubmit(
         @Validated @RequestBody request: InterviewMakerRequest,
@@ -39,13 +37,10 @@ class InterviewMakerController(
     }
 
     @Tag(name = "generative")
-    @Operation(
-        summary = "[interview-maker] PDF 제출, 예상 질문, 모범 답안 대기열에 등록 API",
-    )
+    @Operation(summary = "[interview-maker] PDF 제출, 예상 질문, 모범 답안 대기열에 등록 API",)
     @PostMapping(value = ["/pdf"], consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
     fun savePdfSubmit(
         @Validated request: InformationRequest,
-
         @Parameter(name = "resume", description = "이력서PDF파일, maxSize: 3MB, 확장자: pdf)", required = true)
         @RequestPart("resume") file: MultipartFile,
         @MemberInfoResolver memberInfo: MemberInfo,
