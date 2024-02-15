@@ -16,7 +16,7 @@ plugins {
 }
 
 group = "app"
-version = "0.0.2"
+version = "2.0.0"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
@@ -70,6 +70,10 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     // testImplementation("io.github.autoparams:autoparams-kotlin:3.1.0")
     implementation("org.jeasy:easy-random-core:5.0.0")
+
+    testImplementation("io.kotest:kotest-runner-junit5-jvm:5.8.0")
+    testImplementation("io.kotest:kotest-assertions-core-jvm:5.8.0")
+    testImplementation("io.mockk:mockk:1.13.9")
 
 
     // pdf box
