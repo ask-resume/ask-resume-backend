@@ -21,10 +21,10 @@ import java.util.*
 class JobReadOnlyServiceTest {
 
     @Mock
-    private lateinit var jobDataRepositoryQuery : JobDataRepositoryQuery
+    private lateinit var jobMasterRepository: JobMasterRepository
 
     @Mock
-    private lateinit var jobMasterRepository: JobMasterRepository
+    private lateinit var jobDataRepositoryQuery : JobDataRepositoryQuery
 
     @InjectMocks
     private lateinit var jobReadOnlyService : JobReadOnlyService
