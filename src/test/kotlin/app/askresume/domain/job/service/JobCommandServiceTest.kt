@@ -14,7 +14,6 @@ import org.mockito.BDDMockito.then
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.times
-import org.mockito.Mockito.verify
 import org.mockito.junit.jupiter.MockitoExtension
 
 @ExtendWith(MockitoExtension::class)
@@ -44,7 +43,7 @@ class JobCommandServiceTest {
 
         // then
         then(jobMasterRepository).should().save(any(jobMaster::class.java))
-        verify(jobRepository, times(2)).save(any(Job::class.java))
+        then(jobRepository).should(times(2)).save(any(Job::class.java))
     }
 
 }
