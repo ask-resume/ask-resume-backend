@@ -26,11 +26,9 @@ data class InterviewMakerRequest(
 @Schema(name = "내 정보 제출 Request")
 data class InformationRequest(
     @field:Schema(description = "직업 ID", example = "120", required = true)
-    @field:NotNull
     val jobId: Long,
 
     @field:Schema(description = "난이도", example = "MEDIUM", required = true)
-    @field:NotNull
     val difficulty: DifficultyType,
 
     @field:Schema(description = "경력", example = "2", required = true)
@@ -39,7 +37,6 @@ data class InformationRequest(
     val careerYear: Int,
 
     @field:Schema(description = "생성 언어", example = "KO", required = true)
-    @field:NotNull
     val language: LocaleType,
 )
 
