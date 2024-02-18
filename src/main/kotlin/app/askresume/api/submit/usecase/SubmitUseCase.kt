@@ -6,7 +6,7 @@ import app.askresume.api.submit.vo.SubmitResponse
 import app.askresume.domain.generative.interview.service.InterviewMakerReadOnlyService
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.service.SubmitReadOnlyService
-import app.askresume.global.model.PageResponse
+import app.askresume.api.PageResponse
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -17,8 +17,6 @@ class SubmitUseCase(
     private val submitReadOnlyService: SubmitReadOnlyService,
 
     private val interviewMakerReadOnlyService: InterviewMakerReadOnlyService,
-
-    private val submitMapper: SubmitMapper,
 ) {
 
     fun findMySubmits(pageable: Pageable, memberId: Long): PageResponse<SubmitResponse> {
@@ -27,7 +25,7 @@ class SubmitUseCase(
             pageable = pageable
         )
 
-        return submitMapper.submitResponseOf(pagedSubmits)
+        return SubmitMapper.submitResponseOf(pagedSubmits)
     }
 
     fun findMySubmitsDetail(submitId: Long, memberId: Long): SubmitDetailResponse {
@@ -36,7 +34,7 @@ class SubmitUseCase(
 
         return when (val serviceType = submitReadOnlyService.findSubmitServiceType(submitId)) {
             ServiceType.INTERVIEW_MAKER, ServiceType.INTERVIEW_MAKER_PDF ->
-                submitMapper.submitDetailResponseOf(
+                SubmitMapper.submitDetailResponseOf(
                     serviceType = serviceType,
                     interviewMakerReadOnlyService.findInterviewMaker(
                         submitId

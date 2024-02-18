@@ -3,15 +3,14 @@ package app.askresume.api.submit.controller
 import app.askresume.api.submit.usecase.SubmitUseCase
 import app.askresume.api.submit.vo.SubmitDetailResponse
 import app.askresume.api.submit.vo.SubmitResponse
-import app.askresume.global.model.ApiResult
-import app.askresume.global.model.PageResponse
+import app.askresume.api.ApiResult
+import app.askresume.api.PageResponse
 import app.askresume.global.resolver.memberinfo.MemberInfo
 import app.askresume.global.resolver.memberinfo.MemberInfoResolver
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springdoc.api.annotations.ParameterObject
 import org.springframework.data.domain.Pageable
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -52,12 +51,6 @@ class SubmitController(
     fun findMySubmitDetail(
         @PathVariable submitId: Long,
         @MemberInfoResolver memberInfo: MemberInfo,
-    ): ApiResult<SubmitDetailResponse> =
-        ApiResult(
-            useCase.findMySubmitsDetail(
-                submitId = submitId,
-                memberId = memberInfo.memberId,
-            )
-        )
+    ): ApiResult<SubmitDetailResponse> = ApiResult(useCase.findMySubmitsDetail(submitId, memberInfo.memberId))
 
 }

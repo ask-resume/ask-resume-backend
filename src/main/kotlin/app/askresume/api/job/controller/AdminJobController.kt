@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import javax.validation.Valid
 
 @Tag(name = "admin job", description = "직업데이터 API (어드민)")
 @RestController
@@ -25,11 +26,6 @@ class AdminJobController(
     @Operation(summary = "직업 정보를 등록하는 API", description = "직업 정보를 등록하는 API")
     @PostMapping
     fun saveJobs(
-        @RequestBody @Validated request : SaveJobRequest,
-    ): ResponseEntity<Void> {
-        adminJobUseCase.save(request)
-        return ResponseEntity.ok().build()
-    }
-
+        @RequestBody @Valid request: SaveJobRequest,
+    ) = adminJobUseCase.save(request)
 }
-

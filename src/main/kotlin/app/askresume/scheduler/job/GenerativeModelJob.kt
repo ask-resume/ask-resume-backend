@@ -24,7 +24,6 @@ class GenerativeModelJob(
     private val promptReadOnlyService: PromptReadOnlyService,
     private val generativeCommandFactory: GenerativeCommandFactory,
 
-    private val openAiMapper: OpenAiMapper,
     private val openAiService: OpenAiService,
 ) {
     val log = logger()
@@ -43,7 +42,7 @@ class GenerativeModelJob(
             )
 
             // 데이터 mapping 진행
-            val createdChatCompletionsRequest = openAiMapper.promptAndContentToChatCompletionsRequest(
+            val createdChatCompletionsRequest = OpenAiMapper.promptAndContentToChatCompletionsRequest(
                 serviceType = serviceType,
                 prompt = prompt,
                 content = parameter["content"] as String

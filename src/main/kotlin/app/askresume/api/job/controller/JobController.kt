@@ -4,7 +4,7 @@ import app.askresume.api.job.usecase.JobUseCase
 import app.askresume.api.job.vo.JobResponse
 import app.askresume.domain.locale.constant.LocaleType
 import app.askresume.domain.locale.validator.LocaleValidator
-import app.askresume.global.model.ApiResult
+import app.askresume.api.ApiResult
 import app.askresume.global.util.LoggerUtil.logger
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag

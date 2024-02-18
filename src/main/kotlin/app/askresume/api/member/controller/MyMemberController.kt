@@ -1,17 +1,19 @@
 package app.askresume.api.member.controller
 
+import app.askresume.api.ApiResult
 import app.askresume.api.member.usecase.MyMemberUseCase
 import app.askresume.api.member.vo.MemberInfoResponse
 import app.askresume.api.member.vo.ModifyInfoRequest
-import app.askresume.global.model.ApiResult
 import app.askresume.global.resolver.memberinfo.MemberInfo
 import app.askresume.global.resolver.memberinfo.MemberInfoResolver
 import app.askresume.global.util.UriUtil
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 
 @Tag(name = "my-member", description = "내정보 API")
@@ -26,35 +28,26 @@ class MyMemberController(
     @GetMapping
     fun findMyInfo(
         @MemberInfoResolver memberInfo: MemberInfo
-    ): ResponseEntity<ApiResult<MemberInfoResponse>> {
-        val memberId: Long = memberInfo.memberId
-        return ResponseEntity.ok(ApiResult(myMemberUseCase.findMyMemberInfo(memberId)))
-    }
+    ): ApiResult<MemberInfoResponse> = ApiResult(myMemberUseCase.findMyMemberInfo(memberInfo.memberId))
 
     @Tag(name = "my-member")
     @Operation(summary = "내 정보 변경 API", description = "내 정보 변경 API")
     @PutMapping
     fun modify(
-        @Validated @RequestBody request: ModifyInfoRequest,
+        @Valid @RequestBody request: ModifyInfoRequest,
         @MemberInfoResolver memberInfo: MemberInfo
     ): ResponseEntity<Void> {
-
-        val memberId: Long = memberInfo.memberId
-        myMemberUseCase.modifyMyMemberInfo(memberId, request)
+        myMemberUseCase.modifyMyMemberInfo(memberInfo.memberId, request)
 
         return ResponseEntity.created(UriUtil.createUri()).build()
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Tag(name = "my-member")
     @Operation(summary = "회원 탈퇴 API", description = "회원 탈퇴 API")
     @DeleteMapping
     fun secession(
         @MemberInfoResolver memberInfo: MemberInfo
-    ): ResponseEntity<Void> {
-        val memberId: Long = memberInfo.memberId
-        myMemberUseCase.secessionMember(memberId)
-
-        return ResponseEntity.noContent().build()
-    }
+    ) = myMemberUseCase.secessionMember(memberInfo.memberId)
 }
 

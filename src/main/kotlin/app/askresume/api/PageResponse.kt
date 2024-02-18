@@ -1,4 +1,4 @@
-package app.askresume.global.model
+package app.askresume.api
 
 import org.springframework.data.domain.Page
 

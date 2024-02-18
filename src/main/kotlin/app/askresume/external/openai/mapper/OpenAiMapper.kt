@@ -4,10 +4,8 @@ import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.external.openai.constant.OpenAiRole
 import app.askresume.external.openai.dto.ChatCompletionsMessageDto
 import app.askresume.external.openai.dto.ChatCompletionsRequest
-import app.askresume.global.annotation.Mapper
 
-@Mapper
-class OpenAiMapper {
+object OpenAiMapper {
 
     fun promptAndContentToChatCompletionsRequest(
         serviceType : ServiceType,

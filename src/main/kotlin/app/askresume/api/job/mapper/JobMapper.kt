@@ -2,10 +2,8 @@ package app.askresume.api.job.mapper
 
 import app.askresume.api.job.vo.JobResponse
 import app.askresume.domain.job.dto.JobDto
-import app.askresume.global.annotation.Mapper
 
-@Mapper
-class JobMapper {
+object JobMapper {
 
     fun jobResponseListOf(
         jobDtos: List<JobDto>

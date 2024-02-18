@@ -3,7 +3,7 @@ package app.askresume.api.extract.controller
 import app.askresume.api.extract.usecase.ExtractUseCase
 import app.askresume.api.extract.vo.ExtractedTextResponse
 import app.askresume.domain.manager.validator.PdfManagerValidator
-import app.askresume.global.model.ApiResult
+import app.askresume.api.ApiResult
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag

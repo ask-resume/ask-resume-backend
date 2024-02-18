@@ -9,9 +9,9 @@ class ScheduleTasks(
     private val generativeModelJob : GenerativeModelJob
 ) {
 
-    @Scheduled(fixedDelay = 1000)
-    fun generativeModelJob() {
-        generativeModelJob.execute()
-    }
+//    @Scheduled(fixedDelay = 1000)
+//    fun generativeModelJob() {
+//        generativeModelJob.execute()
+//    }
 
 }

@@ -13,13 +13,11 @@ import org.springframework.transaction.annotation.Transactional
 class MyMemberUseCase(
     private val memberReadOnlyService: MemberReadOnlyService,
     private val memberCommandService: MemberCommandService,
-
-    private val myMemberMapper: MyMemberMapper,
 ) {
 
     fun findMyMemberInfo(memberId: Long): MemberInfoResponse {
         val memberInfoDto = memberReadOnlyService.findMemberInfo(memberId) !!
-        return myMemberMapper.memberInfoResponseOf(memberInfoDto)
+        return MyMemberMapper.memberInfoResponseOf(memberInfoDto)
     }
 
     @Transactional

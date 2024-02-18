@@ -6,13 +6,11 @@ import app.askresume.api.submit.vo.SubmitResponse
 import app.askresume.domain.generative.interview.dto.InterviewMakerDto
 import app.askresume.domain.submit.constant.ServiceType
 import app.askresume.domain.submit.dto.SubmitDto
-import app.askresume.global.annotation.Mapper
-import app.askresume.global.model.PageResponse
+import app.askresume.api.PageResponse
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 
-@Mapper
-class SubmitMapper {
+object SubmitMapper {
     fun submitResponseOf(pagedSubmits: Page<SubmitDto>): PageResponse<SubmitResponse> {
         return PageResponse(
             PageImpl(

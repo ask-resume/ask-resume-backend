@@ -1,4 +1,4 @@
-package app.askresume.global.model
+package app.askresume.api
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import java.time.LocalDateTime
