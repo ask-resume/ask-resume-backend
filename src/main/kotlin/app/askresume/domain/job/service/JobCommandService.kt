@@ -19,7 +19,6 @@ class JobCommandService(
 
     val log = logger()
 
-
     @CacheEvict(cacheNames = ["jobListCache"], allEntries = true)
     fun saveJobs(
         englishJobName: String,
@@ -37,7 +36,6 @@ class JobCommandService(
         jobRepository.save(
             Job(jobMaster = jobMaster, name = koreaJobName, locale = LocaleType.KO)
         )
-
     }
 
 }

@@ -3,7 +3,7 @@ package app.askresume.api.generative.vo
 import app.askresume.ValidationUtils
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import app.askresume.InformationRequestFixture
+import app.askresume.fixture.InformationRequestFixture
 
 class InformationRequestTest {
 

@@ -6,9 +6,8 @@ import org.junit.jupiter.api.Test
 
 class ServiceTypeTest {
 
-    @DisplayName("String Type의 ServiceType 이름을 전달하면 ServiceType enum을 반환한다.")
     @Test
-    fun fromTest() {
+    fun `String Type의 ServiceType 이름을 전달하면 ServiceType enum을 반환한다`() {
         // given
         val type = "INTERVIEW_MAKER"
 

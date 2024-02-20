@@ -28,9 +28,8 @@ class JobCommandServiceTest {
     @InjectMocks
     private lateinit var jobCommandService: JobCommandService
 
-    @DisplayName("직업 정보를 언어별로 저장한다.")
     @Test
-    fun saveJobsTest() {
+    fun `직업 정보를 언어별로 저장한다`() {
         // given
         val englishJobName = RANDOM.nextString(5,30)
         val koreaJobName = RANDOM.nextString(5,30)

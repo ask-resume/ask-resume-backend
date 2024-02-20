@@ -23,4 +23,3 @@ enum class ServiceType(
 
     }
 }
-

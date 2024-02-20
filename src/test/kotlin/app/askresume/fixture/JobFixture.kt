@@ -1,5 +1,6 @@
-package app.askresume
+package app.askresume.fixture
 
+import app.askresume.RANDOM
 import app.askresume.domain.job.model.JobMaster
 
 object JobFixture {

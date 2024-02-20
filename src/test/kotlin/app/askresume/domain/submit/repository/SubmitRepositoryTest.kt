@@ -1,8 +1,8 @@
 package app.askresume.domain.submit.repository
 
-import app.askresume.MemberFixture
+import app.askresume.fixture.MemberFixture
 import app.askresume.RepositoryTest
-import app.askresume.SubmitFixture
+import app.askresume.fixture.SubmitFixture
 import app.askresume.domain.member.repository.MemberRepository
 import app.askresume.domain.submit.exception.SubmitNotFoundException
 import app.askresume.domain.submit.exception.UnauthorizedSubmitAccessException
@@ -86,8 +86,5 @@ class SubmitRepositoryTest {
         // when
         assertThatThrownBy { submitRepository.existsSubmitByIdAndMember(submitId, memberA) }
             .isInstanceOf(UnauthorizedSubmitAccessException::class.java)
-
     }
-
-
 }
