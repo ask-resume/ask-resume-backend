@@ -28,16 +28,15 @@ object RANDOM {
     ): Long = Random().nextLong(minSize, maxSize)
 
     fun <T : Any> nextObject(`class`: KClass<T>): T {
-        val easyRandom = EasyRandom(EasyRandomParameters())
+        val easyRandom = EasyRandom(EasyRandomParameters().seed(Random().nextLong(Long.MAX_VALUE)))
         return easyRandom.nextObject(`class`.java)
     }
 
     fun <T : Any> nextList(`class`: KClass<T>, size: Int = 10): List<T> {
-        val easyRandom = EasyRandom(EasyRandomParameters())
         val mutableList = mutableListOf<T>()
 
         repeat(size) {
-            val randomObject = easyRandom.nextObject(`class`.java)
+            val randomObject = EasyRandom(EasyRandomParameters().seed(Random().nextLong(Long.MAX_VALUE))).nextObject(`class`.java)
             mutableList.add(randomObject)
         }
         return mutableList.toList()
