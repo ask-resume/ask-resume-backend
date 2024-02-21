@@ -75,6 +75,8 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-core-jvm:5.8.0")
     testImplementation("io.mockk:mockk:1.13.9")
 
+    testImplementation("org.mockito:mockito-inline:5.2.0")
+
 
     // pdf box
     implementation("org.apache.pdfbox:pdfbox:2.0.27")

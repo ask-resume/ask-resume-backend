@@ -5,7 +5,6 @@ import app.askresume.api.job.vo.SaveJobRequest
 import app.askresume.domain.job.service.JobCommandService
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.BDDMockito.given
 import org.mockito.BDDMockito.then
 import org.mockito.InjectMocks
 import org.mockito.Mock

@@ -12,6 +12,7 @@ class JobUseCase(
 ) {
 
     fun findJobs(locale: LocaleType): List<JobResponse> {
-        return JobMapper.jobResponseListOf(jobReadOnlyService.findJobs(locale))
+        val jobs = jobReadOnlyService.findJobs(locale)
+        return JobMapper.jobResponseListOf(jobs)
     }
 }
