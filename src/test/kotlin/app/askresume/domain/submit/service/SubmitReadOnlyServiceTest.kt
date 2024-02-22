@@ -40,9 +40,8 @@ class SubmitReadOnlyServiceTest {
     private lateinit var submitReadOnlyService: SubmitReadOnlyService
 
 
-    @DisplayName("최초로 제출된 내용이 있으면 제출건 내용을 가져온다.")
     @Test
-    fun findRequestedFirstSubmitTest() {
+    fun `최초로 제출된 내용이 있으면 제출건 내용을 가져온다`() {
         // given
         val submittedDto = RANDOM.nextObject(FirstSubmittedDto::class)
         given(submitQueryRepository.findQueryRequestedFirstSubmit()).willReturn(submittedDto)
@@ -54,9 +53,8 @@ class SubmitReadOnlyServiceTest {
         then(submitQueryRepository).should().findQueryRequestedFirstSubmit()
     }
 
-    @DisplayName("자신이 제출한 내용을 리스트로 받아온다.")
     @Test
-    fun findSubmitListTest() {
+    fun `자신이 제출한 내용을 리스트로 받아온다`() {
         // given
         val memberId = RANDOM.nextLong()
         val pageable = RANDOM.nextObject(PageRequest::class)
@@ -74,9 +72,8 @@ class SubmitReadOnlyServiceTest {
     }
 
 
-    @DisplayName("자신이 제출한 제출건 인지 확인한다.")
     @Test
-    fun isMySubmitTest() {
+    fun `자신이 제출한 제출건 인지 확인한다`() {
         // given
         val memberId = RANDOM.nextLong()
         val submitId = RANDOM.nextLong()
@@ -93,9 +90,8 @@ class SubmitReadOnlyServiceTest {
         then(submitRepository).should().existsByIdAndMember(submitId, member)
     }
 
-    @DisplayName("제출건의 서비스 타입을 가져온다.")
     @Test
-    fun findSubmitServiceTypeTest() {
+    fun `제출건의 서비스 타입을 가져온다`() {
         // given
         val submitId = RANDOM.nextLong()
 
@@ -110,9 +106,8 @@ class SubmitReadOnlyServiceTest {
         assertThat(serviceType).isEqualTo(submit.serviceType)
     }
 
-    @DisplayName("해당 제출건이 COMPLETED 건 인지 확인한다.")
     @Test
-    fun isCompletedTest() {
+    fun `해당 제출건이 COMPLETED 건 인지 확인한다`() {
         // given
         val submitId = RANDOM.nextLong()
         val submit = RANDOM.nextObject(Submit::class)
@@ -127,9 +122,8 @@ class SubmitReadOnlyServiceTest {
         then(submitRepository).should().findById(submitId)
     }
 
-    @DisplayName("해당 제출건이 COMPLETED이 아니면, SubmitStatusIsNotCompletedException 예외가 발생한다.")
     @Test
-    fun isCompletedExceptionTest() {
+    fun `해당 제출건이 COMPLETED이 아니면, SubmitStatusIsNotCompletedException 예외가 발생한다`() {
         // given
         val submitId = RANDOM.nextLong()
         val submit = RANDOM.nextObject(Submit::class)

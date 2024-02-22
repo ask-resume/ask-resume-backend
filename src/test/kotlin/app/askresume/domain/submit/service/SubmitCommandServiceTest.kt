@@ -33,9 +33,8 @@ class SubmitCommandServiceTest {
     private lateinit var submitCommandService: SubmitCommandService
 
 
-    @DisplayName("제출건의 상태를 변경한다.")
     @Test
-    fun updateStatusTest() {
+    fun `제출건의 상태를 변경한다`() {
         // given
         val submitId = RANDOM.nextLong()
         val changeStatus = RANDOM.nextObject(SubmitStatus::class)

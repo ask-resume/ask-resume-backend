@@ -29,9 +29,8 @@ class JobReadOnlyServiceTest {
     @InjectMocks
     private lateinit var jobReadOnlyService : JobReadOnlyService
 
-    @DisplayName("직업 ID로 이용해, 직업 고유명을 조회한다.")
     @Test
-    fun findJobMasterNameTest() {
+    fun `직업 ID로 이용해, 직업 고유명을 조회한다`() {
         // given
         val jobMasterId = RANDOM.nextLong()
 
@@ -48,9 +47,8 @@ class JobReadOnlyServiceTest {
     }
 
 
-    @DisplayName("locale 정보로 해당 언어의 직업을 조회한다.")
     @Test
-    fun findJobsTest() {
+    fun `locale 정보로 해당 언어의 직업을 조회한다`() {
         // given
         val localeType = RANDOM.nextObject(LocaleType::class)
 

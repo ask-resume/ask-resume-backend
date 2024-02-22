@@ -20,9 +20,8 @@ class ResultServiceTest {
     @InjectMocks
     private lateinit var resultService: ResultService
 
-    @DisplayName("생성된 결과의 리소스 정보를 저장한다.")
     @Test
-    fun saveResultResponseDataTest() {
+    fun `생성된 결과의 리소스 정보를 저장한다`() {
         // given
         val model = RANDOM.nextString()
         val created = RANDOM.nextLong()

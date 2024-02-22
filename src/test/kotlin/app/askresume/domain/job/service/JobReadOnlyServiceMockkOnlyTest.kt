@@ -27,9 +27,8 @@ class JobReadOnlyServiceMockkOnlyTest {
     @InjectMockKs
     private lateinit var jobReadOnlyService: JobReadOnlyService
 
-    @DisplayName("직업 ID로 이용해, 직업 고유명을 조회한다.")
     @Test
-    fun findJobMasterNameTest() {
+    fun `직업 ID로 이용해, 직업 고유명을 조회한다`() {
         // given
         val jobMasterId = RANDOM.nextLong()
         val jobMaster = RANDOM.nextObject(JobMaster::class)
