@@ -39,7 +39,7 @@ class JobReadOnlyServiceMockkOnlyTest {
         val selectJobMaster = jobReadOnlyService.findJobMasterName(jobMasterId)
 
         // then
-        verify(exactly = 1) { jobMasterRepository.findJobMasterById(jobMasterId) }
+        verify { jobMasterRepository.findJobMasterById(jobMasterId) }
         assertThat(selectJobMaster).isEqualTo(jobMaster.masterName)
     }
 
