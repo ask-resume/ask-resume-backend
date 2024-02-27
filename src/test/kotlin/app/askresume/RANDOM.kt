@@ -2,14 +2,14 @@ package app.askresume
 
 import org.jeasy.random.EasyRandom
 import org.jeasy.random.EasyRandomParameters
-import java.util.*
+import kotlin.random.Random
 import kotlin.reflect.KClass
 
 
 object RANDOM {
     fun nextString(minSize: Int = 1, maxSize: Int = 1000): String = EasyRandomParameters()
         .stringLengthRange(minSize, maxSize)
-        .seed(Random().nextLong(Long.MAX_VALUE))
+        .seed(Random.nextLong(Long.MAX_VALUE))
         .let {
             EasyRandom(it)
         }.nextObject(String::class.java)
@@ -20,23 +20,23 @@ object RANDOM {
     fun nextInt(
         minSize: Int = 0,
         maxSize: Int = Int.MAX_VALUE
-    ): Int = Random().nextInt(minSize, maxSize)
+    ): Int = Random.nextInt(minSize, maxSize)
 
     fun nextLong(
         minSize: Long = 0,
         maxSize: Long = Long.MAX_VALUE
-    ): Long = Random().nextLong(minSize, maxSize)
+    ): Long = Random.nextLong(minSize, maxSize)
 
-    fun <T : Any> nextObject(`class`: KClass<T>): T {
-        val easyRandom = EasyRandom(EasyRandomParameters().seed(Random().nextLong(Long.MAX_VALUE)))
-        return easyRandom.nextObject(`class`.java)
+    fun <T : Any> nextObject(kClass: KClass<T>): T {
+        val easyRandom = EasyRandom(EasyRandomParameters().seed(Random.nextLong(Long.MAX_VALUE)))
+        return easyRandom.nextObject(kClass.java)
     }
 
-    fun <T : Any> nextList(`class`: KClass<T>, size: Int = 10): List<T> {
+    fun <T : Any> nextList(kClass: KClass<T>, size: Int = 10): List<T> {
         val mutableList = mutableListOf<T>()
 
         repeat(size) {
-            val randomObject = EasyRandom(EasyRandomParameters().seed(Random().nextLong(Long.MAX_VALUE))).nextObject(`class`.java)
+            val randomObject = nextObject(kClass)
             mutableList.add(randomObject)
         }
         return mutableList.toList()
