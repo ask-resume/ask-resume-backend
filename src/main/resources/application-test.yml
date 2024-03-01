@@ -18,3 +18,14 @@ spring:
 logging:
   level:
     app.askresume: debug
+
+# JWT Token 설정
+token:
+  secret: TEST
+  access-token-expiration-time: 900000  # 15분 1000(ms) x 60(s) x 15(m)
+  refresh-token-expiration-time: 1209600000 # 2주 1000(ms) x 60 (s) x 60(m) x 24(h) x 14(d)
+
+# Jasypt password 설정
+jasypt:
+  encryptor:
+    password: TEST

@@ -26,7 +26,7 @@ class JobCommandServiceMockkTest {
     private lateinit var jobCommandService: JobCommandService
 
     @Test
-    fun `직업 영문명과 한글명을 받아, 직업 정보를 언어별로 저장한다`() {
+    fun `직업 영문명과 한글명을 받아, 직업 정보를 언어별로 저장한다 (mockk)`() {
         // given
         val englishJobName = RANDOM.nextString(5, 30)
         val koreaJobName = RANDOM.nextString(5, 30)

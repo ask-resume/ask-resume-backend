@@ -29,20 +29,23 @@ class JobCommandServiceTest {
     private lateinit var jobCommandService: JobCommandService
 
     @Test
-    fun `직업 정보를 언어별로 저장한다`() {
+    fun `직업 영문명과 한글명을 받아, 직업 정보를 언어별로 저장한다`() {
         // given
         val englishJobName = RANDOM.nextString(5,30)
         val koreaJobName = RANDOM.nextString(5,30)
 
         val jobMaster = RANDOM.nextObject(JobMaster::class)
-        given(jobMasterRepository.save(any(jobMaster::class.java))).willReturn(jobMaster)
+        val job = RANDOM.nextObject(Job::class)
+
+        given(jobMasterRepository.save(any())).willReturn(jobMaster)
+        given(jobRepository.save(any())).willReturn(job)
 
         // when
         jobCommandService.saveJobs(englishJobName, koreaJobName)
 
         // then
-        then(jobMasterRepository).should().save(any(jobMaster::class.java))
-        then(jobRepository).should(times(2)).save(any(Job::class.java))
+        then(jobMasterRepository).should().save(any())
+        then(jobRepository).should(times(2)).save(any())
     }
 
 }

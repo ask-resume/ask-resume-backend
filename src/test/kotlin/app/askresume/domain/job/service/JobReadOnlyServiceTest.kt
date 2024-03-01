@@ -7,7 +7,6 @@ import app.askresume.domain.job.repository.JobDataRepositoryQuery
 import app.askresume.domain.job.repository.JobMasterRepository
 import app.askresume.domain.locale.constant.LocaleType
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.BDDMockito.given
