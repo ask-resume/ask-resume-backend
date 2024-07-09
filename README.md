@@ -29,9 +29,9 @@ Enter your resume information and check out the Q&A that will come up in the int
 
 https://github.com/dev-redo/ask-resume-front/assets/69149030/8a24369c-a5e7-44a5-9114-eb5a520a99c4
 
-<img src="./docs/image/view4.png" alt="drawing" width="400" />
+<img src="./docs/image/view4.png" alt="drawing" />
 
-<img src="./docs/image/view3.png" alt="drawing" width="400" />
+<img src="./docs/image/view3.png" alt="drawing" />
 
 
 <br />
