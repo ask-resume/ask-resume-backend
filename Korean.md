@@ -27,9 +27,9 @@
 
 https://github.com/dev-redo/ask-resume-front/assets/69149030/49128374-77d7-4e2b-ba5a-0abc6701d5aa
 
-<img src="./docs/image/view4.png" alt="drawing" width="400" />
+<img src="./docs/image/view4.png" alt="drawing" />
 
-<img src="./docs/image/view3.png" alt="drawing" width="400" />
+<img src="./docs/image/view3.png" alt="drawing" />
 
 <br />
 
@@ -48,7 +48,8 @@ https://github.com/dev-redo/ask-resume-front/assets/69149030/49128374-77d7-4e2b-
 
 # 영감을 받은 리포지토리
 
-이 서비스는 [DevPort](https://github.com/custardcream98/DevPort)와 [gpt4-pdf-chatbot-langchain](https://github.com/mayooear/gpt4-pdf-chatbot-langchain)에서 영감을 받아 제작하였습니다.
+이 서비스는 [DevPort](https://github.com/custardcream98/DevPort)
+와 [gpt4-pdf-chatbot-langchain](https://github.com/mayooear/gpt4-pdf-chatbot-langchain)에서 영감을 받아 제작하였습니다.
 
 <br />
 
