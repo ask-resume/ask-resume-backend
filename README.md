@@ -19,7 +19,7 @@ Enter your resume information and check out the Q&A that will come up in the int
 1. Clicking the button on the landing page will take you to the form page where you can enter your resume.
 
 2. On the form page, enter your personal information (desired occupation, experience, etc.) and your resume. <br />
-   (Note: If you change the language, it will be refreshed and the values ​​you entered may be lost!)
+   (Note: If you change the language, it will be refreshed and the values you entered may be lost!)
 
 3. Submitting after inputting will generate questions and possible answers from your resume. The generated results can be saved as a txt file.
 
@@ -28,6 +28,11 @@ Enter your resume information and check out the Q&A that will come up in the int
 ## example of use
 
 https://github.com/dev-redo/ask-resume-front/assets/69149030/8a24369c-a5e7-44a5-9114-eb5a520a99c4
+
+<img src="./docs/image/view4.png" alt="drawing" width="400" />
+
+<img src="./docs/image/view3.png" alt="drawing" width="400" />
+
 
 <br />
 

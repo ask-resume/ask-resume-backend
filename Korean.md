@@ -27,6 +27,10 @@
 
 https://github.com/dev-redo/ask-resume-front/assets/69149030/49128374-77d7-4e2b-ba5a-0abc6701d5aa
 
+<img src="./docs/image/view4.png" alt="drawing" width="400" />
+
+<img src="./docs/image/view3.png" alt="drawing" width="400" />
+
 <br />
 
 # 주의사항
